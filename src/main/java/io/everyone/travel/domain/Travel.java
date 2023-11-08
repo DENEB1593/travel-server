@@ -37,4 +37,12 @@ public class Travel extends BaseEntity {
     )
     private List<Plan> plans = new ArrayList<>();
 
+    @OneToMany(
+            mappedBy = "travel",
+            orphanRemoval = true,
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            fetch = FetchType.LAZY
+    )
+    private List<Expense> expenses = new ArrayList<>();
+
 }

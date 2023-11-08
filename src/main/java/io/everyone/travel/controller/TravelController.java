@@ -1,7 +1,9 @@
 package io.everyone.travel.controller;
 
 import io.everyone.travel.controller.dto.TravelWriteRequest;
+import io.everyone.travel.controller.dto.TravelWriteResponse;
 import io.everyone.travel.domain.Travel;
+import io.everyone.travel.mapper.TravelMapper;
 import io.everyone.travel.service.TravelService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,13 +20,29 @@ public class TravelController {
 
     private final TravelService travelService;
 
+
+//    @Operation(
+//            summary = "temp",
+//            responses = {
+//                    @ApiResponse(
+//                            responseCode = "200",
+//                            description = "OK"),
+//                    @ApiResponse(
+//                            responseCode = "500",
+//                            description = "서버 에러",
+//                            content = @Content(
+//                                    mediaType = "application/json",
+//                                    schema = @Schema(implementation = TempResponse.class))),
+//            }
+//    )
     @PostMapping
-    public ResponseEntity<Travel> save(
+    public ResponseEntity<TravelWriteResponse> save(
             @RequestBody TravelWriteRequest travelWriteRequest) {
         Travel travel = travelService.save(travelWriteRequest);
+        TravelWriteResponse response = TravelMapper.toResponse(travel);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(travel);
+                .body(response);
     }
 
 }

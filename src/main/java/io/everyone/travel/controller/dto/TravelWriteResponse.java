@@ -9,28 +9,28 @@ import java.util.List;
 
 @Value
 @Builder
-public class TravelWriteRequest {
-
+public class TravelWriteResponse {
     LocalDateTime startAt;
 
     LocalDateTime endAt;
 
     String title;
 
-    List<PlanWriteRequest> plans; // 계획 목록
+    List<TravelWriteResponse.PlanWriteResponse> plans; // 계획 목록
 
-    List<ExpenseWriteRequest> expenses; // 지출 목록
+    List<TravelWriteResponse.ExpenseWriteResponse> expenses; // 지출 목록
+
+    LocalDateTime createdAt;
 
     @Value
     @Builder
-    public static class PlanWriteRequest {
+    public static class PlanWriteResponse {
         String content;
     }
 
     @Value
     @Builder
-    public static class ExpenseWriteRequest {
+    public static class ExpenseWriteResponse {
         BigDecimal amt;
     }
-
 }
