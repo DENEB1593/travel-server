@@ -32,7 +32,7 @@ public class TravelController {
 //                            description = "서버 에러",
 //                            content = @Content(
 //                                    mediaType = "application/json",
-//                                    schema = @Schema(implementation = TempResponse.class))),
+//                                    schema = @Schema(implementation = TravelWriteResponse.class))),
 //            }
 //    )
     @PostMapping
