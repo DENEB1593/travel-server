@@ -16,7 +16,7 @@ public class TravelService {
 
     @Transactional
     public Travel save(TravelWriteRequest request) {
-        Travel travel = TravelMapper.of(request);
+        Travel travel = TravelMapper.toEntity(request);
         return travelRepository.save(travel);
     }
 }
