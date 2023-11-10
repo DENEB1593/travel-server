@@ -10,22 +10,32 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PlanMapper {
 
+    /**
+     * 계획쓰기요청 -> 계획엔티티 변환
+     */
     public static Plan toEntity(TravelWriteRequest.PlanWriteRequest from) {
         return Plan.builder()
                 .content(from.getContent())
                 .build();
     }
 
+    /**
+     * 계획엔티티 -> 계획쓰기응답 변환
+     */
     public static TravelWriteResponse.PlanWriteResponse toResponse(Plan from) {
         return TravelWriteResponse.PlanWriteResponse.builder()
                 .content(from.getContent())
                 .build();
     }
 
+    /**
+     * 계획엔티티 -> 계획뷰모델 변환
+     */
     public static TravelView.PlanView toView(Plan from) {
         return TravelView.PlanView.builder()
                 .id(from.getId())
                 .content(from.getContent())
                 .build();
     }
+
 }

@@ -13,6 +13,11 @@ import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TravelMapper {
+
+
+    /**
+     * 여행쓰기요청 -> 여행엔티티 변환
+     */
     public static Travel toEntity(TravelWriteRequest from) {
 
         Travel entity = Travel.builder()
@@ -32,6 +37,9 @@ public class TravelMapper {
         return entity;
     }
 
+    /**
+     * 여행엔티티 -> 여행작성응답 변환
+     */
     public static TravelWriteResponse toResponse(Travel from) {
         return TravelWriteResponse.builder()
                 .title(from.getTitle())
@@ -43,6 +51,9 @@ public class TravelMapper {
                 .build();
     }
 
+    /**
+     * 여행엔티티 -> 여행뷰모델 변환
+     */
     public static TravelView toView(Travel from) {
         return TravelView.builder()
                 .id(from.getId())
@@ -53,4 +64,5 @@ public class TravelMapper {
                 .expenses(from.getExpenses().stream().map(ExpenseMapper::toView).toList())
                 .build();
     }
+
 }
