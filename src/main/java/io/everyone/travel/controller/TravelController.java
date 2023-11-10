@@ -1,5 +1,6 @@
 package io.everyone.travel.controller;
 
+import io.everyone.travel.controller.dto.TravelView;
 import io.everyone.travel.controller.dto.TravelWriteRequest;
 import io.everyone.travel.controller.dto.TravelWriteResponse;
 import io.everyone.travel.domain.Travel;
@@ -13,10 +14,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "여행 정보 API")
 @RestController
@@ -28,11 +26,11 @@ public class TravelController {
 
 
     @Operation(
-            summary = "여행 정보를 저장 한다.",
+            summary = "여행 정보 저장",
             responses = {
                     @ApiResponse(
-                            responseCode = "200",
-                            description = "OK",
+                            responseCode = "201",
+                            description = "CREATED",
                             content = @Content(
                                     mediaType = "application/json",
                                     schema = @Schema(implementation = TravelWriteResponse.class))
@@ -52,5 +50,31 @@ public class TravelController {
                 .status(HttpStatus.CREATED)
                 .body(response);
     }
+
+    @Operation(
+            summary = "여행 정보 단건 조회",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "OK",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = TravelView.class))
+                    )
+            }
+    )
+    @GetMapping("/{id}")
+    public ResponseEntity<TravelView> find(
+            @PathVariable Long id
+    ) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(
+                        travelService.findById(id)
+                        .map(TravelMapper::toView)
+                        .orElseThrow(RuntimeException::new) // 커스텀 예외는 추후 개발, 우선은 Runtime 으로
+                );
+    }
+
 
 }

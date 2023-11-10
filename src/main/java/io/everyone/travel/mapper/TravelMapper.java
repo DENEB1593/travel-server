@@ -1,5 +1,6 @@
 package io.everyone.travel.mapper;
 
+import io.everyone.travel.controller.dto.TravelView;
 import io.everyone.travel.controller.dto.TravelWriteRequest;
 import io.everyone.travel.controller.dto.TravelWriteResponse;
 import io.everyone.travel.domain.Expense;
@@ -42,4 +43,13 @@ public class TravelMapper {
                 .build();
     }
 
+    public static TravelView toView(Travel from) {
+        return TravelView.builder()
+                .title(from.getTitle())
+                .startAt(from.getStartAt())
+                .endAt(from.getEndAt())
+                .plans(from.getPlans().stream().map(PlanMapper::toView).toList())
+                .expenses(from.getExpenses().stream().map(ExpenseMapper::toView).toList())
+                .build();
+    }
 }

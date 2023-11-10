@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class TravelService {
@@ -18,5 +20,10 @@ public class TravelService {
     public Travel save(TravelWriteRequest request) {
         Travel travel = TravelMapper.toEntity(request);
         return travelRepository.save(travel);
+    }
+
+    @Transactional
+    public Optional<Travel> findById(Long id) {
+        return travelRepository.findById(id);
     }
 }

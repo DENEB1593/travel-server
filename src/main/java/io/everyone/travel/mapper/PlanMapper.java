@@ -1,5 +1,6 @@
 package io.everyone.travel.mapper;
 
+import io.everyone.travel.controller.dto.TravelView;
 import io.everyone.travel.controller.dto.TravelWriteRequest;
 import io.everyone.travel.controller.dto.TravelWriteResponse;
 import io.everyone.travel.domain.Plan;
@@ -17,6 +18,12 @@ public class PlanMapper {
 
     public static TravelWriteResponse.PlanWriteResponse toResponse(Plan from) {
         return TravelWriteResponse.PlanWriteResponse.builder()
+                .content(from.getContent())
+                .build();
+    }
+
+    public static TravelView.PlanView toView(Plan from) {
+        return TravelView.PlanView.builder()
                 .content(from.getContent())
                 .build();
     }
