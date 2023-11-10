@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,7 +44,7 @@ public class TravelController {
     )
     @PostMapping
     public ResponseEntity<TravelWriteResponse> save(
-            @RequestBody TravelWriteRequest travelWriteRequest) {
+            @RequestBody @Valid TravelWriteRequest travelWriteRequest) {
         TravelWriteResponse response = TravelMapper.toResponse(
                 travelService.save(travelWriteRequest));
         return ResponseEntity
