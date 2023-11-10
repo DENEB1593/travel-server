@@ -24,6 +24,7 @@ public class ExpenseMapper {
 
     public static TravelView.ExpenseView toView(Expense from) {
         return TravelView.ExpenseView.builder()
+                .id(from.getId())
                 .amt(from.getAmt())
                 .build();
     }

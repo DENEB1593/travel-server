@@ -45,6 +45,7 @@ public class TravelMapper {
 
     public static TravelView toView(Travel from) {
         return TravelView.builder()
+                .id(from.getId())
                 .title(from.getTitle())
                 .startAt(from.getStartAt())
                 .endAt(from.getEndAt())

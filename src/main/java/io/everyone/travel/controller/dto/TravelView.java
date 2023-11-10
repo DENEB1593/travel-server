@@ -11,6 +11,8 @@ import java.util.List;
 @Builder
 public class TravelView {
 
+    Long id;
+
     LocalDateTime startAt;
 
     LocalDateTime endAt;
@@ -24,13 +26,21 @@ public class TravelView {
     @Value
     @Builder
     public static class PlanView {
+
+        Long id;
+
         String content;
+
     }
 
     @Value
     @Builder
     public static class ExpenseView {
+
+        Long id;
+
         BigDecimal amt;
+        
     }
 
 }

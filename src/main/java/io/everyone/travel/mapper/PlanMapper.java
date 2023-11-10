@@ -24,6 +24,7 @@ public class PlanMapper {
 
     public static TravelView.PlanView toView(Plan from) {
         return TravelView.PlanView.builder()
+                .id(from.getId())
                 .content(from.getContent())
                 .build();
     }

@@ -44,8 +44,8 @@ public class TravelController {
     @PostMapping
     public ResponseEntity<TravelWriteResponse> save(
             @RequestBody TravelWriteRequest travelWriteRequest) {
-        Travel travel = travelService.save(travelWriteRequest);
-        TravelWriteResponse response = TravelMapper.toResponse(travel);
+        TravelWriteResponse response = TravelMapper.toResponse(
+                travelService.save(travelWriteRequest));
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(response);
@@ -71,7 +71,7 @@ public class TravelController {
                 .status(HttpStatus.OK)
                 .body(
                         travelService.findById(id)
-                        .map(TravelMapper::toView)
+                                .map(TravelMapper::toView)
                         .orElseThrow(RuntimeException::new) // 커스텀 예외는 추후 개발, 우선은 Runtime 으로
                 );
     }
