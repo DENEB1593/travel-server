@@ -10,7 +10,6 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Schema(description = "여행 정보 작성")
 @Value
 @Builder
 public class TravelWriteRequest {
@@ -33,15 +32,19 @@ public class TravelWriteRequest {
     @Schema(description = "지출 목록")
     List<ExpenseWriteRequest> expenses;
 
+    @Schema(description = "계획 정보 작성 요청")
     @Value
     @Builder
     public static class PlanWriteRequest {
+        @Schema(description = "내용", example = "망고 먹기")
         String content;
     }
 
+    @Schema(description = "지출 정보 작성 요청")
     @Value
     @Builder
     public static class ExpenseWriteRequest {
+        @Schema(description = "금액", example = "10000")
         BigDecimal amt;
     }
 
