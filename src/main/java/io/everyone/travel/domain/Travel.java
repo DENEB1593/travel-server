@@ -2,9 +2,11 @@ package io.everyone.travel.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.util.ObjectUtils;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -61,4 +63,11 @@ public class Travel extends BaseEntity {
         }
     }
 
+    public List<Plan> getPlans() {
+        return ObjectUtils.isEmpty(plans) ? Collections.emptyList() : plans;
+    }
+
+    public List<Expense> getExpenses() {
+        return ObjectUtils.isEmpty(expenses) ? Collections.emptyList() : expenses;
+    }
 }

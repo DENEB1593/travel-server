@@ -8,6 +8,7 @@ import io.everyone.travel.domain.Plan;
 import io.everyone.travel.domain.Travel;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.springframework.util.ObjectUtils;
 
 import java.util.List;
 
@@ -27,12 +28,16 @@ public class TravelMapper {
                 .build();
 
         // 계획 정보를 저장 한다.
-        List<Plan> plans = from.getPlans().stream().map(PlanMapper::toEntity).toList();
-        entity.setPlans(plans);
+        if (!ObjectUtils.isEmpty(from.getPlans())) {
+            List<Plan> plans = from.getPlans().stream().map(PlanMapper::toEntity).toList();
+            entity.setPlans(plans);
+        }
 
         // 지출 정보를 저장 한다.
-        List<Expense> expenses = from.getExpenses().stream().map(ExpenseMapper::toEntity).toList();
-        entity.setExpenses(expenses);
+        if (!ObjectUtils.isEmpty(from.getExpenses())) {
+            List<Expense> expenses = from.getExpenses().stream().map(ExpenseMapper::toEntity).toList();
+            entity.setExpenses(expenses);
+        }
 
         return entity;
     }
