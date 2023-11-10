@@ -18,7 +18,7 @@ public class Expense extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "amt")
+    @Column(name = "amt", nullable = false)
     private BigDecimal amt;
 
     @ManyToOne

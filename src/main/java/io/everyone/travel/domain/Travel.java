@@ -22,11 +22,13 @@ public class Travel extends BaseEntity {
     @Column(updatable = false)
     private Long id;
 
-    @Column(name = "title")
+    @Column(name = "title", nullable = false)
     private String title; // 제목
 
+    @Column(name = "start_at")
     private LocalDateTime startAt; // 계획 시작 일자
 
+    @Column(name = "end_at")
     private LocalDateTime endAt; // 계획 종료 일자
 
     @OneToMany(
@@ -44,5 +46,19 @@ public class Travel extends BaseEntity {
             fetch = FetchType.LAZY
     )
     private List<Expense> expenses = new ArrayList<>();
+
+    public void setPlans(List<Plan> plans) {
+        this.plans = plans;
+        for (Plan plan : plans) {
+            plan.setTravel(this);
+        }
+    }
+
+    public void setExpenses(List<Expense> expenses) {
+        this.expenses = expenses;
+        for (Expense expense : expenses) {
+            expense.setTravel(this);
+        }
+    }
 
 }
