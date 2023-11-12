@@ -1,16 +1,16 @@
 package io.everyone.travel.domain.enums;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.ToString;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * ISO 표준에 따른 국가 코드를 정의한다.
  * 참조링크: https://datago.kr/post/2
  */
 @Getter
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum Nation {
 
@@ -260,8 +260,16 @@ public enum Nation {
     HU("헝가리", "HUNGARY"),
     HK("홍콩", "HONG KONG");
 
+    private final String code;
+
     private final String kr;
 
     private final String eng;
+
+    Nation(String kr, String eng) {
+        this.code = this.name();
+        this.kr = kr;
+        this.eng = eng;
+    }
 
 }
