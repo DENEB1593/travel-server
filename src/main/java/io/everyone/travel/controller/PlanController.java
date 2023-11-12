@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Tag(name = "계획정보 정보 API")
+@Tag(name = "계획 API")
 @RestController
 @RequestMapping("api/plans")
 @RequiredArgsConstructor
