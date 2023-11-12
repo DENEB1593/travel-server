@@ -3,6 +3,8 @@ package io.everyone.travel.domain;
 import io.everyone.travel.domain.enums.Nation;
 import jakarta.persistence.*;
 import lombok.*;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.util.ObjectUtils;
 
 import java.time.LocalDateTime;
@@ -81,5 +83,16 @@ public class Travel extends BaseEntity {
 
     public List<Expense> getExpenses() {
         return ObjectUtils.isEmpty(expenses) ? Collections.emptyList() : expenses;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+                .append("id", id)
+                .append("title", title)
+                .append("nation", nation)
+                .append("startAt", startAt)
+                .append("endAt", endAt)
+                .toString();
     }
 }

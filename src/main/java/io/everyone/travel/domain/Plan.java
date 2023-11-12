@@ -2,6 +2,8 @@ package io.everyone.travel.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.time.LocalDateTime;
 
@@ -47,5 +49,16 @@ public class Plan extends BaseEntity {
 
     public void setTravel(Travel travel) {
         this.travel = travel;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+                .append("id", id)
+                .append("title", title)
+                .append("memo", memo)
+                .append("startAt", startAt)
+                .append("endAt", endAt)
+                .toString();
     }
 }
