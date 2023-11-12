@@ -1,6 +1,6 @@
 package io.everyone.travel.controller;
 
-import io.everyone.travel.controller.dto.CommonResponse;
+import io.everyone.travel.controller.common.CommonResponse;
 import io.everyone.travel.controller.dto.TravelView;
 import io.everyone.travel.controller.dto.TravelWriteRequest;
 import io.everyone.travel.controller.dto.TravelWriteResponse;

@@ -1,6 +1,7 @@
-package io.everyone.travel.controller.dto;
+package io.everyone.travel.controller.common;
 
 import lombok.Value;
+import org.springframework.util.ObjectUtils;
 
 @SuppressWarnings("rawtypes")
 @Value
@@ -12,18 +13,18 @@ public class CommonResponse<T> {
 
     T data;
 
-    private CommonResponse(String code, String message, T data) {
-        this.code = code;
-        this.message = message;
+    private CommonResponse(CommonResponseCode code, String message, T data) {
+        this.code = code.getCode();
+        this.message = ObjectUtils.isEmpty(message) ? code.getDefaultMessage() : message;
         this.data = data;
     }
 
     public static <T> CommonResponse<T> OK(String message, T data) {
-        return new CommonResponse<T>("0000", message, data);
+        return new CommonResponse<T>(CommonResponseCode.OK, message, data);
     }
 
     public static <T> CommonResponse<T> ERROR(String message, T data) {
-        return new CommonResponse<T>("9999", message, data);
+        return new CommonResponse<T>(CommonResponseCode.ERROR, message, data);
     }
 
 
