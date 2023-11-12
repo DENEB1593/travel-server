@@ -17,11 +17,10 @@ public class PlanService {
 
     @Transactional(readOnly = true)
     public List<Plan> findByTravelId(Long travelId) {
-        Travel travel = travelRepository
+        return travelRepository
                 .findById(travelId)
+                .map(Travel::getPlans)
                 .orElseThrow(() -> new RuntimeException("travel not found :" + travelId));
-
-        return travel.getPlans();
 
     }
 
