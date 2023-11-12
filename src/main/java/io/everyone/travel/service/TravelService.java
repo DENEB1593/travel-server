@@ -22,7 +22,7 @@ public class TravelService {
         return travelRepository.save(travel);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public Optional<Travel> findById(Long id) {
         return travelRepository.findById(id);
     }
