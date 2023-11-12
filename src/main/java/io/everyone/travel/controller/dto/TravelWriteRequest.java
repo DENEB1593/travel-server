@@ -36,12 +36,14 @@ public class TravelWriteRequest {
     @Value
     @Builder
     public static class PlanWriteRequest {
+        @Schema(description = "계획 내용", example = "망고 먹기")
         String content;
     }
 
     @Value
     @Builder
     public static class ExpenseWriteRequest {
+        @Schema(description = "지출 비용", example = "4500")
         BigDecimal amt;
     }
 

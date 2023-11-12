@@ -4,7 +4,6 @@ package io.everyone.travel.controller;
 import io.everyone.travel.controller.dto.CommonResponse;
 import io.everyone.travel.controller.dto.TravelView;
 import io.everyone.travel.mapper.PlanMapper;
-import io.everyone.travel.mapper.TravelMapper;
 import io.everyone.travel.service.PlanService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
