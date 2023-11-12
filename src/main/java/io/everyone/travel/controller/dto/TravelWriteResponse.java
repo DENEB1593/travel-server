@@ -10,6 +10,7 @@ import java.util.List;
 @Value
 @Builder
 public class TravelWriteResponse {
+
     LocalDateTime startAt;
 
     LocalDateTime endAt;
@@ -25,12 +26,22 @@ public class TravelWriteResponse {
     @Value
     @Builder
     public static class PlanWriteResponse {
-        String content;
+
+        String title;
+
+        String memo;
+
+        LocalDateTime startAt;
+
+        LocalDateTime endAt;
+
     }
 
     @Value
     @Builder
     public static class ExpenseWriteResponse {
+
         BigDecimal amt;
+
     }
 }

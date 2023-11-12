@@ -3,6 +3,8 @@ package io.everyone.travel.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Entity
 @Table(name = "plan")
@@ -12,8 +14,17 @@ public class Plan extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "content", nullable = false)
-    private String content;
+    @Column(name = "title", nullable = false)
+    private String title;
+
+    @Column(name = "memo")
+    private String memo;
+
+    @Column(name = "start_at", nullable = false)
+    private LocalDateTime startAt;
+
+    @Column(name = "end_at", nullable = false)
+    private LocalDateTime endAt;
 
     @ManyToOne
     @JoinColumn(
@@ -25,9 +36,13 @@ public class Plan extends BaseEntity {
 
     protected Plan() { }
 
+
     @Builder
-    public Plan(String content) {
-        this.content = content;
+    public Plan(String title, String memo, LocalDateTime startAt, LocalDateTime endAt) {
+        this.title = title;
+        this.memo = memo;
+        this.startAt = startAt;
+        this.endAt = endAt;
     }
 
     public void setTravel(Travel travel) {

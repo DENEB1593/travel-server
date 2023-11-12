@@ -1,5 +1,6 @@
 package io.everyone.travel.controller.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Value;
 
@@ -19,9 +20,9 @@ public class TravelView {
 
     String title;
 
-    List<PlanView> plans; // 계획 목록
+    List<PlanView> plans;
 
-    List<ExpenseView> expenses; // 지출 목록
+    List<ExpenseView> expenses;
 
     @Value
     @Builder
@@ -29,7 +30,14 @@ public class TravelView {
 
         Long id;
 
-        String content;
+        String title;
+
+        String memo;
+
+        LocalDateTime startAt;
+
+        LocalDateTime endAt;
+
 
     }
 

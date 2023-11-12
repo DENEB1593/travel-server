@@ -15,7 +15,10 @@ public class PlanMapper {
      */
     public static Plan toEntity(TravelWriteRequest.PlanWriteRequest from) {
         return Plan.builder()
-                .content(from.getContent())
+                .title(from.getTitle())
+                .memo(from.getMemo())
+                .startAt(from.getStartAt())
+                .endAt(from.getEndAt())
                 .build();
     }
 
@@ -24,7 +27,10 @@ public class PlanMapper {
      */
     public static TravelWriteResponse.PlanWriteResponse toResponse(Plan from) {
         return TravelWriteResponse.PlanWriteResponse.builder()
-                .content(from.getContent())
+                .title(from.getTitle())
+                .memo(from.getMemo())
+                .startAt(from.getStartAt())
+                .endAt(from.getEndAt())
                 .build();
     }
 
@@ -34,7 +40,10 @@ public class PlanMapper {
     public static TravelView.PlanView toView(Plan from) {
         return TravelView.PlanView.builder()
                 .id(from.getId())
-                .content(from.getContent())
+                .title(from.getTitle())
+                .memo(from.getMemo())
+                .startAt(from.getStartAt())
+                .endAt(from.getEndAt())
                 .build();
     }
 

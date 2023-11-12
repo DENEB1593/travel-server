@@ -1,6 +1,7 @@
 package io.everyone.travel.controller.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
@@ -36,15 +37,28 @@ public class TravelWriteRequest {
     @Value
     @Builder
     public static class PlanWriteRequest {
-        @Schema(description = "계획 내용", example = "망고 먹기")
-        String content;
+
+        @Schema(description = "계획 제목", example = "망고 먹기")
+        String title;
+
+        @Schema(description = "계획 메모", example = "방콕 시장 마켓에서 구매")
+        String memo;
+
+        @Schema(description = "계획 시작일", example = "2023-11-17T10:00:00.00Z")
+        LocalDateTime startAt;
+
+        @Schema(description = "계획 종료일", example = "2023-11-23T10:00:00.00Z")
+         LocalDateTime endAt;
+
     }
 
     @Value
     @Builder
     public static class ExpenseWriteRequest {
+
         @Schema(description = "지출 비용", example = "4500")
         BigDecimal amt;
+
     }
 
 }
