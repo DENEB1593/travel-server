@@ -41,10 +41,9 @@ public class PlanController {
     ) {
         return CommonResponse.OK(
                 planService.findByTravelId(travelId)
-                        .map(plans ->
-                                plans.stream().map(PlanMapper::toView).toList()
-                        )
-                        .orElseThrow(RuntimeException::new) // 커스텀 예외는 추후 개발, 우선은 Runtime 으로
+                        .stream()
+                        .map(PlanMapper::toView)
+                        .toList()
         );
     }
 
