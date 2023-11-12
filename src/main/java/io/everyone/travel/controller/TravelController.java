@@ -1,9 +1,9 @@
 package io.everyone.travel.controller;
 
+import io.everyone.travel.controller.dto.CommonResponse;
 import io.everyone.travel.controller.dto.TravelView;
 import io.everyone.travel.controller.dto.TravelWriteRequest;
 import io.everyone.travel.controller.dto.TravelWriteResponse;
-import io.everyone.travel.domain.Travel;
 import io.everyone.travel.mapper.TravelMapper;
 import io.everyone.travel.service.TravelService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -13,9 +13,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import static org.springframework.http.HttpStatus.CREATED;
 
 @Tag(name = "여행 정보 API")
 @RestController
@@ -32,24 +32,17 @@ public class TravelController {
                     @ApiResponse(
                             responseCode = "201",
                             description = "CREATED",
-                            content = @Content(
-                                    mediaType = "application/json",
-                                    schema = @Schema(implementation = TravelWriteResponse.class))
-                    ),
-                    @ApiResponse(
-                            responseCode = "500",
-                            description = "서버 에러"
-                    ),
+                            useReturnTypeSchema = true
+                    )
             }
     )
+    @ResponseStatus(CREATED)
     @PostMapping
-    public ResponseEntity<TravelWriteResponse> save(
+    public CommonResponse<TravelWriteResponse> save(
             @RequestBody @Valid TravelWriteRequest travelWriteRequest) {
         TravelWriteResponse response = TravelMapper.toResponse(
                 travelService.save(travelWriteRequest));
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(response);
+        return CommonResponse.OK(response);
     }
 
     @Operation(
@@ -58,23 +51,19 @@ public class TravelController {
                     @ApiResponse(
                             responseCode = "200",
                             description = "OK",
-                            content = @Content(
-                                    mediaType = "application/json",
-                                    schema = @Schema(implementation = TravelView.class))
+                            useReturnTypeSchema = true
                     )
             }
     )
     @GetMapping("/{id}")
-    public ResponseEntity<TravelView> find(
+    public CommonResponse<TravelView> find(
             @PathVariable Long id
     ) {
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(
-                        travelService.findById(id)
-                                .map(TravelMapper::toView)
+        return CommonResponse.OK(
+                travelService.findById(id)
+                        .map(TravelMapper::toView)
                         .orElseThrow(RuntimeException::new) // 커스텀 예외는 추후 개발, 우선은 Runtime 으로
-                );
+        );
     }
 
 
