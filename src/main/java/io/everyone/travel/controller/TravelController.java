@@ -7,8 +7,6 @@ import io.everyone.travel.controller.dto.TravelWriteResponse;
 import io.everyone.travel.mapper.TravelMapper;
 import io.everyone.travel.service.TravelService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -38,7 +36,8 @@ public class TravelController {
     @ResponseStatus(CREATED)
     @PostMapping
     public CommonResponse<TravelWriteResponse> save(
-            @RequestBody @Valid TravelWriteRequest travelWriteRequest) {
+            @RequestBody @Valid TravelWriteRequest travelWriteRequest
+    ) {
         return CommonResponse.OK(
                 TravelMapper.toResponse(
                         travelService.save(travelWriteRequest))
