@@ -19,19 +19,18 @@ import static org.springframework.http.HttpStatus.CREATED;
 
 @Tag(name = "여행 정보 API")
 @RestController
-@RequestMapping("/travels")
+@RequestMapping("api/travels")
 @RequiredArgsConstructor
 public class TravelController {
 
     private final TravelService travelService;
-
 
     @Operation(
             summary = "여행 정보 저장",
             responses = {
                     @ApiResponse(
                             responseCode = "201",
-                            description = "CREATED",
+                            description = "저장 성공",
                             useReturnTypeSchema = true
                     )
             }
@@ -40,9 +39,10 @@ public class TravelController {
     @PostMapping
     public CommonResponse<TravelWriteResponse> save(
             @RequestBody @Valid TravelWriteRequest travelWriteRequest) {
-        TravelWriteResponse response = TravelMapper.toResponse(
-                travelService.save(travelWriteRequest));
-        return CommonResponse.OK(response);
+        return CommonResponse.OK(
+                TravelMapper.toResponse(
+                        travelService.save(travelWriteRequest))
+        );
     }
 
     @Operation(
@@ -50,7 +50,7 @@ public class TravelController {
             responses = {
                     @ApiResponse(
                             responseCode = "200",
-                            description = "OK",
+                            description = "조회 성공",
                             useReturnTypeSchema = true
                     )
             }
