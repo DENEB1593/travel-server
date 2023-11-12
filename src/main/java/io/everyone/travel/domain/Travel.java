@@ -1,5 +1,6 @@
 package io.everyone.travel.domain;
 
+import io.everyone.travel.domain.enums.Nation;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.util.ObjectUtils;
@@ -22,6 +23,10 @@ public class Travel extends BaseEntity {
 
     @Column(name = "title", nullable = false)
     private String title; // 제목
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "nation")
+    private Nation nation; // 국가 코드
 
     @Column(name = "start_at")
     private LocalDateTime startAt; // 계획 시작 일자
@@ -49,8 +54,9 @@ public class Travel extends BaseEntity {
     protected Travel() { }
 
     @Builder
-    public Travel(String title, LocalDateTime startAt, LocalDateTime endAt) {
+    public Travel(String title, Nation nation, LocalDateTime startAt, LocalDateTime endAt) {
         this.title = title;
+        this.nation = nation;
         this.startAt = startAt;
         this.endAt = endAt;
     }

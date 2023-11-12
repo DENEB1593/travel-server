@@ -1,5 +1,6 @@
 package io.everyone.travel.controller.dto;
 
+import io.everyone.travel.domain.enums.Nation;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Value;
@@ -19,6 +20,8 @@ public class TravelView {
     LocalDateTime endAt;
 
     String title;
+
+    Nation nation;
 
     List<PlanView> plans;
 

@@ -1,5 +1,6 @@
 package io.everyone.travel.domain.enums;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,7 +11,8 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public enum ISONation {
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
+public enum Nation {
 
     GH("가나", "GHANA"),
     GA("가봉", "GABON"),
@@ -259,5 +261,7 @@ public enum ISONation {
     HK("홍콩", "HONG KONG");
 
     private final String kr;
+
     private final String eng;
+
 }

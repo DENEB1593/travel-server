@@ -1,5 +1,8 @@
 package io.everyone.travel.controller.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.everyone.travel.domain.enums.Nation;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Value;
 
@@ -17,11 +20,14 @@ public class TravelWriteResponse {
 
     String title;
 
+    Nation nation;
+    
+    LocalDateTime createdAt;
+
     List<TravelWriteResponse.PlanWriteResponse> plans; // 계획 목록
 
     List<TravelWriteResponse.ExpenseWriteResponse> expenses; // 지출 목록
 
-    LocalDateTime createdAt;
 
     @Value
     @Builder

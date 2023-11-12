@@ -6,6 +6,8 @@ import io.everyone.travel.controller.dto.TravelWriteResponse;
 import io.everyone.travel.domain.Expense;
 import io.everyone.travel.domain.Plan;
 import io.everyone.travel.domain.Travel;
+import io.everyone.travel.domain.enums.Nation;
+import io.everyone.travel.util.EnumUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.util.ObjectUtils;
@@ -25,6 +27,7 @@ public class TravelMapper {
                 .title(from.getTitle())
                 .startAt(from.getStartAt())
                 .endAt(from.getEndAt())
+                .nation(EnumUtil.byEnumName(Nation.class, from.getNation()))
                 .build();
 
         // 계획 정보를 저장 한다.
@@ -50,6 +53,7 @@ public class TravelMapper {
                 .title(from.getTitle())
                 .startAt(from.getStartAt())
                 .endAt(from.getEndAt())
+                .nation(from.getNation())
                 .createdAt(from.getCreatedAt())
                 .plans(from.getPlans().stream().map(PlanMapper::toResponse).toList())
                 .expenses(from.getExpenses().stream().map(ExpenseMapper::toResponse).toList())
@@ -65,6 +69,7 @@ public class TravelMapper {
                 .title(from.getTitle())
                 .startAt(from.getStartAt())
                 .endAt(from.getEndAt())
+                .nation(from.getNation())
                 .plans(from.getPlans().stream().map(PlanMapper::toView).toList())
                 .expenses(from.getExpenses().stream().map(ExpenseMapper::toView).toList())
                 .build();

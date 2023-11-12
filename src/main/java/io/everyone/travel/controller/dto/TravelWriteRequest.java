@@ -1,7 +1,7 @@
 package io.everyone.travel.controller.dto;
 
+import io.everyone.travel.domain.enums.Nation;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
@@ -27,6 +27,10 @@ public class TravelWriteRequest {
     @Schema(description = "여행명", example = "태국 여행")
     @NotBlank(message = "여행 명은 필수 값입니다")
     String title;
+
+    @Schema(description = "국가 코드", example = "TH")
+    @NotBlank(message = "국가 코드는 필수 값입니다")
+    String nation;
 
     @Schema(description = "계획 목록")
     List<PlanWriteRequest> plans;
