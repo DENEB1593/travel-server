@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
-@Tag(name = "여행 정보 API")
+@Tag(name = "여행 API")
 @RestController
 @RequestMapping("api/travels")
 @RequiredArgsConstructor
