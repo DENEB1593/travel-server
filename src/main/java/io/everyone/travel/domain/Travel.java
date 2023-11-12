@@ -10,11 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 
-@Data
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
-@EqualsAndHashCode(callSuper = true)
-@Builder
+@Getter
 @Entity
 @Table
 public class Travel extends BaseEntity {
@@ -48,6 +44,16 @@ public class Travel extends BaseEntity {
             fetch = FetchType.LAZY
     )
     private List<Expense> expenses = new ArrayList<>();
+
+
+    protected Travel() { }
+
+    @Builder
+    public Travel(String title, LocalDateTime startAt, LocalDateTime endAt) {
+        this.title = title;
+        this.startAt = startAt;
+        this.endAt = endAt;
+    }
 
     public void setPlans(List<Plan> plans) {
         this.plans = plans;

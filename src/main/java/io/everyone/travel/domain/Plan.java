@@ -3,11 +3,7 @@ package io.everyone.travel.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Data
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
-@EqualsAndHashCode(callSuper = true)
-@Builder
+@Getter
 @Entity
 @Table(name = "plan")
 public class Plan extends BaseEntity {
@@ -27,5 +23,14 @@ public class Plan extends BaseEntity {
     )
     private Travel travel;
 
+    protected Plan() { }
 
+    @Builder
+    public Plan(String content) {
+        this.content = content;
+    }
+
+    public void setTravel(Travel travel) {
+        this.travel = travel;
+    }
 }

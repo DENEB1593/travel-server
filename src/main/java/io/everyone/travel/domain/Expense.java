@@ -5,11 +5,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 
-@Data
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
-@EqualsAndHashCode(callSuper = true)
-@Builder
+@Getter
 @Entity
 @Table(name = "expense")
 public class Expense extends BaseEntity {
@@ -29,4 +25,14 @@ public class Expense extends BaseEntity {
     )
     private Travel travel;
 
+    protected Expense() { }
+
+    @Builder
+    public Expense(BigDecimal amt) {
+        this.amt = amt;
+    }
+
+    public void setTravel(Travel travel) {
+        this.travel = travel;
+    }
 }
