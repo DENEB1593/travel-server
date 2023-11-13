@@ -4,6 +4,7 @@ import io.everyone.travel.controller.common.CommonResponse;
 import io.everyone.travel.controller.dto.TravelView;
 import io.everyone.travel.controller.dto.TravelWriteRequest;
 import io.everyone.travel.controller.dto.TravelWriteResponse;
+import io.everyone.travel.exception.NotFoundException;
 import io.everyone.travel.mapper.TravelMapper;
 import io.everyone.travel.service.TravelService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -53,6 +54,10 @@ public class TravelController {
                             responseCode = "200",
                             description = "조회 성공",
                             useReturnTypeSchema = true
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "조회 불가"
                     )
             }
     )
@@ -63,7 +68,7 @@ public class TravelController {
         return CommonResponse.OK(
                 travelService.findById(id)
                         .map(TravelMapper::toView)
-                        .orElseThrow(RuntimeException::new) // 커스텀 예외는 추후 개발, 우선은 Runtime 으로
+                        .orElseThrow(() -> new NotFoundException(String.format("travel not found with id [%d]", id)))
         );
     }
 

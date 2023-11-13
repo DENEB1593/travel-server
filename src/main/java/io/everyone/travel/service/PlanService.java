@@ -2,6 +2,7 @@ package io.everyone.travel.service;
 
 import io.everyone.travel.domain.Plan;
 import io.everyone.travel.domain.Travel;
+import io.everyone.travel.exception.NotFoundException;
 import io.everyone.travel.repository.TravelRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ public class PlanService {
         return travelRepository
                 .findById(travelId)
                 .map(Travel::getPlans)
-                .orElseThrow(() -> new RuntimeException("travel not found :" + travelId));
+                .orElseThrow(() -> new NotFoundException(String.format("travel not found with id [%d]", travelId)));
 
     }
 

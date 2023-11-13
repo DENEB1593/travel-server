@@ -32,6 +32,10 @@ public class PlanController {
                             responseCode = "200",
                             description = "조회 성공",
                             useReturnTypeSchema = true
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "여행 조회 불가"
                     )
             }
     )
