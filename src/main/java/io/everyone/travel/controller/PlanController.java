@@ -3,9 +3,12 @@ package io.everyone.travel.controller;
 
 import io.everyone.travel.controller.common.CommonResponse;
 import io.everyone.travel.controller.dto.PlanView;
+import io.everyone.travel.exception.model.ProblemResponseModel;
 import io.everyone.travel.mapper.PlanMapper;
 import io.everyone.travel.service.PlanService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -35,8 +38,12 @@ public class PlanController {
                     ),
                     @ApiResponse(
                             responseCode = "404",
-                            description = "여행 조회 불가"
-                    )
+                            description = "조회 불가",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ProblemResponseModel.class)
+                            )
+                    ),
             }
     )
     @GetMapping("/{travelId}")

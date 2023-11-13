@@ -3,7 +3,10 @@ package io.everyone.travel.controller;
 import io.everyone.travel.controller.common.CommonResponse;
 import io.everyone.travel.controller.dto.NationModel;
 import io.everyone.travel.domain.enums.Nation;
+import io.everyone.travel.exception.model.ProblemResponseModel;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +29,14 @@ public class CodeController {
                             responseCode = "200",
                             description = "조회 성공",
                             useReturnTypeSchema = true
-                    )
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "서버 오류",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ProblemResponseModel.class))
+                    ),
             }
     )
     @GetMapping("/nation")

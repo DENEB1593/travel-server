@@ -5,6 +5,7 @@ import io.everyone.travel.controller.dto.TravelView;
 import io.everyone.travel.controller.dto.TravelWriteRequest;
 import io.everyone.travel.controller.dto.TravelWriteResponse;
 import io.everyone.travel.exception.NotFoundException;
+import io.everyone.travel.exception.model.ProblemResponseModel;
 import io.everyone.travel.mapper.TravelMapper;
 import io.everyone.travel.service.TravelService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -57,8 +58,12 @@ public class TravelController {
                     ),
                     @ApiResponse(
                             responseCode = "404",
-                            description = "조회 불가"
-                    )
+                            description = "조회 불가",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ProblemResponseModel.class)
+                            )
+                    ),
             }
     )
     @GetMapping("/{id}")
