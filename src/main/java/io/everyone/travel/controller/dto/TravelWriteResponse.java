@@ -24,30 +24,4 @@ public class TravelWriteResponse {
     
     LocalDateTime createdAt;
 
-    List<TravelWriteResponse.PlanWriteResponse> plans; // 계획 목록
-
-    List<TravelWriteResponse.ExpenseWriteResponse> expenses; // 지출 목록
-
-
-    @Value
-    @Builder
-    public static class PlanWriteResponse {
-
-        String title;
-
-        String memo;
-
-        LocalDateTime startAt;
-
-        LocalDateTime endAt;
-
-    }
-
-    @Value
-    @Builder
-    public static class ExpenseWriteResponse {
-
-        BigDecimal amt;
-
-    }
 }

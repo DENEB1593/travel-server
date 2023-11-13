@@ -3,16 +3,11 @@ package io.everyone.travel.mapper;
 import io.everyone.travel.controller.dto.TravelView;
 import io.everyone.travel.controller.dto.TravelWriteRequest;
 import io.everyone.travel.controller.dto.TravelWriteResponse;
-import io.everyone.travel.domain.Expense;
-import io.everyone.travel.domain.Plan;
 import io.everyone.travel.domain.Travel;
 import io.everyone.travel.domain.enums.Nation;
 import io.everyone.travel.util.EnumUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.springframework.util.ObjectUtils;
-
-import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TravelMapper {
@@ -31,16 +26,16 @@ public class TravelMapper {
                 .build();
 
         // 계획 정보를 저장 한다.
-        if (!ObjectUtils.isEmpty(from.getPlans())) {
-            List<Plan> plans = from.getPlans().stream().map(PlanMapper::toEntity).toList();
-            entity.setPlans(plans);
-        }
+//        if (!ObjectUtils.isEmpty(from.getPlans())) {
+//            List<Plan> plans = from.getPlans().stream().map(PlanMapper::toEntity).toList();
+//            entity.setPlans(plans);
+//        }
 
         // 지출 정보를 저장 한다.
-        if (!ObjectUtils.isEmpty(from.getExpenses())) {
-            List<Expense> expenses = from.getExpenses().stream().map(ExpenseMapper::toEntity).toList();
-            entity.setExpenses(expenses);
-        }
+//        if (!ObjectUtils.isEmpty(from.getExpenses())) {
+//            List<Expense> expenses = from.getExpenses().stream().map(ExpenseMapper::toEntity).toList();
+//            entity.setExpenses(expenses);
+//        }
 
         return entity;
     }
@@ -55,8 +50,8 @@ public class TravelMapper {
                 .endAt(from.getEndAt())
                 .nation(from.getNation())
                 .createdAt(from.getCreatedAt())
-                .plans(from.getPlans().stream().map(PlanMapper::toResponse).toList())
-                .expenses(from.getExpenses().stream().map(ExpenseMapper::toResponse).toList())
+//                .plans(from.getPlans().stream().map(PlanMapper::toResponse).toList())
+//                .expenses(from.getExpenses().stream().map(ExpenseMapper::toResponse).toList())
                 .build();
     }
 

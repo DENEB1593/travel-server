@@ -1,11 +1,9 @@
 package io.everyone.travel.controller.dto;
 
 import io.everyone.travel.domain.enums.Nation;
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Value;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -27,31 +25,5 @@ public class TravelView {
 
     List<ExpenseView> expenses;
 
-    @Value
-    @Builder
-    public static class PlanView {
-
-        Long id;
-
-        String title;
-
-        String memo;
-
-        LocalDateTime startAt;
-
-        LocalDateTime endAt;
-
-
-    }
-
-    @Value
-    @Builder
-    public static class ExpenseView {
-
-        Long id;
-
-        BigDecimal amt;
-        
-    }
 
 }
