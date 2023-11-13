@@ -1,5 +1,6 @@
 package io.everyone.travel.mapper;
 
+import io.everyone.travel.controller.dto.NationModel;
 import io.everyone.travel.controller.dto.TravelView;
 import io.everyone.travel.controller.dto.TravelWriteRequest;
 import io.everyone.travel.controller.dto.TravelWriteResponse;
@@ -48,7 +49,7 @@ public class TravelMapper {
                 .title(from.getTitle())
                 .startAt(from.getStartAt())
                 .endAt(from.getEndAt())
-                .nation(from.getNation())
+                .nation(NationModel.of(from.getNation()))
                 .createdAt(from.getCreatedAt())
 //                .plans(from.getPlans().stream().map(PlanMapper::toResponse).toList())
 //                .expenses(from.getExpenses().stream().map(ExpenseMapper::toResponse).toList())
