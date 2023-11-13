@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.context.annotation.Bean;
@@ -27,7 +28,8 @@ public class ObjectMapperConfig {
                         new JavaTimeModule(),
                         new Jdk8Module()
                 )
-                .build();
+                .build()
+                .setNodeFactory(JsonNodeFactory.withExactBigDecimals(true));
     }
 
 }
