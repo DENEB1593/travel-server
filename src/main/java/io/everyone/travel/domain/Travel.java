@@ -3,6 +3,7 @@ package io.everyone.travel.domain;
 import io.everyone.travel.domain.enums.Nation;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.util.ObjectUtils;
@@ -14,27 +15,28 @@ import java.util.List;
 
 
 @Getter
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table
 public class Travel extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(updatable = false)
-    private Long id;
+    @Column(name = "id", updatable = false, nullable = false)
+    Long id;
 
     @Column(name = "title", nullable = false)
-    private String title; // 제목
+    String title; // 제목
 
     @Enumerated(EnumType.STRING)
     @Column(name = "nation")
-    private Nation nation; // 국가 코드
+    Nation nation; // 국가 코드
 
     @Column(name = "start_at")
-    private LocalDateTime startAt; // 계획 시작 일자
+    LocalDateTime startAt; // 계획 시작 일자
 
     @Column(name = "end_at")
-    private LocalDateTime endAt; // 계획 종료 일자
+    LocalDateTime endAt; // 계획 종료 일자
 
     @OneToMany(
             mappedBy = "travel",
@@ -42,7 +44,7 @@ public class Travel extends BaseEntity {
             cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
             fetch = FetchType.LAZY
     )
-    private List<Plan> plans = new ArrayList<>();
+    List<Plan> plans = new ArrayList<>();
 
     @OneToMany(
             mappedBy = "travel",
@@ -50,7 +52,7 @@ public class Travel extends BaseEntity {
             cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
             fetch = FetchType.LAZY
     )
-    private List<Expense> expenses = new ArrayList<>();
+    List<Expense> expenses = new ArrayList<>();
 
 
     protected Travel() { }

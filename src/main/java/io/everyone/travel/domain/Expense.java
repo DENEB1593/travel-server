@@ -2,22 +2,25 @@ package io.everyone.travel.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.math.BigDecimal;
 
 @Getter
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "expense")
 public class Expense extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "id", updatable = false, nullable = false)
+    Long id;
 
     @Column(name = "amt", nullable = false)
-    private BigDecimal amt;
+    BigDecimal amt;
 
     @ManyToOne
     @JoinColumn(
@@ -25,7 +28,7 @@ public class Expense extends BaseEntity {
             referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "expense_travel_id_fk")
     )
-    private Travel travel;
+    Travel travel;
 
     protected Expense() { }
 

@@ -2,31 +2,34 @@ package io.everyone.travel.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.time.LocalDateTime;
 
 @Getter
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "plan")
 public class Plan extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "id", updatable = false, nullable = false)
+    Long id;
 
     @Column(name = "title", nullable = false)
-    private String title;
+    String title;
 
     @Column(name = "memo")
-    private String memo;
+    String memo;
 
     @Column(name = "start_at", nullable = false)
-    private LocalDateTime startAt;
+    LocalDateTime startAt;
 
     @Column(name = "end_at", nullable = false)
-    private LocalDateTime endAt;
+    LocalDateTime endAt;
 
     @ManyToOne
     @JoinColumn(
@@ -34,7 +37,7 @@ public class Plan extends BaseEntity {
             referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "plan_travel_id_fk")
     )
-    private Travel travel;
+    Travel travel;
 
     protected Plan() { }
 
