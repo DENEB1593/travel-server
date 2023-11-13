@@ -10,6 +10,8 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+import org.zalando.problem.jackson.ProblemModule;
+import org.zalando.problem.violations.ConstraintViolationProblemModule;
 
 @Configuration
 public class ObjectMapperConfig {
@@ -26,10 +28,13 @@ public class ObjectMapperConfig {
                 )
                 .modules(
                         new JavaTimeModule(),
-                        new Jdk8Module()
+                        new Jdk8Module(),
+                        new ProblemModule(),
+                        new ConstraintViolationProblemModule()
                 )
                 .build()
                 .setNodeFactory(JsonNodeFactory.withExactBigDecimals(true));
     }
+    
 
 }
