@@ -15,7 +15,7 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI openApi() {
         return new OpenAPI()
-                .info(new Info().title("Travel Everyone API"));
+            .info(new Info().title("Travel Everyone API"));
     }
 
 }

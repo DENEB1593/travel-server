@@ -28,52 +28,52 @@ public class TravelController {
     private final TravelService travelService;
 
     @Operation(
-            summary = "여행 정보 저장",
-            responses = {
-                    @ApiResponse(
-                            responseCode = "201",
-                            description = "저장 성공",
-                            useReturnTypeSchema = true
-                    )
-            }
+        summary = "여행 정보 저장",
+        responses = {
+            @ApiResponse(
+                responseCode = "201",
+                description = "저장 성공",
+                useReturnTypeSchema = true
+            )
+        }
     )
     @ResponseStatus(CREATED)
     @PostMapping
     public CommonResponse<TravelWriteResponse> save(
-            @RequestBody @Valid TravelWriteRequest travelWriteRequest
+        @RequestBody @Valid TravelWriteRequest travelWriteRequest
     ) {
         return CommonResponse.OK(
-                TravelMapper.toResponse(
-                        travelService.save(travelWriteRequest))
+            TravelMapper.toResponse(
+                travelService.save(travelWriteRequest))
         );
     }
 
     @Operation(
-            summary = "여행 정보 단건 조회",
-            responses = {
-                    @ApiResponse(
-                            responseCode = "200",
-                            description = "조회 성공",
-                            useReturnTypeSchema = true
-                    ),
-                    @ApiResponse(
-                            responseCode = "404",
-                            description = "조회 불가",
-                            content = @Content(
-                                    mediaType = "application/json",
-                                    schema = @Schema(implementation = ProblemResponseModel.class)
-                            )
-                    ),
-            }
+        summary = "여행 정보 단건 조회",
+        responses = {
+            @ApiResponse(
+                responseCode = "200",
+                description = "조회 성공",
+                useReturnTypeSchema = true
+            ),
+            @ApiResponse(
+                responseCode = "404",
+                description = "조회 불가",
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ProblemResponseModel.class)
+                )
+            ),
+        }
     )
     @GetMapping("/{id}")
     public CommonResponse<TravelView> find(
-            @PathVariable Long id
+        @PathVariable Long id
     ) {
         return CommonResponse.OK(
-                travelService.findById(id)
-                        .map(TravelMapper::toView)
-                        .orElseThrow(() -> new NotFoundException(String.format("travel not found with id [%d]", id)))
+            travelService.findById(id)
+                .map(TravelMapper::toView)
+                .orElseThrow(() -> new NotFoundException(String.format("travel not found with id [%d]", id)))
         );
     }
 

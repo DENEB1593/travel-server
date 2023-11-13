@@ -15,11 +15,11 @@ public class PlanMapper {
      */
     public static Plan toEntity(PlanWriteRequest from) {
         return Plan.builder()
-                .title(from.getTitle())
-                .memo(from.getMemo())
-                .startAt(from.getStartAt())
-                .endAt(from.getEndAt())
-                .build();
+            .title(from.getTitle())
+            .memo(from.getMemo())
+            .startAt(from.getStartAt())
+            .endAt(from.getEndAt())
+            .build();
     }
 
     /**
@@ -27,11 +27,11 @@ public class PlanMapper {
      */
     public static PlanWriteResponse toResponse(Plan from) {
         return PlanWriteResponse.builder()
-                .title(from.getTitle())
-                .memo(from.getMemo())
-                .startAt(from.getStartAt())
-                .endAt(from.getEndAt())
-                .build();
+            .title(from.getTitle())
+            .memo(from.getMemo())
+            .startAt(from.getStartAt())
+            .endAt(from.getEndAt())
+            .build();
     }
 
     /**
@@ -39,12 +39,12 @@ public class PlanMapper {
      */
     public static PlanView toView(Plan from) {
         return PlanView.builder()
-                .id(from.getId())
-                .title(from.getTitle())
-                .memo(from.getMemo())
-                .startAt(from.getStartAt())
-                .endAt(from.getEndAt())
-                .build();
+            .id(from.getId())
+            .title(from.getTitle())
+            .memo(from.getMemo())
+            .startAt(from.getStartAt())
+            .endAt(from.getEndAt())
+            .build();
     }
 
 }

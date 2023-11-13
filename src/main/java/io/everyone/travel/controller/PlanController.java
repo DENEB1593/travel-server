@@ -28,33 +28,33 @@ public class PlanController {
     private final PlanService planService;
 
     @Operation(
-            summary = "계획 목록 조회",
-            description = "여행ID로 등록된 계획 목록을 조회한다",
-            responses = {
-                    @ApiResponse(
-                            responseCode = "200",
-                            description = "조회 성공",
-                            useReturnTypeSchema = true
-                    ),
-                    @ApiResponse(
-                            responseCode = "404",
-                            description = "조회 불가",
-                            content = @Content(
-                                    mediaType = "application/json",
-                                    schema = @Schema(implementation = ProblemResponseModel.class)
-                            )
-                    ),
-            }
+        summary = "계획 목록 조회",
+        description = "여행ID로 등록된 계획 목록을 조회한다",
+        responses = {
+            @ApiResponse(
+                responseCode = "200",
+                description = "조회 성공",
+                useReturnTypeSchema = true
+            ),
+            @ApiResponse(
+                responseCode = "404",
+                description = "조회 불가",
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ProblemResponseModel.class)
+                )
+            ),
+        }
     )
     @GetMapping("/{travelId}")
     public CommonResponse<List<PlanView>> find(
-            @PathVariable Long travelId
+        @PathVariable Long travelId
     ) {
         return CommonResponse.OK(
-                planService.findByTravelId(travelId)
-                        .stream()
-                        .map(PlanMapper::toView)
-                        .toList()
+            planService.findByTravelId(travelId)
+                .stream()
+                .map(PlanMapper::toView)
+                .toList()
         );
     }
 

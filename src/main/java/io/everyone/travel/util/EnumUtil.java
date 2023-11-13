@@ -16,9 +16,9 @@ public class EnumUtil {
         }
 
         return EnumSet.allOf(enumClz).stream()
-                .filter(e -> e.name().equals(name))
-                .findFirst()
-                .orElse(null);
+            .filter(e -> e.name().equals(name))
+            .findFirst()
+            .orElse(null);
     }
 
 }

@@ -24,9 +24,9 @@ public class Expense extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(
-            name = "travel_id",
-            referencedColumnName = "id",
-            foreignKey = @ForeignKey(name = "expense_travel_id_fk")
+        name = "travel_id",
+        referencedColumnName = "id",
+        foreignKey = @ForeignKey(name = "expense_travel_id_fk")
     )
     Travel travel;
 
@@ -44,8 +44,8 @@ public class Expense extends BaseEntity {
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
-                .append("id", id)
-                .append("amt", amt)
-                .toString();
+            .append("id", id)
+            .append("amt", amt)
+            .toString();
     }
 }

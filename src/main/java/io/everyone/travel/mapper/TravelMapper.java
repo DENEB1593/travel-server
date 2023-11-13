@@ -20,11 +20,11 @@ public class TravelMapper {
     public static Travel toEntity(TravelWriteRequest from) {
 
         Travel entity = Travel.builder()
-                .title(from.getTitle())
-                .startAt(from.getStartAt())
-                .endAt(from.getEndAt())
-                .nation(EnumUtil.byEnumName(Nation.class, from.getNation()))
-                .build();
+            .title(from.getTitle())
+            .startAt(from.getStartAt())
+            .endAt(from.getEndAt())
+            .nation(EnumUtil.byEnumName(Nation.class, from.getNation()))
+            .build();
 
         // 계획 정보를 저장 한다.
 //        if (!ObjectUtils.isEmpty(from.getPlans())) {
@@ -46,14 +46,14 @@ public class TravelMapper {
      */
     public static TravelWriteResponse toResponse(Travel from) {
         return TravelWriteResponse.builder()
-                .title(from.getTitle())
-                .startAt(from.getStartAt())
-                .endAt(from.getEndAt())
-                .nation(NationModel.of(from.getNation()))
-                .createdAt(from.getCreatedAt())
+            .title(from.getTitle())
+            .startAt(from.getStartAt())
+            .endAt(from.getEndAt())
+            .nation(NationModel.of(from.getNation()))
+            .createdAt(from.getCreatedAt())
 //                .plans(from.getPlans().stream().map(PlanMapper::toResponse).toList())
 //                .expenses(from.getExpenses().stream().map(ExpenseMapper::toResponse).toList())
-                .build();
+            .build();
     }
 
     /**
@@ -61,14 +61,14 @@ public class TravelMapper {
      */
     public static TravelView toView(Travel from) {
         return TravelView.builder()
-                .id(from.getId())
-                .title(from.getTitle())
-                .startAt(from.getStartAt())
-                .endAt(from.getEndAt())
-                .nation(from.getNation())
-                .plans(from.getPlans().stream().map(PlanMapper::toView).toList())
-                .expenses(from.getExpenses().stream().map(ExpenseMapper::toView).toList())
-                .build();
+            .id(from.getId())
+            .title(from.getTitle())
+            .startAt(from.getStartAt())
+            .endAt(from.getEndAt())
+            .nation(from.getNation())
+            .plans(from.getPlans().stream().map(PlanMapper::toView).toList())
+            .expenses(from.getExpenses().stream().map(ExpenseMapper::toView).toList())
+            .build();
     }
 
 }

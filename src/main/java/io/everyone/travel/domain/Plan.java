@@ -33,9 +33,9 @@ public class Plan extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(
-            name = "travel_id",
-            referencedColumnName = "id",
-            foreignKey = @ForeignKey(name = "plan_travel_id_fk")
+        name = "travel_id",
+        referencedColumnName = "id",
+        foreignKey = @ForeignKey(name = "plan_travel_id_fk")
     )
     Travel travel;
 
@@ -57,11 +57,11 @@ public class Plan extends BaseEntity {
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
-                .append("id", id)
-                .append("title", title)
-                .append("memo", memo)
-                .append("startAt", startAt)
-                .append("endAt", endAt)
-                .toString();
+            .append("id", id)
+            .append("title", title)
+            .append("memo", memo)
+            .append("startAt", startAt)
+            .append("endAt", endAt)
+            .toString();
     }
 }

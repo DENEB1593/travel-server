@@ -19,22 +19,22 @@ public class ObjectMapperConfig {
     @Bean
     public ObjectMapper objectMapper(Jackson2ObjectMapperBuilder builder) {
         return builder
-                .featuresToDisable(
-                        MapperFeature.ALLOW_FINAL_FIELDS_AS_MUTATORS,
-                        SerializationFeature.WRITE_DATES_AS_TIMESTAMPS,
-                        SerializationFeature.WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS,
-                        DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS,
-                        DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES
-                )
-                .modules(
-                        new JavaTimeModule(),
-                        new Jdk8Module(),
-                        new ProblemModule(),
-                        new ConstraintViolationProblemModule()
-                )
-                .build()
-                .setNodeFactory(JsonNodeFactory.withExactBigDecimals(true));
+            .featuresToDisable(
+                MapperFeature.ALLOW_FINAL_FIELDS_AS_MUTATORS,
+                SerializationFeature.WRITE_DATES_AS_TIMESTAMPS,
+                SerializationFeature.WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS,
+                DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS,
+                DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES
+            )
+            .modules(
+                new JavaTimeModule(),
+                new Jdk8Module(),
+                new ProblemModule(),
+                new ConstraintViolationProblemModule()
+            )
+            .build()
+            .setNodeFactory(JsonNodeFactory.withExactBigDecimals(true));
     }
-    
+
 
 }

@@ -39,18 +39,18 @@ public class Travel extends BaseEntity {
     LocalDateTime endAt; // 계획 종료 일자
 
     @OneToMany(
-            mappedBy = "travel",
-            orphanRemoval = true,
-            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
-            fetch = FetchType.LAZY
+        mappedBy = "travel",
+        orphanRemoval = true,
+        cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+        fetch = FetchType.LAZY
     )
     List<Plan> plans = new ArrayList<>();
 
     @OneToMany(
-            mappedBy = "travel",
-            orphanRemoval = true,
-            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
-            fetch = FetchType.LAZY
+        mappedBy = "travel",
+        orphanRemoval = true,
+        cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+        fetch = FetchType.LAZY
     )
     List<Expense> expenses = new ArrayList<>();
 
@@ -90,11 +90,11 @@ public class Travel extends BaseEntity {
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
-                .append("id", id)
-                .append("title", title)
-                .append("nation", nation)
-                .append("startAt", startAt)
-                .append("endAt", endAt)
-                .toString();
+            .append("id", id)
+            .append("title", title)
+            .append("nation", nation)
+            .append("startAt", startAt)
+            .append("endAt", endAt)
+            .toString();
     }
 }

@@ -19,9 +19,9 @@ public class PlanService {
     @Transactional(readOnly = true)
     public List<Plan> findByTravelId(Long travelId) {
         return travelRepository
-                .findById(travelId)
-                .map(Travel::getPlans)
-                .orElseThrow(() -> new NotFoundException(String.format("travel not found with id [%d]", travelId)));
+            .findById(travelId)
+            .map(Travel::getPlans)
+            .orElseThrow(() -> new NotFoundException(String.format("travel not found with id [%d]", travelId)));
 
     }
 

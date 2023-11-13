@@ -13,8 +13,8 @@ public class ExpenseMapper {
      */
     public static Expense toEntity(ExpenseWriteRequest from) {
         return Expense.builder()
-                .amt(from.getAmt())
-                .build();
+            .amt(from.getAmt())
+            .build();
     }
 
     /**
@@ -22,8 +22,8 @@ public class ExpenseMapper {
      */
     public static ExpenseWriteResponse toResponse(Expense from) {
         return ExpenseWriteResponse.builder()
-                .amt(from.getAmt())
-                .build();
+            .amt(from.getAmt())
+            .build();
     }
 
     /**
@@ -31,9 +31,9 @@ public class ExpenseMapper {
      */
     public static ExpenseView toView(Expense from) {
         return ExpenseView.builder()
-                .id(from.getId())
-                .amt(from.getAmt())
-                .build();
+            .id(from.getId())
+            .amt(from.getAmt())
+            .build();
     }
 
 }

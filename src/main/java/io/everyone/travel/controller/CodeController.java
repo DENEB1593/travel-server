@@ -23,26 +23,26 @@ public class CodeController {
 
 
     @Operation(
-            summary = "국가 코드 조회",
-            responses = {
-                    @ApiResponse(
-                            responseCode = "200",
-                            description = "조회 성공",
-                            useReturnTypeSchema = true
-                    ),
-                    @ApiResponse(
-                            responseCode = "500",
-                            description = "서버 오류",
-                            content = @Content(
-                                    mediaType = "application/json",
-                                    schema = @Schema(implementation = ProblemResponseModel.class))
-                    ),
-            }
+        summary = "국가 코드 조회",
+        responses = {
+            @ApiResponse(
+                responseCode = "200",
+                description = "조회 성공",
+                useReturnTypeSchema = true
+            ),
+            @ApiResponse(
+                responseCode = "500",
+                description = "서버 오류",
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ProblemResponseModel.class))
+            ),
+        }
     )
     @GetMapping("/nation")
     public CommonResponse<List<NationModel>> nation() {
         return CommonResponse.OK(
-                Arrays.stream(Nation.values()).map(NationModel::of).toList());
+            Arrays.stream(Nation.values()).map(NationModel::of).toList());
     }
 
 }
