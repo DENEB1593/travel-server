@@ -2,7 +2,7 @@ package io.everyone.travel.controller;
 
 
 import io.everyone.travel.controller.common.CommonResponse;
-import io.everyone.travel.controller.dto.TravelView;
+import io.everyone.travel.controller.dto.PlanView;
 import io.everyone.travel.mapper.PlanMapper;
 import io.everyone.travel.service.PlanService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -36,7 +36,7 @@ public class PlanController {
             }
     )
     @GetMapping("/{travelId}")
-    public CommonResponse<List<TravelView.PlanView>> find(
+    public CommonResponse<List<PlanView>> find(
             @PathVariable Long travelId
     ) {
         return CommonResponse.OK(
