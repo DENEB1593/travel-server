@@ -1,6 +1,7 @@
 package io.everyone.travel.controller;
 
 import io.everyone.travel.controller.common.CommonResponse;
+import io.everyone.travel.controller.dto.NationModel;
 import io.everyone.travel.domain.enums.Nation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -29,9 +30,9 @@ public class CodeController {
             }
     )
     @GetMapping("/nation")
-    public CommonResponse<List<Nation>> nation() {
+    public CommonResponse<List<NationModel>> nation() {
         return CommonResponse.OK(
-                Arrays.stream(Nation.values()).toList());
+                Arrays.stream(Nation.values()).map(NationModel::of).toList());
     }
 
 }
