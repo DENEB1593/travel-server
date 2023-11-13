@@ -35,14 +35,16 @@ public class GeneralExceptionHandler {
     public ResponseEntity<?> handleMethodArgumentNotValidException(
         MethodArgumentNotValidException e
     ) {
-        log.warn("invalid argument: {}", e.getMessage(), e);
 
         var error = e.getBindingResult().getFieldError();
+        String defaultMessage = error.getDefaultMessage();
+
+        log.warn("invalid argument: {}", defaultMessage);
 
         var problem = Problem.builder()
             .withTitle(Status.BAD_REQUEST.getReasonPhrase())
             .withStatus(Status.BAD_REQUEST)
-            .withDetail(error.getDefaultMessage())
+            .withDetail(defaultMessage)
             .build();
 
         return createResponseEntity(HttpStatus.BAD_REQUEST, problem);
