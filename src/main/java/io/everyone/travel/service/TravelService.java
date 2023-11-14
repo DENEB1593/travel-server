@@ -34,7 +34,7 @@ public class TravelService {
     @Transactional(readOnly = true)
     public List<Travel> findPaginated(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        return travelRepository.findAll();
+        return travelRepository.findAll(pageable).getContent();
     }
 
 }
