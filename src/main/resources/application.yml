@@ -1,5 +1,7 @@
-
 spring:
+  application:
+    name: travel-api
+
   jpa:
     show-sql: true
     hibernate:
