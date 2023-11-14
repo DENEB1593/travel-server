@@ -1,6 +1,5 @@
 package io.everyone.travel.controller.dto;
 
-import io.everyone.travel.domain.enums.Nation;
 import lombok.Builder;
 import lombok.Value;
 
@@ -19,7 +18,7 @@ public class TravelView {
 
     String title;
 
-    Nation nation;
+    NationModel nation;
 
     List<PlanView> plans;
 

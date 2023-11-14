@@ -65,7 +65,7 @@ public class TravelMapper {
             .title(from.getTitle())
             .startAt(from.getStartAt())
             .endAt(from.getEndAt())
-            .nation(from.getNation())
+            .nation(NationModel.of(from.getNation()))
             .plans(from.getPlans().stream().map(PlanMapper::toView).toList())
             .expenses(from.getExpenses().stream().map(ExpenseMapper::toView).toList())
             .build();
