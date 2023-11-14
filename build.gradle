@@ -28,6 +28,9 @@ dependencies {
 	// jdk8 time module
 	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.0'
 
+	// faker
+	implementation 'com.github.javafaker:javafaker:1.0.2'
+
 	implementation "org.projectlombok:lombok:${lombokVersion}"
 	annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 
