@@ -15,9 +15,6 @@ import java.util.List;
 @Slf4j
 @RestControllerAdvice
 public class GeneralExceptionHandler {
-
-    private ObjectError error;
-
     @ExceptionHandler
     public ResponseEntity<?> handleNotFoundException(NotFoundException e) {
         log.debug("not found exception - message: {}", e.getMessage(), e);
