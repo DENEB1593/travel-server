@@ -60,7 +60,6 @@ public class TravelController {
                 responseCode = "404",
                 description = "조회 불가",
                 content = @Content(
-                    mediaType = "application/json",
                     schema = @Schema(implementation = ProblemResponseModel.class)
                 )
             ),

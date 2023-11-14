@@ -18,3 +18,5 @@ springdoc:
   api-docs:
     enabled: true
     path: /api-docs
+  default-produces-media-type: application/json
+  default-consumes-media-type: application/json

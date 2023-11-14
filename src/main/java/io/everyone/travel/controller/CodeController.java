@@ -34,7 +34,6 @@ public class CodeController {
                 responseCode = "500",
                 description = "서버 오류",
                 content = @Content(
-                    mediaType = "application/json",
                     schema = @Schema(implementation = ProblemResponseModel.class))
             ),
         }
