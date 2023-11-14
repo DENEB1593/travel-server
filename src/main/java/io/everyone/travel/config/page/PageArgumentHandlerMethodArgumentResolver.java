@@ -2,6 +2,7 @@ package io.everyone.travel.config.page;
 
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.core.MethodParameter;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -19,7 +20,7 @@ public class PageArgumentHandlerMethodArgumentResolver implements HandlerMethodA
 
     @Override
     public Object resolveArgument(
-        MethodParameter parameter,
+        @NonNull MethodParameter parameter,
         ModelAndViewContainer mavContainer,
         NativeWebRequest webRequest,
         WebDataBinderFactory binderFactory) throws Exception {
