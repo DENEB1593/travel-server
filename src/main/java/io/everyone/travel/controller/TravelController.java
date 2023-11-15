@@ -102,7 +102,9 @@ public class TravelController {
         @Parameter(name = "size", description = "페이지 크기", example = "20")
     })
     @GetMapping
-    public CommonResponse<List<TravelView>> findPaginated(PageModel pageModel) {
+    public CommonResponse<List<TravelView>> findPaginated(
+        @Parameter(hidden = true) PageModel pageModel
+    ) {
         return CommonResponse.OK(
             travelService.findPaginated(
                     pageModel.getPage(),
