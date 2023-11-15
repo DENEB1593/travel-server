@@ -5,10 +5,15 @@ spring:
       file: docker-compose.yml
 
   jpa:
+    defer-datasource-initialization: true
     show-sql: true
     hibernate:
-      ddl-auto: update
-    generate-ddl: true
+      ddl-auto: none
+
+  sql:
+    init:
+      schema-locations: classpath:sql/schema.sql
+      mode: always
 
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
