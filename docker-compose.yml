@@ -1,0 +1,11 @@
+services:
+  mysql:
+    image: 'mysql:8'
+    environment:
+      - 'MYSQL_DATABASE=travel'
+      - 'MYSQL_PASSWORD=travel!@#'
+      - 'MYSQL_ROOT_PASSWORD=admin!@#'
+      - 'MYSQL_USER=travel'
+      - 'MYSQL_ROOT_HOST=%'
+    ports:
+      - '3306:3306'

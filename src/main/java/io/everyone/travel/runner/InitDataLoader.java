@@ -32,7 +32,7 @@ public class InitDataLoader implements ApplicationListener<ApplicationStartedEve
 
     private static final Random random = new Random();
     private static final List<Nation> nations = Arrays.stream(Nation.values()).toList();
-    private static final int TRAVEL_SAVE_COUNT = 10;
+    private static final int TRAVEL_SAVE_COUNT = 100;
 
     @Override
     public void onApplicationEvent(@NonNull ApplicationStartedEvent event) {

@@ -1,0 +1,17 @@
+spring:
+  docker:
+    compose:
+      enabled: true
+      file: docker-compose.yml
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/travel
+    username: travel
+    password: travel!@#
