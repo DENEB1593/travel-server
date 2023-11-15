@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Profile;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +20,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.*;
 
+@Profile("local")
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -29,7 +31,8 @@ public class InitDataLoader implements ApplicationListener<ApplicationStartedEve
     private final ExpenseRepository expenseRepository;
 
     private static final Random random = new Random();
-    private static List<Nation> nations = Arrays.stream(Nation.values()).toList();
+    private static final List<Nation> nations = Arrays.stream(Nation.values()).toList();
+    private static final int TRAVEL_SAVE_COUNT = 10;
 
     @Override
     public void onApplicationEvent(@NonNull ApplicationStartedEvent event) {
@@ -38,7 +41,7 @@ public class InitDataLoader implements ApplicationListener<ApplicationStartedEve
         Faker faker = new Faker(new Locale("en"));
 
         // travel
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < TRAVEL_SAVE_COUNT; i++) {
 
             String title = faker.hobbit().location();
             Nation nation = randomNation();
