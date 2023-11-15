@@ -1,4 +1,4 @@
-create table travel
+create table if not exists travel
 (
     id          bigint       not null auto_increment,
     nation      varchar(3)   not null,
@@ -13,7 +13,7 @@ create table travel
 
 
 -- plan
-create table plan
+create table if not exists plan
 (
     id          bigint       not null auto_increment,
     title       varchar(255) not null,
@@ -24,14 +24,13 @@ create table plan
     created_at  datetime(6)  not null,
     modified_at datetime(6)  not null,
     deleted_at  datetime(6),
-    primary key (id)
+    primary key (id),
+    constraint plan_travel_id_fk foreign key (travel_id) references travel (id)
 ) engine = InnoDB;
 
-alter table plan
-    add constraint plan_travel_id_fk foreign key (travel_id) references travel (id);
 
 -- expense
-create table expense
+create table if not exists expense
 (
     id          bigint         not null auto_increment,
     amt         decimal(38, 2) not null,
@@ -39,10 +38,6 @@ create table expense
     created_at  datetime(6)    not null,
     modified_at datetime(6)    not null,
     deleted_at  datetime(6),
-    primary key (id)
+    primary key (id),
+    constraint expense_travel_id_fk foreign key (travel_id) references travel(id)
 ) engine = InnoDB;
-
-alter table expense
-    add constraint expense_travel_id_fk foreign key (travel_id) references travel (id);
-
-

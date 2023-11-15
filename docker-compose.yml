@@ -1,6 +1,7 @@
 services:
   mysql:
     container_name: travel-mysql
+    restart: always
     image: 'mysql:8'
     environment:
       - 'MYSQL_DATABASE=travel'
