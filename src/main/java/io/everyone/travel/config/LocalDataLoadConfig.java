@@ -44,6 +44,7 @@ public class LocalDataLoadConfig implements ApplicationListener<ApplicationStart
         Faker faker = new Faker(new Locale("en"));
 
         // travel
+        List<Travel> travels = new ArrayList<>();
         for (int i = 0; i < TRAVEL_SAVE_COUNT; i++) {
 
             String title = faker.hobbit().location();
@@ -94,11 +95,11 @@ public class LocalDataLoadConfig implements ApplicationListener<ApplicationStart
             }
             travel.setExpenses(expenses);
 
-            //save
-            travelRepository.save(travel);
+            travels.add(travel);
+
         }
-
-
+        //save
+        travelRepository.saveAll(travels);
 
         log.info(">>> init data load finished <<<");
     }
