@@ -1,6 +1,8 @@
 services:
   mysql:
     container_name: travel-mysql
+    volumes:
+      - "/mysql:/var/lib/mysql"
     restart: always
     image: 'mysql:8'
     environment:

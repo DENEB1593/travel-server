@@ -1,4 +1,4 @@
-package io.everyone.travel.runner;
+package io.everyone.travel.config;
 
 import com.github.javafaker.Faker;
 import io.everyone.travel.domain.Expense;
@@ -20,11 +20,14 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.*;
 
+/**
+ * local profile 구동 시 더미 데이터를 적재한다.
+ */
 @Profile("local")
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class InitDataLoader implements ApplicationListener<ApplicationStartedEvent> {
+public class LocalDataLoadConfig implements ApplicationListener<ApplicationStartedEvent> {
 
     private final TravelRepository travelRepository;
     private final PlanRepository planRepository;
@@ -32,7 +35,7 @@ public class InitDataLoader implements ApplicationListener<ApplicationStartedEve
 
     private static final Random random = new Random();
     private static final List<Nation> nations = Arrays.stream(Nation.values()).toList();
-    private static final int TRAVEL_SAVE_COUNT = 100;
+    private static final int TRAVEL_SAVE_COUNT = 50;
 
     @Override
     public void onApplicationEvent(@NonNull ApplicationStartedEvent event) {
