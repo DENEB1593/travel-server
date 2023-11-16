@@ -1,0 +1,16 @@
+spring:
+  docker:
+    compose:
+      enabled: false
+
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: none
+
+  # dev 환경 DB 정보
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url:
+    username:
+    password:
