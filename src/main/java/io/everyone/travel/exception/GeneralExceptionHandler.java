@@ -48,6 +48,19 @@ public class GeneralExceptionHandler {
     }
 
 
+    @ExceptionHandler
+    public ResponseEntity<?> handleException(Exception e) {
+        log.error("unexpected exception - message: {}", e.getMessage(), e);
+
+        var problem = Problem.builder()
+            .withTitle(Status.INTERNAL_SERVER_ERROR.getReasonPhrase())
+            .withStatus(Status.INTERNAL_SERVER_ERROR)
+            .withDetail(e.getMessage())
+            .build();
+
+        return createResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR, problem);
+    }
+
     private static ResponseEntity<?> createResponseEntity(
         HttpStatus status, Problem problem
     ) {
