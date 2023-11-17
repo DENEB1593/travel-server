@@ -1,9 +1,17 @@
+-- 테이블 초기화
+drop table plan;
+drop table expense;
+drop table travel;
+
+-- 테이블 생성
+-- travel
 create table if not exists travel
 (
     id          bigint       not null auto_increment,
     nation      varchar(3)   not null,
     start_at    datetime(6),
     end_at      datetime(6),
+    thumbnail   text,
     created_at  datetime(6)  not null,
     modified_at datetime(6)  not null,
     deleted_at  datetime(6),

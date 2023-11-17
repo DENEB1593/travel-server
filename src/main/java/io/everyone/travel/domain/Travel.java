@@ -29,14 +29,17 @@ public class Travel extends BaseEntity {
     String title; // 제목
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "nation")
+    @Column(name = "nation", nullable = false)
     Nation nation; // 국가 코드
 
-    @Column(name = "start_at")
+    @Column(name = "start_at", nullable = false)
     LocalDateTime startAt; // 계획 시작 일자
 
-    @Column(name = "end_at")
+    @Column(name = "end_at", nullable = false)
     LocalDateTime endAt; // 계획 종료 일자
+
+    @Column(name = "thumbnail")
+    String thumbnail; // 썸네일(이미지)
 
     @OneToMany(
         mappedBy = "travel",
@@ -58,11 +61,12 @@ public class Travel extends BaseEntity {
     protected Travel() { }
 
     @Builder
-    public Travel(String title, Nation nation, LocalDateTime startAt, LocalDateTime endAt) {
+    public Travel(String title, Nation nation, LocalDateTime startAt, LocalDateTime endAt, String thumbnail) {
         this.title = title;
         this.nation = nation;
         this.startAt = startAt;
         this.endAt = endAt;
+        this.thumbnail = thumbnail;
     }
 
     public void setPlans(List<Plan> plans) {
@@ -87,6 +91,10 @@ public class Travel extends BaseEntity {
         return ObjectUtils.isEmpty(expenses) ? Collections.emptyList() : expenses;
     }
 
+    public void updateThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;  // 썸네일 경로를 저장한다.
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
@@ -97,4 +105,6 @@ public class Travel extends BaseEntity {
             .append("endAt", endAt)
             .toString();
     }
+
+
 }
