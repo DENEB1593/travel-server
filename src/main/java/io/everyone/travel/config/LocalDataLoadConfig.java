@@ -36,6 +36,7 @@ public class LocalDataLoadConfig implements ApplicationListener<ApplicationStart
     private static final Random random = new Random();
     private static final List<Nation> nations = Arrays.stream(Nation.values()).toList();
     private static final int TRAVEL_SAVE_COUNT = 50;
+    private static final String DEFAULT_THUMBNAIL = "http://localhost:8080/images/default_travel_image.png";
 
     @Override
     public void onApplicationEvent(@NonNull ApplicationStartedEvent event) {
@@ -58,6 +59,7 @@ public class LocalDataLoadConfig implements ApplicationListener<ApplicationStart
             Travel travel = Travel.builder()
                 .title(title)
                 .nation(nation)
+                .thumbnail(DEFAULT_THUMBNAIL)
                 .startAt(startAt)
                 .endAt(endAt)
                 .build();
