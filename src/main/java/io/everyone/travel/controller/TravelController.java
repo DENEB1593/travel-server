@@ -19,6 +19,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,16 +46,14 @@ public class TravelController {
         }
     )
     @ResponseStatus(CREATED)
-    @PostMapping
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public CommonResponse<TravelWriteResponse> save(
-        @RequestBody @Valid TravelWriteRequest travelWriteRequest
-        //TODO 이미지 업로드 요청 구현
+        @ModelAttribute @Valid TravelWriteRequest request
     ) {
-
-        //TODO 여행 저장 후 이미지 업로드 진행
         return CommonResponse.OK(
             TravelMapper.toResponse(
-                travelService.save(travelWriteRequest))
+                travelService.save(request)
+            )
         );
     }
 

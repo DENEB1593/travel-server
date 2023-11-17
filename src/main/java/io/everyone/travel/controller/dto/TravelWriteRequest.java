@@ -3,14 +3,13 @@ package io.everyone.travel.controller.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Builder;
 import lombok.Value;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 
 @Schema(description = "여행 정보 작성")
 @Value
-@Builder
 public class TravelWriteRequest {
 
     @Schema(description = "여행 시작일", example = "2023-11-10T12:27:21.042Z")
@@ -28,5 +27,8 @@ public class TravelWriteRequest {
     @Schema(description = "국가 코드", example = "TH")
     @NotBlank(message = "국가 코드는 필수 값입니다")
     String nation;
+
+    @Schema(description = "파일")
+    MultipartFile file;
 
 }

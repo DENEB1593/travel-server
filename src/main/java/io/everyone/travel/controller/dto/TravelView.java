@@ -18,6 +18,8 @@ public class TravelView {
 
     String title;
 
+    String thumbnail;
+
     NationModel nation;
 
     List<PlanView> plans;

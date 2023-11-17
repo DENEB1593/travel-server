@@ -10,7 +10,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 
+import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +25,11 @@ public class TravelService {
     @Transactional
     public Travel save(TravelWriteRequest request) {
         Travel travel = TravelMapper.toEntity(request);
+
+        // 이미지 확인 우선은 기본이미지 주소로..
+        String thumbnail = "http://localhost:8080/images/default_travel_image.png";
+        travel.updateThumbnail(thumbnail);
+
         return travelRepository.save(travel);
     }
 
@@ -36,5 +43,6 @@ public class TravelService {
         Pageable pageable = PageRequest.of(page, size);
         return travelRepository.findAll(pageable).getContent();
     }
+
 
 }

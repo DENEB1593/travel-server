@@ -53,6 +53,7 @@ public class TravelMapper {
             .startAt(from.getStartAt())
             .endAt(from.getEndAt())
             .nation(NationModel.of(from.getNation()))
+            .thumbnail(from.getThumbnail())
             .plans(from.getPlans().stream().map(PlanMapper::toView).toList())
             .expenses(from.getExpenses().stream().map(ExpenseMapper::toView).toList())
             .build();
