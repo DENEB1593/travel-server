@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 @Builder
 public class TravelWriteResponse {
 
+    Long id;
+
     LocalDateTime startAt;
 
     LocalDateTime endAt;
