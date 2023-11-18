@@ -29,16 +29,16 @@ dependencies {
 	implementation "org.zalando:problem-spring-web-starter:${springWebProblemVersion}"
 
 	// mysql
-	implementation 'com.mysql:mysql-connector-j:8.2.0'
+	implementation "com.mysql:mysql-connector-j:${mysqlDriverVersion}"
 
 	// openapi
-	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
+	implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springDocOpenApiVersion}"
 
 	// jdk8 time module
-	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.0'
+	implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jsr310Version}"
 
 	// faker
-	implementation 'com.github.javafaker:javafaker:1.0.2'
+	implementation "com.github.javafaker:javafaker:${javaFakerVersion}"
 
 	implementation "org.projectlombok:lombok:${lombokVersion}"
 	annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
