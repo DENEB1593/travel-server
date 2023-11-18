@@ -13,8 +13,15 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.zalando.problem.jackson.ProblemModule;
 import org.zalando.problem.violations.ConstraintViolationProblemModule;
 
+import java.time.ZoneId;
+import java.util.TimeZone;
+
 @Configuration
 public class ObjectMapperConfig {
+
+
+    private static final TimeZone ASIA_SEOUL = TimeZone.getTimeZone(ZoneId.of("Asia/Seoul"));
+
 
     @Bean
     public ObjectMapper objectMapper(Jackson2ObjectMapperBuilder builder) {
@@ -33,6 +40,7 @@ public class ObjectMapperConfig {
                 new ConstraintViolationProblemModule()
             )
             .build()
+            .setTimeZone(ASIA_SEOUL)
             .setNodeFactory(JsonNodeFactory.withExactBigDecimals(true));
     }
 
