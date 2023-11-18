@@ -1,16 +1,15 @@
 package io.everyone.travel.exception;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.*;
-import org.springframework.validation.ObjectError;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
-import org.zalando.problem.spring.web.advice.ProblemHandling;
-
-import java.util.List;
 
 @Slf4j
 @RestControllerAdvice
