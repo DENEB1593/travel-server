@@ -15,10 +15,10 @@ public class PlanMapper {
      */
     public static Plan toEntity(PlanWriteRequest from) {
         return Plan.builder()
-            .title(from.getTitle())
-            .memo(from.getMemo())
-            .startAt(from.getStartAt())
-            .endAt(from.getEndAt())
+            .title(from.title())
+            .memo(from.memo())
+            .startAt(from.startAt())
+            .endAt(from.endAt())
             .build();
     }
 

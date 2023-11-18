@@ -13,7 +13,7 @@ public class ExpenseMapper {
      */
     public static Expense toEntity(ExpenseWriteRequest from) {
         return Expense.builder()
-            .amt(from.getAmt())
+            .amt(from.amt())
             .build();
     }
 
