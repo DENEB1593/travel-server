@@ -20,10 +20,10 @@ public class TravelMapper {
     public static Travel toEntity(TravelWriteRequest from) {
 
         Travel entity = Travel.builder()
-            .title(from.getTitle())
-            .startAt(from.getStartAt())
-            .endAt(from.getEndAt())
-            .nation(EnumUtil.byEnumName(Nation.class, from.getNation()))
+            .title(from.title())
+            .startAt(from.startAt())
+            .endAt(from.endAt())
+            .nation(EnumUtil.byEnumName(Nation.class, from.nation()))
             .build();
 
         return entity;
