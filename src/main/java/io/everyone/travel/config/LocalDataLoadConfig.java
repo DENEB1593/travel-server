@@ -66,7 +66,7 @@ public class LocalDataLoadConfig implements ApplicationListener<ApplicationStart
 
             // plan
             int planSize = random.nextInt(3);
-            List<Plan> plans = new ArrayList<>();
+            Set<Plan> plans = new HashSet<>();
             for (int j = 0; j < planSize; j++) {
 
                 String planTitle = faker.lorem().sentence();
@@ -87,7 +87,7 @@ public class LocalDataLoadConfig implements ApplicationListener<ApplicationStart
 
             // expense
             int expenseSize = random.nextInt(5);
-            List<Expense> expenses = new ArrayList<>();
+            Set<Expense> expenses = new HashSet<>();
             for (int j = 0; j < expenseSize; j++) {
                 Expense expense = Expense.builder()
                     .amt(randomAmt())

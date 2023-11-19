@@ -9,9 +9,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.util.ObjectUtils;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 
 @Getter
@@ -47,7 +45,7 @@ public class Travel extends BaseEntity {
         cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
         fetch = FetchType.LAZY
     )
-    List<Plan> plans = new ArrayList<>();
+    Set<Plan> plans = new HashSet<>();
 
     @OneToMany(
         mappedBy = "travel",
@@ -55,7 +53,7 @@ public class Travel extends BaseEntity {
         cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
         fetch = FetchType.LAZY
     )
-    List<Expense> expenses = new ArrayList<>();
+    Set<Expense> expenses = new HashSet<>();
 
 
     protected Travel() { }
@@ -69,26 +67,26 @@ public class Travel extends BaseEntity {
         this.thumbnail = thumbnail;
     }
 
-    public void setPlans(List<Plan> plans) {
+    public void setPlans(Set<Plan> plans) {
         this.plans = plans;
         for (Plan plan : plans) {
             plan.setTravel(this);
         }
     }
 
-    public void setExpenses(List<Expense> expenses) {
+    public void setExpenses(Set<Expense> expenses) {
         this.expenses = expenses;
         for (Expense expense : expenses) {
             expense.setTravel(this);
         }
     }
 
-    public List<Plan> getPlans() {
-        return ObjectUtils.isEmpty(plans) ? Collections.emptyList() : plans;
+    public Set<Plan> getPlans() {
+        return ObjectUtils.isEmpty(plans) ? Collections.emptySet() : plans;
     }
 
-    public List<Expense> getExpenses() {
-        return ObjectUtils.isEmpty(expenses) ? Collections.emptyList() : expenses;
+    public Set<Expense> getExpenses() {
+        return ObjectUtils.isEmpty(expenses) ? Collections.emptySet() : expenses;
     }
 
     public void updateThumbnail(String thumbnail) {

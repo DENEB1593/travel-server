@@ -5,6 +5,11 @@ spring:
   application:
     name: travel-server
 
+  jpa:
+    properties:
+      hibernate:
+        default_batch_fetch_size: 1000
+
 springdoc:
   api-docs:
     enabled: true
