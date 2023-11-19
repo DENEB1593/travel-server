@@ -6,6 +6,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
+    show-sql: false
 
 
   # real 환경 DB 정보

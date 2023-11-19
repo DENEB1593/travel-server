@@ -31,6 +31,9 @@ dependencies {
 	// mysql
 	implementation "com.mysql:mysql-connector-j:${mysqlDriverVersion}"
 
+	// p6spy-logging
+	implementation "com.github.gavlyukovskiy:p6spy-spring-boot-starter:${p6spyVersion}"
+
 	// openapi
 	implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springDocOpenApiVersion}"
 
