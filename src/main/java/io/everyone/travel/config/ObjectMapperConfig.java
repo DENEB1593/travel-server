@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.cfg.JsonNodeFeature;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -32,8 +31,7 @@ public class ObjectMapperConfig {
                 SerializationFeature.WRITE_DATES_AS_TIMESTAMPS,
                 SerializationFeature.WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS,
                 DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS,
-                DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,
-                JsonNodeFeature.STRIP_TRAILING_BIGDECIMAL_ZEROES
+                DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES
             )
             .modules(
                 new JavaTimeModule(),
@@ -42,7 +40,8 @@ public class ObjectMapperConfig {
                 new ConstraintViolationProblemModule()
             )
             .build()
-            .setTimeZone(ASIA_SEOUL);
+            .setTimeZone(ASIA_SEOUL)
+            .setNodeFactory(JsonNodeFactory.withExactBigDecimals(true));
     }
 
 
