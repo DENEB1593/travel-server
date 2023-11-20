@@ -1,5 +1,6 @@
 package io.everyone.travel.domain;
 
+import io.everyone.travel.controller.dto.PlanUpdateRequest;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -58,6 +59,11 @@ public class Plan extends BaseEntity {
         this.travel = travel;
     }
 
+    public void updateFromRequest(PlanUpdateRequest request) {
+        this.title = request.title();
+        this.memo = request.memo();
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
@@ -68,4 +74,6 @@ public class Plan extends BaseEntity {
             .append("endAt", endAt)
             .toString();
     }
+
+
 }

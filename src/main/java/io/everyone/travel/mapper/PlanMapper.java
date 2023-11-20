@@ -44,6 +44,8 @@ public class PlanMapper {
             .memo(from.getMemo())
             .startAt(from.getStartAt())
             .endAt(from.getEndAt())
+            .createdAt(from.getCreatedAt())
+            .modifiedAt(from.getModifiedAt())
             .build();
     }
 

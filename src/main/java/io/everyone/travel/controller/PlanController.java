@@ -2,9 +2,11 @@ package io.everyone.travel.controller;
 
 
 import io.everyone.travel.controller.common.CommonResponse;
+import io.everyone.travel.controller.dto.PlanUpdateRequest;
 import io.everyone.travel.controller.dto.PlanView;
 import io.everyone.travel.exception.model.ProblemResponseModel;
 import io.everyone.travel.mapper.PlanMapper;
+import io.everyone.travel.mapper.TravelMapper;
 import io.everyone.travel.service.PlanService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -54,9 +56,21 @@ public class PlanController {
         );
     }
 
+    @PutMapping("/{planId}")
+    public CommonResponse<PlanView> update(
+        @PathVariable Long planId,
+        @RequestBody PlanUpdateRequest request
+    ) {
+        return CommonResponse.OK(
+            PlanMapper.toView(
+                planService.updatePlan(planId, request)
+            )
+        );
+    }
+
     @Operation(
         summary = "계획 정보 삭제",
-        description = "계획 정보를 삭제한다. ",
+        description = "계획 정보를 삭제한다",
         responses = {
             @ApiResponse(
                 responseCode = "200",

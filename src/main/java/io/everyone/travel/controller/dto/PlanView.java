@@ -19,4 +19,8 @@ public class PlanView {
 
     LocalDateTime endAt;
 
+    LocalDateTime createdAt;
+
+    LocalDateTime modifiedAt;
+
 }

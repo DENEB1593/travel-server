@@ -1,5 +1,6 @@
 package io.everyone.travel.service;
 
+import io.everyone.travel.controller.dto.PlanUpdateRequest;
 import io.everyone.travel.domain.Plan;
 import io.everyone.travel.domain.Travel;
 import io.everyone.travel.exception.NotFoundException;
@@ -38,5 +39,17 @@ public class PlanService {
                 }
             );
 
+    }
+
+    public Plan updatePlan(Long planId, PlanUpdateRequest request) {
+        Plan plan = planRepository
+            .findById(planId)
+            .orElseThrow(() -> new NotFoundException("계획 정보가 조회되지 않습니다"));
+
+        plan.updateFromRequest(request);
+
+        planRepository.save(plan);
+
+        return plan;
     }
 }
