@@ -2,9 +2,7 @@ package io.everyone.travel.controller;
 
 import io.everyone.travel.config.page.PageModel;
 import io.everyone.travel.controller.common.CommonResponse;
-import io.everyone.travel.controller.dto.TravelView;
-import io.everyone.travel.controller.dto.TravelWriteRequest;
-import io.everyone.travel.controller.dto.TravelWriteResponse;
+import io.everyone.travel.controller.dto.*;
 import io.everyone.travel.exception.NotFoundException;
 import io.everyone.travel.exception.model.ProblemResponseModel;
 import io.everyone.travel.mapper.TravelMapper;
@@ -51,7 +49,7 @@ public class TravelController {
         @ModelAttribute @Valid TravelWriteRequest request
     ) {
         return CommonResponse.OK(
-            TravelMapper.toResponse(
+            TravelMapper.toWriteResponse(
                 travelService.save(request)
             )
         );
@@ -114,6 +112,18 @@ public class TravelController {
         );
     }
 
+
+    @PutMapping("/{travelId}")
+    public CommonResponse<TravelUpdateResponse> update(
+        @PathVariable Long travelId,
+        @RequestBody @Valid TravelUpdateRequest request
+    ) {
+        return CommonResponse.OK(
+            TravelMapper.toUpdateResponse(
+                travelService.updateTravel(travelId, request)
+            )
+        );
+    }
 
     @Operation(
         summary = "여행 정보 삭제",

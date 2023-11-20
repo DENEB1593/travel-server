@@ -1,9 +1,6 @@
 package io.everyone.travel.mapper;
 
-import io.everyone.travel.controller.dto.NationModel;
-import io.everyone.travel.controller.dto.TravelView;
-import io.everyone.travel.controller.dto.TravelWriteRequest;
-import io.everyone.travel.controller.dto.TravelWriteResponse;
+import io.everyone.travel.controller.dto.*;
 import io.everyone.travel.domain.Travel;
 import io.everyone.travel.domain.enums.Nation;
 import io.everyone.travel.util.EnumUtil;
@@ -29,7 +26,7 @@ public class TravelMapper {
     /**
      * 여행엔티티 -> 여행작성응답 변환
      */
-    public static TravelWriteResponse toResponse(Travel from) {
+    public static TravelWriteResponse toWriteResponse(Travel from) {
         return TravelWriteResponse.builder()
             .id(from.getId())
             .title(from.getTitle())
@@ -37,6 +34,22 @@ public class TravelMapper {
             .endAt(from.getEndAt())
             .nation(NationModel.of(from.getNation()))
             .createdAt(from.getCreatedAt())
+            .modifiedAt(from.getModifiedAt())
+            .build();
+    }
+
+    /**
+     * 여행엔티티 -> 여행수정응답 변환
+     */
+    public static TravelUpdateResponse toUpdateResponse(Travel from) {
+        return TravelUpdateResponse.builder()
+            .id(from.getId())
+            .title(from.getTitle())
+            .startAt(from.getStartAt())
+            .endAt(from.getEndAt())
+            .nation(NationModel.of(from.getNation()))
+            .createdAt(from.getCreatedAt())
+            .modifiedAt(from.getModifiedAt())
             .build();
     }
 
