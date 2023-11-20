@@ -6,6 +6,8 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.springframework.util.ObjectUtils;
 
 import java.time.LocalDateTime;
@@ -15,7 +17,9 @@ import java.util.*;
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-@Table
+@Table(name = "travel")
+@SQLDelete(sql = "UPDATE travel SET deleted_at = now() WHERE id = ?")
+@Where(clause = "deleted_at is null")
 public class Travel extends BaseEntity {
 
     @Id

@@ -5,6 +5,8 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import java.math.BigDecimal;
 
@@ -12,6 +14,8 @@ import java.math.BigDecimal;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "expense")
+@SQLDelete(sql = "UPDATE expense SET deleted_at = now() WHERE id = ?")
+@Where(clause = "deleted_at is null")
 public class Expense extends BaseEntity {
 
     @Id
