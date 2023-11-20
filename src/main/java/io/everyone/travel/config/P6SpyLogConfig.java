@@ -52,13 +52,15 @@ public class P6SpyLogConfig implements InitializingBean {
     private static String formatSql(String category, String sql) {
 
         if (Category.STATEMENT.getName().equals(category)) {
-            String tmpsql = sql.trim().toLowerCase(Locale.ROOT);
-            if(tmpsql.startsWith("create") || tmpsql.startsWith("alter") || tmpsql.startsWith("comment")) {
+            String temp = sql.trim().toLowerCase(Locale.ROOT);
+
+            if (temp.startsWith("create") ||
+                temp.startsWith("alter")  ||
+                temp.startsWith("comment")) {
                 sql = FormatStyle.DDL.getFormatter().format(sql);
-            }else {
+            } else {
                 sql = FormatStyle.BASIC.getFormatter().format(sql);
             }
-            sql = sql;
         }
 
         return sql;

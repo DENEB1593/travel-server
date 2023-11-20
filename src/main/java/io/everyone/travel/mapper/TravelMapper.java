@@ -18,15 +18,12 @@ public class TravelMapper {
      * 여행쓰기요청 -> 여행엔티티 변환
      */
     public static Travel toEntity(TravelWriteRequest from) {
-
-        Travel entity = Travel.builder()
+        return Travel.builder()
             .title(from.title())
             .startAt(from.startAt())
             .endAt(from.endAt())
             .nation(EnumUtil.byEnumName(Nation.class, from.nation()))
             .build();
-
-        return entity;
     }
 
     /**
