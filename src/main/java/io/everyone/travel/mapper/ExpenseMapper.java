@@ -20,10 +20,11 @@ public class ExpenseMapper {
     /**
      * 지출엔티티 -> 지출쓰기응답 변환
      */
-    public static ExpenseWriteResponse toResponse(Expense from) {
+    public static ExpenseWriteResponse toWriteResponse(Expense from) {
         return ExpenseWriteResponse.builder()
             .id(from.getId())
             .amt(from.getAmt())
+            .travelId(from.getId())
             .createdAt(from.getCreatedAt())
             .modifiedAt(from.getModifiedAt())
             .build();
@@ -36,6 +37,7 @@ public class ExpenseMapper {
         return ExpenseView.builder()
             .id(from.getId())
             .amt(from.getAmt())
+            .travelId(from.getId())
             .createdAt(from.getCreatedAt())
             .modifiedAt(from.getModifiedAt())
             .build();

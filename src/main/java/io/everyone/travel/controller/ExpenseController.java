@@ -45,7 +45,7 @@ public class ExpenseController {
         @RequestBody @Valid ExpenseWriteRequest request
     ) {
         return CommonResponse.OK(
-            ExpenseMapper.toResponse(
+            ExpenseMapper.toWriteResponse(
                 expenseService.save(request)
             )
         );

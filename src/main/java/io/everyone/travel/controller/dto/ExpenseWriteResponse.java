@@ -14,6 +14,8 @@ public class ExpenseWriteResponse {
 
     BigDecimal amt;
 
+    Long travelId;
+
     LocalDateTime createdAt;
 
     LocalDateTime modifiedAt;
