@@ -1,5 +1,6 @@
 package io.everyone.travel.service;
 
+import io.everyone.travel.controller.dto.TravelUpdateRequest;
 import io.everyone.travel.controller.dto.TravelWriteRequest;
 import io.everyone.travel.domain.Travel;
 import io.everyone.travel.exception.NotFoundException;
@@ -42,6 +43,16 @@ public class TravelService {
         return travelRepository.findAllFetchJoin(pageable);
     }
 
+    @Transactional
+    public Travel updateTravel(Long travelId, TravelUpdateRequest request) {
+        Travel travel = this.findById(travelId)
+            .orElseThrow(() -> new NotFoundException("여행 정보가 조회되지 않습니다"));
+
+        travel.updateFromRequest(request);
+        travelRepository.save(travel);
+
+        return travel;
+    }
 
     @Transactional
     public void deleteById(Long travelId) {

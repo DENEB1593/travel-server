@@ -1,8 +1,12 @@
 package io.everyone.travel.domain;
 
+import io.everyone.travel.controller.dto.TravelUpdateRequest;
 import io.everyone.travel.domain.enums.Nation;
+import io.everyone.travel.util.EnumUtil;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -11,7 +15,9 @@ import org.hibernate.annotations.Where;
 import org.springframework.util.ObjectUtils;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Getter
@@ -95,6 +101,13 @@ public class Travel extends BaseEntity {
 
     public void updateThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;  // 썸네일 경로를 저장한다.
+    }
+
+    public void updateFromRequest(TravelUpdateRequest request) {
+        this.title = request.title();
+        this.nation = EnumUtil.byEnumName(Nation.class, request.nation());
+        this.startAt = request.startAt();
+        this.endAt = request.endAt();
     }
 
     @Override
