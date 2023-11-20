@@ -1,5 +1,6 @@
 package io.everyone.travel.domain;
 
+import io.everyone.travel.controller.dto.ExpenseUpdateRequest;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -45,6 +46,11 @@ public class Expense extends BaseEntity {
         this.travel = travel;
     }
 
+
+    public void updateFromRequest(ExpenseUpdateRequest request) {
+        this.amt = request.amt();
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
@@ -52,4 +58,5 @@ public class Expense extends BaseEntity {
             .append("amt", amt)
             .toString();
     }
+
 }

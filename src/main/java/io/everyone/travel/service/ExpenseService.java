@@ -1,5 +1,7 @@
 package io.everyone.travel.service;
 
+import io.everyone.travel.controller.dto.ExpenseUpdateRequest;
+import io.everyone.travel.controller.dto.ExpenseUpdateResponse;
 import io.everyone.travel.controller.dto.ExpenseView;
 import io.everyone.travel.controller.dto.ExpenseWriteRequest;
 import io.everyone.travel.domain.Expense;
@@ -58,5 +60,14 @@ public class ExpenseService {
     }
 
 
+    public Expense updateExpense(Long expenseId, ExpenseUpdateRequest request) {
+        Expense expense = expenseRepository
+            .findById(expenseId)
+            .orElseThrow(() -> new NotFoundException("지출 정보가 조회되지 않습니다"));
 
+        expense.updateFromRequest(request);
+        expenseRepository.save(expense);
+
+        return expense;
+    }
 }

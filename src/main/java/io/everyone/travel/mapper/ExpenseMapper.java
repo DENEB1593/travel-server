@@ -31,6 +31,19 @@ public class ExpenseMapper {
     }
 
     /**
+     * 지출엔티티 -> 지출수정응답 변환
+     */
+    public static ExpenseUpdateResponse toUpdateResponse(Expense from) {
+        return ExpenseUpdateResponse.builder()
+            .id(from.getId())
+            .amt(from.getAmt())
+            .travelId(from.getId())
+            .createdAt(from.getCreatedAt())
+            .modifiedAt(from.getModifiedAt())
+            .build();
+    }
+
+    /**
      * 지출엔티티 -> 지출뷰모델 변환
      */
     public static ExpenseView toView(Expense from) {
