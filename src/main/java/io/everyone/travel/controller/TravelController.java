@@ -95,7 +95,7 @@ public class TravelController {
             )
         }
     )
-    @Parameters ({
+    @Parameters({
         @Parameter(name = "page", description = "페이지 번호", example = "1"),
         @Parameter(name = "size", description = "페이지 크기", example = "20")
     })
