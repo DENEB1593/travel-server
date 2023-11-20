@@ -74,14 +74,14 @@ public class TravelController {
             ),
         }
     )
-    @GetMapping("/{id}")
+    @GetMapping("/{travelId}")
     public CommonResponse<TravelView> find(
-        @PathVariable Long id
+        @PathVariable Long travelId
     ) {
         return CommonResponse.OK(
-            travelService.findById(id)
+            travelService.findById(travelId)
                 .map(TravelMapper::toView)
-                .orElseThrow(() -> new NotFoundException(String.format("travel not found with id [%d]", id)))
+                .orElseThrow(() -> new NotFoundException(String.format("travel not found with id [%d]", travelId)))
         );
     }
 

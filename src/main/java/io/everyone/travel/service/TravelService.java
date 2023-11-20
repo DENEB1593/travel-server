@@ -32,8 +32,8 @@ public class TravelService {
     }
 
     @Transactional(readOnly = true)
-    public Optional<Travel> findById(Long id) {
-        return travelRepository.findById(id);
+    public Optional<Travel> findById(Long travelId) {
+        return travelRepository.findById(travelId);
     }
 
     @Transactional(readOnly = true)
