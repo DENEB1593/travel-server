@@ -36,6 +36,8 @@ public class ExpenseMapper {
         return ExpenseView.builder()
             .id(from.getId())
             .amt(from.getAmt())
+            .createdAt(from.getCreatedAt())
+            .modifiedAt(from.getModifiedAt())
             .build();
     }
 
