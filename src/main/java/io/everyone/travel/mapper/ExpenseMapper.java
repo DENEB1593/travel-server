@@ -22,7 +22,10 @@ public class ExpenseMapper {
      */
     public static ExpenseWriteResponse toResponse(Expense from) {
         return ExpenseWriteResponse.builder()
+            .id(from.getId())
             .amt(from.getAmt())
+            .createdAt(from.getCreatedAt())
+            .modifiedAt(from.getModifiedAt())
             .build();
     }
 
