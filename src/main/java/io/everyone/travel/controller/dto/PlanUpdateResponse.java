@@ -7,9 +7,10 @@ import java.time.LocalDateTime;
 
 @Value
 @Builder
-public class PlanWriteResponse {
+public class PlanUpdateResponse {
 
     Long id;
+
     String title;
 
     String memo;

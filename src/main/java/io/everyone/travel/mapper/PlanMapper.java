@@ -1,5 +1,6 @@
 package io.everyone.travel.mapper;
 
+import io.everyone.travel.controller.dto.PlanUpdateResponse;
 import io.everyone.travel.controller.dto.PlanView;
 import io.everyone.travel.controller.dto.PlanWriteRequest;
 import io.everyone.travel.controller.dto.PlanWriteResponse;
@@ -25,16 +26,35 @@ public class PlanMapper {
     /**
      * 계획엔티티 -> 계획쓰기응답 변환
      */
-    public static PlanWriteResponse toResponse(Plan from) {
+    public static PlanWriteResponse toWriteResponse(Plan from) {
         return PlanWriteResponse.builder()
+            .id(from.getId())
             .title(from.getTitle())
             .memo(from.getMemo())
             .startAt(from.getStartAt())
             .endAt(from.getEndAt())
+            .travelId(from.getTravel().getId())
             .createdAt(from.getCreatedAt())
             .modifiedAt(from.getModifiedAt())
             .build();
     }
+
+    /**
+     * 계획엔티티 -> 계획수정응답 변환
+     */
+    public static PlanUpdateResponse toUpdateResponse(Plan from) {
+        return PlanUpdateResponse.builder()
+            .id(from.getId())
+            .title(from.getTitle())
+            .memo(from.getMemo())
+            .startAt(from.getStartAt())
+            .endAt(from.getEndAt())
+            .travelId(from.getTravel().getId())
+            .createdAt(from.getCreatedAt())
+            .modifiedAt(from.getModifiedAt())
+            .build();
+    }
+
 
     /**
      * 계획엔티티 -> 계획뷰모델 변환

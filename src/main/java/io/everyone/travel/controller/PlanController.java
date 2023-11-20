@@ -2,10 +2,7 @@ package io.everyone.travel.controller;
 
 
 import io.everyone.travel.controller.common.CommonResponse;
-import io.everyone.travel.controller.dto.PlanUpdateRequest;
-import io.everyone.travel.controller.dto.PlanView;
-import io.everyone.travel.controller.dto.PlanWriteRequest;
-import io.everyone.travel.controller.dto.PlanWriteResponse;
+import io.everyone.travel.controller.dto.*;
 import io.everyone.travel.exception.model.ProblemResponseModel;
 import io.everyone.travel.mapper.PlanMapper;
 import io.everyone.travel.service.PlanService;
@@ -46,7 +43,7 @@ public class PlanController {
         @RequestBody @Valid PlanWriteRequest request
     ) {
         return CommonResponse.OK(
-            PlanMapper.toResponse(
+            PlanMapper.toWriteResponse(
                 planService.save(request)
             )
         );
@@ -94,12 +91,12 @@ public class PlanController {
         }
     )
     @PutMapping("/{planId}")
-    public CommonResponse<PlanView> update(
+    public CommonResponse<PlanUpdateResponse> update(
         @PathVariable Long planId,
         @RequestBody PlanUpdateRequest request
     ) {
         return CommonResponse.OK(
-            PlanMapper.toView(
+            PlanMapper.toUpdateResponse(
                 planService.updatePlan(planId, request)
             )
         );
