@@ -7,7 +7,6 @@ import io.everyone.travel.domain.Travel;
 import io.everyone.travel.exception.NotFoundException;
 import io.everyone.travel.mapper.PlanMapper;
 import io.everyone.travel.repository.PlanRepository;
-import io.everyone.travel.repository.TravelRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +26,6 @@ public class PlanService {
             .findById(travelId)
             .map(Travel::getPlans)
             .orElseThrow(() -> new NotFoundException(String.format("travel not found with id [%d]", travelId)));
-
     }
 
     @Transactional
