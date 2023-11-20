@@ -115,4 +115,24 @@ public class TravelController {
     }
 
 
+    @Operation(
+        summary = "여행 정보 삭제",
+        description = "여행 정보를 삭제한다. ",
+        responses = {
+            @ApiResponse(
+                responseCode = "200",
+                description = "삭제 성공",
+                useReturnTypeSchema = true
+            )
+        }
+    )
+    @DeleteMapping("/{travelId}")
+    public CommonResponse<?> delete(
+        @PathVariable Long travelId
+    ) {
+        travelService.deleteById(travelId);
+        return CommonResponse.OK("삭제 완료");
+    }
+
+
 }

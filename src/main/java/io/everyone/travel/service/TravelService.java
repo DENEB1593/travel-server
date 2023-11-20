@@ -1,8 +1,8 @@
 package io.everyone.travel.service;
 
-import io.everyone.travel.controller.dto.TravelView;
 import io.everyone.travel.controller.dto.TravelWriteRequest;
 import io.everyone.travel.domain.Travel;
+import io.everyone.travel.exception.NotFoundException;
 import io.everyone.travel.mapper.TravelMapper;
 import io.everyone.travel.repository.TravelRepository;
 import lombok.RequiredArgsConstructor;
@@ -10,9 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.ObjectUtils;
 
-import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,4 +43,17 @@ public class TravelService {
     }
 
 
+    @Transactional
+    public void deleteById(Long travelId) {
+        travelRepository
+            .findById(travelId)
+            .ifPresentOrElse(
+                (travel) ->
+                    travelRepository.deleteById(travel.getId()),
+                () -> {
+                    throw new NotFoundException("여행 정보가 조회되지 않습니다");
+                }
+            );
+        ;
+    }
 }
