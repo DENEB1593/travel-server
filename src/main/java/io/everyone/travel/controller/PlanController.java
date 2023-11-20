@@ -12,10 +12,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -55,6 +52,25 @@ public class PlanController {
                 .map(PlanMapper::toView)
                 .toList()
         );
+    }
+
+    @Operation(
+        summary = "계획 정보 삭제",
+        description = "계획 정보를 삭제한다. ",
+        responses = {
+            @ApiResponse(
+                responseCode = "200",
+                description = "삭제 성공",
+                useReturnTypeSchema = true
+            )
+        }
+    )
+    @DeleteMapping("/{planId}")
+    public CommonResponse<?> delete(
+        @PathVariable Long planId
+    ) {
+        planService.deleteById(planId);
+        return CommonResponse.OK("삭제 완료");
     }
 
 
