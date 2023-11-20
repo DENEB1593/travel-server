@@ -113,6 +113,17 @@ public class TravelController {
     }
 
 
+
+    @Operation(
+        summary = "여행 정보 수정",
+        responses = {
+            @ApiResponse(
+                responseCode = "200",
+                description = "조회 성공",
+                useReturnTypeSchema = true
+            )
+        }
+    )
     @PutMapping("/{travelId}")
     public CommonResponse<TravelUpdateResponse> update(
         @PathVariable Long travelId,
