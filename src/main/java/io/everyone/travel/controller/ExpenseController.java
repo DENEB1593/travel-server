@@ -1,9 +1,7 @@
 package io.everyone.travel.controller;
 
 import io.everyone.travel.controller.common.CommonResponse;
-import io.everyone.travel.controller.dto.ExpenseView;
-import io.everyone.travel.controller.dto.ExpenseWriteRequest;
-import io.everyone.travel.controller.dto.ExpenseWriteResponse;
+import io.everyone.travel.controller.dto.*;
 import io.everyone.travel.exception.model.ProblemResponseModel;
 import io.everyone.travel.mapper.ExpenseMapper;
 import io.everyone.travel.service.ExpenseService;
@@ -81,6 +79,28 @@ public class ExpenseController {
                 .stream()
                 .map(ExpenseMapper::toView)
                 .toList()
+        );
+    }
+
+    @Operation(
+        summary = "지출 정보 수정",
+        responses = {
+            @ApiResponse(
+                responseCode = "200",
+                description = "조회 성공",
+                useReturnTypeSchema = true
+            )
+        }
+    )
+    @PutMapping("/{expenseId}")
+    public CommonResponse<ExpenseUpdateResponse> update(
+        @PathVariable Long expenseId,
+        @RequestBody @Valid ExpenseUpdateRequest request
+    ) {
+        return CommonResponse.OK(
+            ExpenseMapper.toUpdateResponse(
+                expenseService.updateExpense(expenseId, request)
+            )
         );
     }
 
