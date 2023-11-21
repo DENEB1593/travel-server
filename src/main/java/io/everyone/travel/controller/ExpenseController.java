@@ -50,38 +50,6 @@ public class ExpenseController {
     }
 
 
-
-    @Operation(
-        summary = "지출 목록 조회",
-        description = "여행ID로 등록된 지출 목록을 조회한다",
-        responses = {
-            @ApiResponse(
-                responseCode = "200",
-                description = "조회 성공",
-                useReturnTypeSchema = true
-            ),
-            @ApiResponse(
-                responseCode = "404",
-                description = "조회 불가",
-                content = @Content(
-                    schema = @Schema(implementation = ProblemResponseModel.class)
-                )
-            ),
-        }
-    )
-
-    @GetMapping("/{travelId}")
-    public CommonResponse<List<ExpenseView>> findAll(
-        @PathVariable Long travelId
-    ) {
-        return CommonResponse.OK(
-            expenseService.findByTravelId(travelId)
-                .stream()
-                .map(ExpenseMapper::toView)
-                .toList()
-        );
-    }
-
     @Operation(
         summary = "지출 정보 수정",
         responses = {

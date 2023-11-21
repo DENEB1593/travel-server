@@ -3,6 +3,7 @@ package io.everyone.travel.controller;
 
 import io.everyone.travel.controller.common.CommonResponse;
 import io.everyone.travel.controller.dto.*;
+import io.everyone.travel.exception.NotFoundException;
 import io.everyone.travel.exception.model.ProblemResponseModel;
 import io.everyone.travel.mapper.PlanMapper;
 import io.everyone.travel.service.PlanService;
@@ -14,8 +15,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
@@ -50,8 +49,8 @@ public class PlanController {
     }
 
     @Operation(
-        summary = "계획 목록 조회",
-        description = "여행ID로 등록된 계획 목록을 조회한다",
+        summary = "계획 단건 조회",
+        description = "계획 정보를 조회한다",
         responses = {
             @ApiResponse(
                 responseCode = "200",
@@ -64,18 +63,17 @@ public class PlanController {
                 content = @Content(
                     schema = @Schema(implementation = ProblemResponseModel.class)
                 )
-            ),
+            )
         }
     )
-    @GetMapping("/{travelId}")
-    public CommonResponse<List<PlanView>> find(
-        @PathVariable Long travelId
+    @GetMapping("/{planId}")
+    public CommonResponse<PlanView> find(
+        @PathVariable Long planId
     ) {
         return CommonResponse.OK(
-            planService.findByTravelId(travelId)
-                .stream()
+            planService.findByPlanId(planId)
                 .map(PlanMapper::toView)
-                .toList()
+                .orElseThrow(() -> new NotFoundException("계획 정보 조회되지 않습니다"))
         );
     }
 

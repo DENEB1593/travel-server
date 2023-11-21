@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -19,6 +20,20 @@ public class PlanService {
 
     private final TravelService travelService;
     private final PlanRepository planRepository;
+
+    @Transactional
+    public Plan save(PlanWriteRequest request) {
+        Travel travel = travelService
+            .findById(request.travelId())
+            .orElseThrow(() -> new NotFoundException("여행 정보가 조회되지 않습니다"));
+
+        Plan plan = PlanMapper.toEntity(request);
+        plan.setTravel(travel);
+
+        planRepository.save(plan);
+
+        return plan;
+    }
 
     @Transactional(readOnly = true)
     public Set<Plan> findByTravelId(Long travelId) {
@@ -29,16 +44,8 @@ public class PlanService {
     }
 
     @Transactional
-    public void deleteById(Long planId) {
-        planRepository.findById(planId)
-            .ifPresentOrElse(
-                (plan) ->
-                    planRepository.deleteById(plan.getId()),
-                () -> {
-                    throw new NotFoundException("계획 정보가 조회되지 않습니다");
-                }
-            );
-
+    public Optional<Plan> findByPlanId(Long planId) {
+        return planRepository.findById(planId);
     }
 
     @Transactional
@@ -54,17 +61,19 @@ public class PlanService {
         return plan;
     }
 
+
+
     @Transactional
-    public Plan save(PlanWriteRequest request) {
-        Travel travel = travelService
-            .findById(request.travelId())
-            .orElseThrow(() -> new NotFoundException("여행 정보가 조회되지 않습니다"));
+    public void deleteById(Long planId) {
+        planRepository.findById(planId)
+            .ifPresentOrElse(
+                (plan) ->
+                    planRepository.deleteById(plan.getId()),
+                () -> {
+                    throw new NotFoundException("계획 정보가 조회되지 않습니다");
+                }
+            );
 
-        Plan plan = PlanMapper.toEntity(request);
-        plan.setTravel(travel);
-
-        planRepository.save(plan);
-
-        return plan;
     }
+
 }

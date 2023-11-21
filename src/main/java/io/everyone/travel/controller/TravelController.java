@@ -5,7 +5,11 @@ import io.everyone.travel.controller.common.CommonResponse;
 import io.everyone.travel.controller.dto.*;
 import io.everyone.travel.exception.NotFoundException;
 import io.everyone.travel.exception.model.ProblemResponseModel;
+import io.everyone.travel.mapper.ExpenseMapper;
+import io.everyone.travel.mapper.PlanMapper;
 import io.everyone.travel.mapper.TravelMapper;
+import io.everyone.travel.service.ExpenseService;
+import io.everyone.travel.service.PlanService;
 import io.everyone.travel.service.TravelService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -32,6 +36,8 @@ import static org.springframework.http.HttpStatus.CREATED;
 public class TravelController {
 
     private final TravelService travelService;
+    private final PlanService planService;
+    private final ExpenseService expenseService;
 
     @Operation(
         summary = "여행 정보 저장",
@@ -112,7 +118,77 @@ public class TravelController {
         );
     }
 
+    @Operation(
+        summary = "여행 내 계획 목록 조회",
+        description = "여행ID로 등록된 계획 목록을 조회한다",
+        responses = {
+            @ApiResponse(
+                responseCode = "200",
+                description = "조회 성공",
+                useReturnTypeSchema = true
+            ),
+            @ApiResponse(
+                responseCode = "404",
+                description = "조회 불가",
+                content = @Content(
+                    schema = @Schema(implementation = ProblemResponseModel.class)
+                )
+            ),
+        }
+    )
+    @GetMapping("/{travelId}/plans")
+    public CommonResponse<List<PlanView>> findPlans(
+        @PathVariable Long travelId
+    ) {
+        return CommonResponse.OK(
+            planService.findByTravelId(travelId)
+                .stream()
+                .map(PlanMapper::toView)
+                .toList()
+        );
+    }
 
+    @Operation(
+        summary = "여행 내 지출 목록 조회",
+        description = "여행ID로 등록된 지출 목록을 조회한다",
+        responses = {
+            @ApiResponse(
+                responseCode = "200",
+                description = "조회 성공",
+                useReturnTypeSchema = true
+            ),
+            @ApiResponse(
+                responseCode = "404",
+                description = "조회 불가",
+                content = @Content(
+                    schema = @Schema(implementation = ProblemResponseModel.class)
+                )
+            ),
+        }
+    )
+    @GetMapping("/{travelId}/expenses")
+    public CommonResponse<List<ExpenseView>> findExpenses(
+        @PathVariable Long travelId
+    ) {
+        return CommonResponse.OK(
+            expenseService.findByTravelId(travelId)
+                .stream()
+                .map(ExpenseMapper::toView)
+                .toList()
+        );
+    }
+
+
+    @Operation(
+        summary = "여행 정보 수정",
+        responses = {
+            @ApiResponse(
+                responseCode = "200",
+                description = "조회 성공",
+                useReturnTypeSchema = true
+            )
+        }
+    )
     @PutMapping("/{travelId}")
     public CommonResponse<TravelUpdateResponse> update(
         @PathVariable Long travelId,
