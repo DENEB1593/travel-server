@@ -2,8 +2,10 @@ package io.everyone.travel.controller;
 
 import io.everyone.travel.controller.common.CommonResponse;
 import io.everyone.travel.controller.dto.*;
+import io.everyone.travel.exception.NotFoundException;
 import io.everyone.travel.exception.model.ProblemResponseModel;
 import io.everyone.travel.mapper.ExpenseMapper;
+import io.everyone.travel.mapper.PlanMapper;
 import io.everyone.travel.service.ExpenseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -51,11 +53,41 @@ public class ExpenseController {
 
 
     @Operation(
-        summary = "지출 정보 수정",
+        summary = "지출 단건 조회",
+        description = "지출 정보를 조회한다",
         responses = {
             @ApiResponse(
                 responseCode = "200",
                 description = "조회 성공",
+                useReturnTypeSchema = true
+            ),
+            @ApiResponse(
+                responseCode = "404",
+                description = "조회 불가",
+                content = @Content(
+                    schema = @Schema(implementation = ProblemResponseModel.class)
+                )
+            )
+        }
+    )
+    @GetMapping("/{expenseId}")
+    public CommonResponse<ExpenseView> find(
+        @PathVariable Long expenseId
+    ) {
+        return CommonResponse.OK(
+            expenseService.findByExpenseId(expenseId)
+                .map(ExpenseMapper::toView)
+                .orElseThrow(() -> new NotFoundException("지출 정보가 조회되지 않습니다"))
+        );
+    }
+
+
+    @Operation(
+        summary = "지출 정보 수정",
+        responses = {
+            @ApiResponse(
+                responseCode = "200",
+                description = "수정 성공",
                 useReturnTypeSchema = true
             )
         }

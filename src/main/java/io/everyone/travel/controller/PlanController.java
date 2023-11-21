@@ -73,7 +73,7 @@ public class PlanController {
         return CommonResponse.OK(
             planService.findByPlanId(planId)
                 .map(PlanMapper::toView)
-                .orElseThrow(() -> new NotFoundException("계획 정보 조회되지 않습니다"))
+                .orElseThrow(() -> new NotFoundException("계획 정보가 조회되지 않습니다"))
         );
     }
 

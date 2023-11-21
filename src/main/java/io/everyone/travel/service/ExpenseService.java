@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -36,6 +37,11 @@ public class ExpenseService {
         expenseRepository.save(expense);
 
         return expense;
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<Expense> findByExpenseId(Long expenseId) {
+        return expenseRepository.findById(expenseId);
     }
 
     @Transactional(readOnly = true)
@@ -70,4 +76,5 @@ public class ExpenseService {
 
         return expense;
     }
+
 }

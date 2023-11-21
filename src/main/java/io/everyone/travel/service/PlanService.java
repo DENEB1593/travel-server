@@ -43,7 +43,7 @@ public class PlanService {
             .orElseThrow(() -> new NotFoundException(String.format("travel not found with id [%d]", travelId)));
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public Optional<Plan> findByPlanId(Long planId) {
         return planRepository.findById(planId);
     }
