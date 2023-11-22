@@ -74,7 +74,7 @@ public class ExpenseController {
         return CommonResponse.OK(
             expenseService.findByExpenseId(expenseId)
                 .map(ExpenseMapper::toView)
-                .orElseThrow(() -> new NotFoundException("지출 정보가 조회되지 않습니다"))
+                .orElseThrow(NotFoundException::forExpense)
         );
     }
 
