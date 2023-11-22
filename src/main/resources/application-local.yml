@@ -1,3 +1,7 @@
+logging:
+  level:
+    web: debug
+
 spring:
   docker:
     compose:
