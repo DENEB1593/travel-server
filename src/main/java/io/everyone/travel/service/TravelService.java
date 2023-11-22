@@ -46,7 +46,7 @@ public class TravelService {
     @Transactional
     public Travel updateTravel(Long travelId, TravelUpdateRequest request) {
         Travel travel = this.findById(travelId)
-            .orElseThrow(() -> new NotFoundException("여행 정보가 조회되지 않습니다"));
+            .orElseThrow(NotFoundException::forTravel);
 
         travel.updateFromRequest(request);
         travelRepository.save(travel);
@@ -59,11 +59,8 @@ public class TravelService {
         travelRepository
             .findById(travelId)
             .ifPresentOrElse(
-                (travel) ->
-                    travelRepository.deleteById(travel.getId()),
-                () -> {
-                    throw new NotFoundException("여행 정보가 조회되지 않습니다");
-                }
+                (travel) -> travelRepository.deleteById(travel.getId()),
+                NotFoundException::forTravel
             );
         ;
     }

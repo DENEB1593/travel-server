@@ -5,7 +5,6 @@ import io.everyone.travel.controller.dto.*;
 import io.everyone.travel.exception.NotFoundException;
 import io.everyone.travel.exception.model.ProblemResponseModel;
 import io.everyone.travel.mapper.ExpenseMapper;
-import io.everyone.travel.mapper.PlanMapper;
 import io.everyone.travel.service.ExpenseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -15,8 +14,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
 

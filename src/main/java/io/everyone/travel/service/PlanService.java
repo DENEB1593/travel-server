@@ -25,7 +25,7 @@ public class PlanService {
     public Plan save(PlanWriteRequest request) {
         Travel travel = travelService
             .findById(request.travelId())
-            .orElseThrow(() -> new NotFoundException("여행 정보가 조회되지 않습니다"));
+            .orElseThrow(NotFoundException::forTravel);
 
         Plan plan = PlanMapper.toEntity(request);
         plan.setTravel(travel);
@@ -40,7 +40,7 @@ public class PlanService {
         return travelService
             .findById(travelId)
             .map(Travel::getPlans)
-            .orElseThrow(() -> new NotFoundException(String.format("travel not found with id [%d]", travelId)));
+            .orElseThrow(NotFoundException::forTravel);
     }
 
     @Transactional(readOnly = true)
@@ -52,7 +52,7 @@ public class PlanService {
     public Plan updatePlan(Long planId, PlanUpdateRequest request) {
         Plan plan = planRepository
             .findById(planId)
-            .orElseThrow(() -> new NotFoundException("계획 정보가 조회되지 않습니다"));
+            .orElseThrow(NotFoundException::forPlan);
 
         plan.updateFromRequest(request);
 
@@ -67,11 +67,8 @@ public class PlanService {
     public void deleteById(Long planId) {
         planRepository.findById(planId)
             .ifPresentOrElse(
-                (plan) ->
-                    planRepository.deleteById(plan.getId()),
-                () -> {
-                    throw new NotFoundException("계획 정보가 조회되지 않습니다");
-                }
+                (plan) -> planRepository.deleteById(plan.getId()),
+                NotFoundException::forPlan
             );
 
     }

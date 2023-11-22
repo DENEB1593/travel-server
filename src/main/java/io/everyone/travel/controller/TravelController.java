@@ -85,7 +85,7 @@ public class TravelController {
         return CommonResponse.OK(
             travelService.findById(travelId)
                 .map(TravelMapper::toView)
-                .orElseThrow(() -> new NotFoundException(String.format("travel not found with id [%d]", travelId)))
+                .orElseThrow(NotFoundException::forTravel)
         );
     }
 

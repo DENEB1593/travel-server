@@ -15,4 +15,25 @@ public class NotFoundException extends RuntimeException {
         super(message, cause);
     }
 
+    /**
+     * 여행(Travel) NOT FOUND
+     */
+    public static NotFoundException forTravel() {
+        return new NotFoundException("조회되지 않는 여행 정보입니다");
+    }
+
+    /**
+     * 계획(Plan) NOT FOUND
+     */
+    public static NotFoundException forPlan() {
+        return new NotFoundException("조회되지 않는 계획 정보입니다");
+    }
+
+    /**
+     * 지출(Expense) NOT FOUND
+     */
+    public static NotFoundException forExpense() {
+        return new NotFoundException("조회되지 않는 지출 정보입니다");
+    }
+
 }
