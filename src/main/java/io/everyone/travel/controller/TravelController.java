@@ -184,15 +184,15 @@ public class TravelController {
         responses = {
             @ApiResponse(
                 responseCode = "200",
-                description = "조회 성공",
+                description = "수정 성공",
                 useReturnTypeSchema = true
             )
         }
     )
-    @PutMapping("/{travelId}")
+    @PutMapping(path = "/{travelId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public CommonResponse<TravelUpdateResponse> update(
         @PathVariable Long travelId,
-        @RequestBody @Valid TravelUpdateRequest request
+        @ModelAttribute @Valid TravelUpdateRequest request
     ) {
         return CommonResponse.OK(
             TravelMapper.toUpdateResponse(
