@@ -3,7 +3,7 @@ package io.everyone.travel.mapper;
 import io.everyone.travel.controller.dto.*;
 import io.everyone.travel.domain.Travel;
 import io.everyone.travel.domain.enums.Nation;
-import io.everyone.travel.util.EnumUtil;
+import io.everyone.travel.util.EnumSupports;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -19,7 +19,7 @@ public class TravelMapper {
             .title(from.title())
             .startAt(from.startAt())
             .endAt(from.endAt())
-            .nation(EnumUtil.byEnumName(Nation.class, from.nation()))
+            .nation(EnumSupports.byEnumName(Nation.class, from.nation()))
             .build();
     }
 

@@ -7,11 +7,11 @@ import org.springframework.util.ObjectUtils;
 import java.util.EnumSet;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class EnumUtil {
+public class EnumSupports {
 
     public static <E extends Enum<E>> E byEnumName(Class<E> enumClz, String name) {
 
-        if (ObjectUtils.isEmpty(name)) {
+        if (name == null || name.isEmpty()) {
             return null;
         }
 

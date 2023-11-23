@@ -5,11 +5,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class EnumUtilTest {
+class EnumSupportsTest {
 
     @Test
     void test() {
-        Nation KR = EnumUtil.byEnumName(Nation.class, "KR");
+        Nation KR = EnumSupports.byEnumName(Nation.class, "KR");
 
         assertThat(KR).isNotNull();
         assertThat(KR.getEng()).isEqualTo("KOREA, REPUBLIC OF");

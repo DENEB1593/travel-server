@@ -2,7 +2,7 @@ package io.everyone.travel.domain;
 
 import io.everyone.travel.controller.dto.TravelUpdateRequest;
 import io.everyone.travel.domain.enums.Nation;
-import io.everyone.travel.util.EnumUtil;
+import io.everyone.travel.util.EnumSupports;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -105,7 +105,7 @@ public class Travel extends BaseEntity {
 
     public void updateFromRequest(TravelUpdateRequest request) {
         this.title = request.title();
-        this.nation = EnumUtil.byEnumName(Nation.class, request.nation());
+        this.nation = EnumSupports.byEnumName(Nation.class, request.nation());
         this.startAt = request.startAt();
         this.endAt = request.endAt();
     }
