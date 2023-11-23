@@ -67,7 +67,7 @@ public class ExpenseService {
         expenseRepository.findById(expenseId)
             .ifPresentOrElse(
                 (expense) -> expenseRepository.deleteById(expense.getId()),
-                NotFoundException::forExpense
+                () -> {throw NotFoundException.forExpense();}
             );
     }
 

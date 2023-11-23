@@ -60,7 +60,7 @@ public class TravelService {
             .findById(travelId)
             .ifPresentOrElse(
                 (travel) -> travelRepository.deleteById(travel.getId()),
-                NotFoundException::forTravel
+                () -> { throw NotFoundException.forTravel(); }
             );
         ;
     }
