@@ -1,32 +1,32 @@
 package io.everyone.travel.controller.dto;
 
 import io.everyone.travel.domain.enums.Nation;
-import lombok.Builder;
-import lombok.Value;
+import io.swagger.v3.oas.annotations.media.Schema;
 
-/**
- * 국가 코드 모델
- */
-@Value
-@Builder
-public class NationModel {
 
-    String code;
+@Schema(name = "국가 모델", description = "국가에 대한 정보를 나타낸다")
+public record NationModel(
 
-    String kr;
+    @Schema(description = "코드", example = "KR")
+    String code,
 
-    String eng;
+    @Schema(description = "한국어명", example = "대한민국")
+    String kr,
 
-    public static NationModel of(Nation nation) {
-        if (nation == null) {
+    @Schema(description = "영어명", example = "KOREA, REPUBLIC OF")
+    String eng
+) {
+
+    public static NationModel of(Nation from) {
+        if (from == null) {
             return null;
         }
 
-        return NationModel.builder()
-                .code(nation.getCode())
-                .kr(nation.getKr())
-                .eng(nation.getEng())
-                .build();
+        return new NationModel(
+            from.getCode(),
+            from.getKr(),
+            from.getEng()
+        );
     }
 
 }

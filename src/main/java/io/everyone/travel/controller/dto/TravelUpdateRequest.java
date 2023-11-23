@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 
+@Schema(name = "여행 수정 요청", description = "여행 수정 요청")
 public record TravelUpdateRequest(
     @Schema(description = "여행 시작일", type = "string", example = "2022-03-31T00:00:00")
     @NotNull(message = "여행 시작일은 필수 값입니다")
@@ -26,5 +27,6 @@ public record TravelUpdateRequest(
 
     @Schema(description = "썸네일")
     MultipartFile thumbnail
+
 ) {
 }
