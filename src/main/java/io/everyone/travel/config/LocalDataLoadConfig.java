@@ -40,43 +40,36 @@ public class LocalDataLoadConfig implements ApplicationListener<ApplicationStart
 
     @Override
     public void onApplicationEvent(@NonNull ApplicationStartedEvent event) {
-        log.info(">>> init data load started <<<");
+        log.info(">>>>>>>>>>>> init data load started <<<");
 
-        Faker faker = new Faker(new Locale("en"));
+        var faker = new Faker(new Locale("en"));
 
         // travel
-        List<Travel> travels = new ArrayList<>();
-        for (int i = 0; i < TRAVEL_SAVE_COUNT; i++) {
+        var travels = new ArrayList<Travel>();
+        for (var i = 0; i < TRAVEL_SAVE_COUNT; i++) {
 
-            String title = faker.hobbit().location();
-            Nation nation = randomNation();
-            LocalDateTime startAt = randomDateTime();
-            LocalDateTime endAt = randomPlusTime(startAt);
+            var startAt = randomDateTime();
+            var endAt = randomPlusTime(startAt);
 
-//            log.info("travel title: {}, nation: {}, startAt:{}, endAt: {}",
-//                title, nation, startAt, endAt );
-
-            Travel travel = Travel.builder()
-                .title(title)
-                .nation(nation)
+            var travel = Travel.builder()
+                .title(faker.hobbit().location())
+                .nation(randomNation())
                 .thumbnail(DEFAULT_THUMBNAIL)
                 .startAt(startAt)
                 .endAt(endAt)
                 .build();
 
             // plan
-            int planSize = random.nextInt(3);
-            Set<Plan> plans = new HashSet<>();
-            for (int j = 0; j < planSize; j++) {
+            var planSize = random.nextInt(3);
+            var plans = new HashSet<Plan>();
+            for (var j = 0; j < planSize; j++) {
 
-                String planTitle = faker.lorem().sentence();
-                String planMemo = faker.lorem().sentence();
-                LocalDateTime planStartAt = randomDateTime();
-                LocalDateTime planEndAt = randomPlusTime(planStartAt);
+                var planStartAt = randomDateTime();
+                var planEndAt = randomPlusTime(planStartAt);
 
-                Plan plan = Plan.builder()
-                    .title(planTitle)
-                    .memo(planMemo)
+                var plan = Plan.builder()
+                    .title(faker.lorem().sentence())
+                    .memo(faker.lorem().sentence())
                     .startAt(planStartAt)
                     .endAt(planEndAt)
                     .build();
@@ -86,24 +79,23 @@ public class LocalDataLoadConfig implements ApplicationListener<ApplicationStart
             travel.setPlans(plans);
 
             // expense
-            int expenseSize = random.nextInt(5);
-            Set<Expense> expenses = new HashSet<>();
-            for (int j = 0; j < expenseSize; j++) {
-                Expense expense = Expense.builder()
+            var expenseSize = random.nextInt(5);
+            var expenses = new HashSet<Expense>();
+            for (var j = 0; j < expenseSize; j++) {
+                var expense = Expense.builder()
                     .amt(randomAmt())
                     .build();
 
                 expenses.add(expense);
             }
             travel.setExpenses(expenses);
-
             travels.add(travel);
 
         }
         //save
         travelRepository.saveAll(travels);
 
-        log.info(">>> init data load finished <<<");
+        log.info(">>>>>>>>>>>> init data load finished - {} travels saved ", TRAVEL_SAVE_COUNT);
     }
 
     private static Nation randomNation() {
@@ -115,15 +107,15 @@ public class LocalDataLoadConfig implements ApplicationListener<ApplicationStart
     }
 
     private static LocalDateTime randomDateTime() {
-        final int minYear = 2023;
-        final int maxYear = 2030;
+        var minYear = 2023;
+        var maxYear = 2030;
 
-        int year = random.nextInt(maxYear - minYear + 1) + minYear;
-        int month = random.nextInt(12) + 1;
-        int day = random.nextInt(28) + 1;
-        int hour = random.nextInt(24);
-        int minute = random.nextInt(60);
-        int second = random.nextInt(60);
+        var year = random.nextInt(maxYear - minYear + 1) + minYear;
+        var month = random.nextInt(12) + 1;
+        var day = random.nextInt(28) + 1;
+        var hour = random.nextInt(24);
+        var minute = random.nextInt(60);
+        var second = random.nextInt(60);
 
         return LocalDateTime.of(year, month, day, hour, minute, second);
     }
