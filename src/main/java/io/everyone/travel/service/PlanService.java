@@ -68,7 +68,7 @@ public class PlanService {
         planRepository.findById(planId)
             .ifPresentOrElse(
                 (plan) -> planRepository.deleteById(plan.getId()),
-                NotFoundException::forPlan
+                () -> { throw NotFoundException.forPlan(); }
             );
 
     }

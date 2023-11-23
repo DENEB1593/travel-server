@@ -79,7 +79,7 @@ public class TravelController {
         }
     )
     @GetMapping("/{travelId}")
-    public CommonResponse<TravelView> find(
+    public CommonResponse<TravelResponse.TravelView> find(
         @PathVariable Long travelId
     ) {
         return CommonResponse.OK(
@@ -104,17 +104,16 @@ public class TravelController {
         @Parameter(name = "size", description = "페이지 크기", example = "20")
     })
     @GetMapping
-    public CommonResponse<List<TravelView>> findPaginated(
+    public CommonResponse<TravelResponse> findPaginated(
         @Parameter(hidden = true) PageModel pageModel
     ) {
         return CommonResponse.OK(
-            travelService.findPaginated(
+            TravelResponse.of(
+                travelService.findPaginated(
                     pageModel.getPage(),
                     pageModel.getSize()
                 )
-                .stream()
-                .map(TravelMapper::toView)
-                .toList()
+            )
         );
     }
 
@@ -184,15 +183,15 @@ public class TravelController {
         responses = {
             @ApiResponse(
                 responseCode = "200",
-                description = "조회 성공",
+                description = "수정 성공",
                 useReturnTypeSchema = true
             )
         }
     )
-    @PutMapping("/{travelId}")
+    @PutMapping(path = "/{travelId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public CommonResponse<TravelUpdateResponse> update(
         @PathVariable Long travelId,
-        @RequestBody @Valid TravelUpdateRequest request
+        @ModelAttribute @Valid TravelUpdateRequest request
     ) {
         return CommonResponse.OK(
             TravelMapper.toUpdateResponse(
@@ -203,7 +202,7 @@ public class TravelController {
 
     @Operation(
         summary = "여행 정보 삭제",
-        description = "여행 정보를 삭제한다. ",
+        description = "여행 정보를 삭제한다",
         responses = {
             @ApiResponse(
                 responseCode = "200",

@@ -1,28 +1,38 @@
 package io.everyone.travel.controller.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
-import lombok.Value;
 
 import java.time.LocalDateTime;
 
-@Value
+@Schema(name = "계획 수정 응답")
 @Builder
-public class PlanUpdateResponse {
+public record PlanUpdateResponse(
 
-    Long id;
+    @Schema(description = "계획 ID", example = "1")
+    Long id,
 
-    String title;
+    @Schema(description = "계획 제목", example = "망고 먹기")
+    String title,
 
-    String memo;
+    @Schema(description = "계획 메모", example = "방콕 시장 마켓에서 구매")
+    String memo,
 
-    LocalDateTime startAt;
+    @Schema(description = "계획 시작일", example = "2022-04-10T14:00:00")
+    LocalDateTime startAt,
 
-    LocalDateTime endAt;
+    @Schema(description = "계획 종료일", example = "2022-04-11T14:00:00")
+    LocalDateTime endAt,
 
-    Long travelId;
+    @Schema(description = "여행 ID", example = "1")
+    Long travelId,
 
-    LocalDateTime createdAt;
+    @Schema(description = "계획 생성일", example = "2022-04-10T14:00:00")
+    LocalDateTime createdAt,
 
-    LocalDateTime modifiedAt;
+    @Schema(description = "계획 수정일", example = "2022-04-10T14:00:00")
+    LocalDateTime modifiedAt
+
+) {
 
 }

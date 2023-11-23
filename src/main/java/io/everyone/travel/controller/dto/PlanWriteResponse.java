@@ -1,27 +1,28 @@
 package io.everyone.travel.controller.dto;
 
 import lombok.Builder;
-import lombok.Value;
 
 import java.time.LocalDateTime;
 
-@Value
 @Builder
-public class PlanWriteResponse {
+public record PlanWriteResponse(
 
-    Long id;
-    String title;
+    Long id,
 
-    String memo;
+    String title,
 
-    LocalDateTime startAt;
+    String memo,
 
-    LocalDateTime endAt;
+    LocalDateTime startAt,
 
-    Long travelId;
+    LocalDateTime endAt,
 
-    LocalDateTime createdAt;
+    Long travelId,
 
-    LocalDateTime modifiedAt;
+    LocalDateTime createdAt,
+
+    LocalDateTime modifiedAt
+
+) {
 
 }

@@ -17,7 +17,7 @@ public class GeneralExceptionHandler {
         NotFoundException e, HttpServletRequest request
     ) {
         var uri = request.getRequestURI();
-        log.debug("not found exception - uri:{}, message: {}", uri, e.getMessage(), e);
+        log.warn("not found exception - uri:{}, message: {}", uri, e.getMessage());
 
         var problem = Problem.builder()
             .withTitle(Status.NOT_FOUND.getReasonPhrase())
@@ -37,7 +37,7 @@ public class GeneralExceptionHandler {
         var error = e.getBindingResult().getFieldError();
         String defaultMessage = error.getDefaultMessage();
 
-        log.debug("invalid argument - uri: {}, message: {}", uri, defaultMessage);
+        log.warn("invalid argument - uri: {}, message: {}", uri, defaultMessage);
 
         var problem = Problem.builder()
             .withTitle(Status.BAD_REQUEST.getReasonPhrase())
