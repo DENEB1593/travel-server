@@ -79,7 +79,7 @@ public class TravelController {
         }
     )
     @GetMapping("/{travelId}")
-    public CommonResponse<TravelView> find(
+    public CommonResponse<TravelResponse.TravelView> find(
         @PathVariable Long travelId
     ) {
         return CommonResponse.OK(
@@ -104,17 +104,16 @@ public class TravelController {
         @Parameter(name = "size", description = "페이지 크기", example = "20")
     })
     @GetMapping
-    public CommonResponse<List<TravelView>> findPaginated(
+    public CommonResponse<TravelResponse> findPaginated(
         @Parameter(hidden = true) PageModel pageModel
     ) {
         return CommonResponse.OK(
-            travelService.findPaginated(
+            TravelResponse.of(
+                travelService.findPaginated(
                     pageModel.getPage(),
                     pageModel.getSize()
                 )
-                .stream()
-                .map(TravelMapper::toView)
-                .toList()
+            )
         );
     }
 

@@ -7,8 +7,10 @@ import io.everyone.travel.exception.NotFoundException;
 import io.everyone.travel.mapper.TravelMapper;
 import io.everyone.travel.repository.TravelRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,9 +40,9 @@ public class TravelService {
     }
 
     @Transactional(readOnly = true)
-    public List<Travel> findPaginated(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return travelRepository.findAllFetchJoin(pageable);
+    public Page<Travel> findPaginated(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+        return travelRepository.findAll(pageable);
     }
 
     @Transactional

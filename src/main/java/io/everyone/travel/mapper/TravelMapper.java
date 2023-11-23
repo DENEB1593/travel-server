@@ -56,8 +56,8 @@ public class TravelMapper {
     /**
      * 여행엔티티 -> 여행뷰모델 변환
      */
-    public static TravelView toView(Travel from) {
-        return TravelView.builder()
+    public static TravelResponse.TravelView toView(Travel from) {
+        return TravelResponse.TravelView.builder()
             .id(from.getId())
             .title(from.getTitle())
             .startAt(from.getStartAt())
