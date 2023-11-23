@@ -1,13 +1,10 @@
 package io.everyone.travel.util;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-import org.springframework.util.ObjectUtils;
-
 import java.util.EnumSet;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class EnumSupports {
+public final class EnumSupports {
+
+    private EnumSupports() { }
 
     public static <E extends Enum<E>> E byEnumName(Class<E> enumClz, String name) {
 
