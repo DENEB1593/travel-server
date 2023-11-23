@@ -203,7 +203,7 @@ public class TravelController {
 
     @Operation(
         summary = "여행 정보 삭제",
-        description = "여행 정보를 삭제한다. ",
+        description = "여행 정보를 삭제한다",
         responses = {
             @ApiResponse(
                 responseCode = "200",
