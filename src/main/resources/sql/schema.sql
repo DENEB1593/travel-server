@@ -1,7 +1,7 @@
 -- 테이블 초기화
-drop table plan;
-drop table expense;
-drop table travel;
+drop table if exists plan;
+drop table if exists expense;
+drop table if exists travel;
 
 -- 테이블 생성
 -- travel
