@@ -23,6 +23,8 @@ public class TravelService {
 
     private final TravelRepository travelRepository;
 
+    private static final Sort TRAVEL_DEFAULT_SORT = Sort.by("startAt").descending();
+
     @Transactional
     public Travel save(TravelWriteRequest request) {
         Travel travel = TravelMapper.toEntity(request);
@@ -41,7 +43,7 @@ public class TravelService {
 
     @Transactional(readOnly = true)
     public Page<Travel> findPaginated(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+        Pageable pageable = PageRequest.of(page, size, TRAVEL_DEFAULT_SORT);
         return travelRepository.findAll(pageable);
     }
 

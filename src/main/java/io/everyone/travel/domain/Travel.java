@@ -55,6 +55,7 @@ public class Travel extends BaseEntity {
         cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
         fetch = FetchType.LAZY
     )
+    @OrderBy("startAt desc")
     Set<Plan> plans = new HashSet<>();
 
     @OneToMany(
@@ -63,6 +64,7 @@ public class Travel extends BaseEntity {
         cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
         fetch = FetchType.LAZY
     )
+    @OrderBy("spendAt desc")
     Set<Expense> expenses = new HashSet<>();
 
 
