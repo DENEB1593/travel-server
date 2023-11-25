@@ -11,6 +11,9 @@
 - MySQL 8.0
 - Docker
 
+### 도메인 정의
+    https://github.com/DENEB1593/travel-server/wiki/%EB%8F%84%EB%A9%94%EC%9D%B8-%EC%A0%95%EC%9D%98
+
 ### 실행
     ./gradlew bootRun 
     ※ 사전에 Docker 설치 필수
