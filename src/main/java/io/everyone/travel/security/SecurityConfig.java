@@ -31,6 +31,9 @@ public class SecurityConfig {
                     .requestMatchers(antMatcher("/swagger-ui/**")).permitAll()
                     .requestMatchers(antMatcher("/**")).permitAll() // 개발 중일 때는 permit all
             )
+            .formLogin(login ->
+                login.loginPage("/auth/login")
+            )
             .build();
     }
 
