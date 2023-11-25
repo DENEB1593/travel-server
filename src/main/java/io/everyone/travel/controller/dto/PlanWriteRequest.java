@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Schema(name = "계획 작성 요청", description = "계획 작성을 요청한다")
 public record PlanWriteRequest(
-    @Schema(description = "계획 제목", example = "망고 먹기")
+    @Schema(description = "계획 제목", example = "망고 먹기🥭🥭")
     @NotBlank(message = "계획 제목을 필수 값입니다")
     String title,
     @Schema(description = "계획 메모", example = "방콕 시장 마켓에서 구매")
