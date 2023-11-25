@@ -14,6 +14,7 @@ public class ExpenseMapper {
     public static Expense toEntity(ExpenseWriteRequest from) {
         return Expense.builder()
             .amt(from.amt())
+            .spendAt(from.spendAt())
             .build();
     }
 
@@ -24,6 +25,7 @@ public class ExpenseMapper {
         return ExpenseWriteResponse.builder()
             .id(from.getId())
             .amt(from.getAmt())
+            .spendAt(from.getSpendAt())
             .travelId(from.getId())
             .createdAt(from.getCreatedAt())
             .modifiedAt(from.getModifiedAt())
@@ -37,6 +39,7 @@ public class ExpenseMapper {
         return ExpenseUpdateResponse.builder()
             .id(from.getId())
             .amt(from.getAmt())
+            .spendAt(from.getSpendAt())
             .travelId(from.getId())
             .createdAt(from.getCreatedAt())
             .modifiedAt(from.getModifiedAt())
@@ -50,6 +53,7 @@ public class ExpenseMapper {
         return ExpenseView.builder()
             .id(from.getId())
             .amt(from.getAmt())
+            .spendAt(from.getSpendAt())
             .travelId(from.getId())
             .createdAt(from.getCreatedAt())
             .modifiedAt(from.getModifiedAt())

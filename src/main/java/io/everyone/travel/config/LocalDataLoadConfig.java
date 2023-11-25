@@ -84,6 +84,7 @@ public class LocalDataLoadConfig implements ApplicationListener<ApplicationStart
             for (var j = 0; j < expenseSize; j++) {
                 var expense = Expense.builder()
                     .amt(randomAmt())
+                    .spendAt(randomDateTime())
                     .build();
 
                 expenses.add(expense);
@@ -103,7 +104,7 @@ public class LocalDataLoadConfig implements ApplicationListener<ApplicationStart
     }
 
     private static BigDecimal randomAmt() {
-        return new BigDecimal(100_000).setScale(0);
+        return new BigDecimal(random.nextInt(100_000)).setScale(0);
     }
 
     private static LocalDateTime randomDateTime() {

@@ -16,6 +16,9 @@ public record ExpenseWriteResponse(
     @Schema(description = "지출 비용", example = "10,000")
     BigDecimal amt,
 
+    @Schema(description = "지출 일자", example = "2022-04-10T14:00:00")
+    LocalDateTime spendAt,
+
     @Schema(description = "여행 ID", example = "1")
     Long travelId,
 

@@ -42,6 +42,7 @@ create table if not exists expense
 (
     id          bigint         not null auto_increment,
     amt         decimal(38, 2) not null,
+    spend_at    datetime(6)    not null,
     travel_id   bigint,
     created_at  datetime(6)    not null,
     modified_at datetime(6)    not null,

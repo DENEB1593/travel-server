@@ -14,6 +14,8 @@ public class ExpenseView {
 
     BigDecimal amt;
 
+    LocalDateTime spendAt;
+
     Long travelId;
 
     LocalDateTime createdAt;

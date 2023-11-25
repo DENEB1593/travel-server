@@ -10,6 +10,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -27,6 +28,9 @@ public class Expense extends BaseEntity {
     @Column(name = "amt", nullable = false)
     BigDecimal amt;
 
+    @Column(name = "spend_at", nullable = false)
+    LocalDateTime spendAt;
+
     @ManyToOne
     @JoinColumn(
         name = "travel_id",
@@ -38,8 +42,9 @@ public class Expense extends BaseEntity {
     protected Expense() { }
 
     @Builder
-    public Expense(BigDecimal amt) {
+    public Expense(BigDecimal amt, LocalDateTime spendAt) {
         this.amt = amt;
+        this.spendAt = spendAt;
     }
 
     public void setTravel(Travel travel) {
@@ -49,6 +54,7 @@ public class Expense extends BaseEntity {
 
     public void updateFromRequest(ExpenseUpdateRequest request) {
         this.amt = request.amt();
+        this.spendAt = request.spendAt();
     }
 
     @Override
@@ -56,6 +62,7 @@ public class Expense extends BaseEntity {
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
             .append("id", id)
             .append("amt", amt)
+            .append("spendAt", spendAt)
             .toString();
     }
 
