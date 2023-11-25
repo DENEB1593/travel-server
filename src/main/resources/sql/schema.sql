@@ -7,15 +7,15 @@ drop table if exists travel;
 -- travel
 create table if not exists travel
 (
-    id          bigint       not null auto_increment,
-    nation      varchar(3)   not null,
-    start_at    datetime(6),
-    end_at      datetime(6),
-    thumbnail   text,
-    created_at  datetime(6)  not null,
-    modified_at datetime(6)  not null,
-    deleted_at  datetime(6),
-    title       varchar(255) not null,
+    id          bigint       not null auto_increment    comment '여행ID',
+    title       varchar(255) not null                   comment '여행명',
+    nation      varchar(3)   not null                   comment '국가코드',
+    start_at    datetime(6)                             comment '여행시작일자',
+    end_at      datetime(6)                             comment '여행종료일자',
+    thumbnail   text                                    comment '썸네일URL',
+    created_at  datetime(6)  not null                   comment '여행생성일자',
+    modified_at datetime(6)  not null                   comment '여행수정일자',
+    deleted_at  datetime(6)                             comment '여행삭제일자',
     primary key (id)
 ) engine = InnoDB;
 
@@ -23,15 +23,15 @@ create table if not exists travel
 -- plan
 create table if not exists plan
 (
-    id          bigint       not null auto_increment,
-    title       varchar(255) not null,
-    memo        varchar(255),
-    start_at    datetime(6)  not null,
-    end_at      datetime(6)  not null,
-    travel_id   bigint,
-    created_at  datetime(6)  not null,
-    modified_at datetime(6)  not null,
-    deleted_at  datetime(6),
+    id          bigint       not null auto_increment   comment '계획ID',
+    title       varchar(255) not null                  comment '계획명',
+    memo        varchar(255)                           comment '메모',
+    start_at    datetime(6)  not null                  comment '계획시작일자',
+    end_at      datetime(6)  not null                  comment '계획종료일자',
+    travel_id   bigint                                 comment '여행ID',
+    created_at  datetime(6)  not null                  comment '계획생성일자',
+    modified_at datetime(6)  not null                  comment '계획수정일자',
+    deleted_at  datetime(6)                            comment '계획삭제일자',
     primary key (id),
     constraint plan_travel_id_fk foreign key (travel_id) references travel (id)
 ) engine = InnoDB;
@@ -40,13 +40,13 @@ create table if not exists plan
 -- expense
 create table if not exists expense
 (
-    id          bigint         not null auto_increment,
-    amt         decimal(38, 2) not null,
-    spend_at    datetime(6)    not null,
-    travel_id   bigint,
-    created_at  datetime(6)    not null,
-    modified_at datetime(6)    not null,
-    deleted_at  datetime(6),
+    id          bigint         not null auto_increment  comment '지출아이디',
+    amt         decimal(38, 2) not null                 comment '지출액',
+    spend_at    datetime(6)    not null                 comment '지출일자',
+    travel_id   bigint                                  comment '여행ID',
+    created_at  datetime(6)                             comment '지출생성일자',
+    modified_at datetime(6)                             comment '지출수정일자',
+    deleted_at  datetime(6)                             comment '지출삭제일자',
     primary key (id),
     constraint expense_travel_id_fk foreign key (travel_id) references travel(id)
 ) engine = InnoDB;
