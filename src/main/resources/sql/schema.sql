@@ -17,7 +17,7 @@ create table if not exists travel
     modified_at datetime(6)  not null                   comment '여행수정일자',
     deleted_at  datetime(6)                             comment '여행삭제일자',
     primary key (id)
-) engine = InnoDB;
+) engine = InnoDB default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 
 -- plan
@@ -33,9 +33,8 @@ create table if not exists plan
     modified_at datetime(6)  not null                  comment '계획수정일자',
     deleted_at  datetime(6)                            comment '계획삭제일자',
     primary key (id),
-    constraint plan_travel_id_fk foreign key (travel_id) references travel (id)
-) engine = InnoDB;
-
+    constraint plan_travel_id_fk2 foreign key (travel_id) references travel (id)
+) engine = InnoDB default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 -- expense
 create table if not exists expense
@@ -49,4 +48,4 @@ create table if not exists expense
     deleted_at  datetime(6)                             comment '지출삭제일자',
     primary key (id),
     constraint expense_travel_id_fk foreign key (travel_id) references travel(id)
-) engine = InnoDB;
+) engine = InnoDB default charset=utf8mb4 collate=utf8mb4_unicode_ci;
