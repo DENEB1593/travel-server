@@ -1,12 +1,12 @@
 package io.everyone.travel.security.oauth.jwt;
 
-import io.everyone.travel.security.oauth.OAuth2TravelUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
@@ -19,10 +19,10 @@ public class JwtService {
 
     private final JwtProperties jwtProperties;
 
-    public String generateToken(OAuth2TravelUser oAuth2TravelUser) {
+    public String generateToken(OAuth2User oAuth2User) {
         return Jwts.builder()
             .issuer(jwtProperties.issuer())
-            .subject(oAuth2TravelUser.getEmail())
+            .subject(oAuth2User.getName())
             .issuedAt(new Date())
             .expiration(new Date(System.currentTimeMillis() + jwtProperties.expiration()))
             .signWith(generateKey())

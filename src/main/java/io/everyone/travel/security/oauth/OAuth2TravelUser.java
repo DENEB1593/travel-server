@@ -17,8 +17,6 @@ public class OAuth2TravelUser implements OAuth2User {
 
     List<GrantedAuthority> authorities;
 
-    String name;
-
     String email;
 
     @Override
@@ -33,7 +31,7 @@ public class OAuth2TravelUser implements OAuth2User {
 
     @Override
     public String getName() {
-        return this.name;
+        return this.email;
     }
 
 }

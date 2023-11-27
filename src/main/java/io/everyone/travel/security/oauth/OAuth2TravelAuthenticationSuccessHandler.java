@@ -1,22 +1,32 @@
 package io.everyone.travel.security.oauth;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.everyone.travel.security.oauth.jwt.JwtService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Collections;
+import java.util.Map;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class OAuth2TravelAuthenticationSuccessHandler
     extends SimpleUrlAuthenticationSuccessHandler {
+
+    private final JwtService jwtService;
+    private final ObjectMapper objectMapper;
 
     @Override
     public void onAuthenticationSuccess(
@@ -26,12 +36,15 @@ public class OAuth2TravelAuthenticationSuccessHandler
 
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
 
-        // TODO: JWT 토큰 발급
+        String token = jwtService.generateToken(oAuth2User);
 
-        // TODO: Client-Server에 토큰 반환
-//        response.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-//        response.setCharacterEncoding("UTF-8");
-//        response.sendRedirect("http://localhost:3000/");    // 프론트 메인
+        Map<String, String> tokenMap = Collections.singletonMap("accessToken", token);
+
+        response.setContentType(APPLICATION_JSON_VALUE);
+        response.setCharacterEncoding("UTF-8");
+        PrintWriter writer = response.getWriter();
+        writer.print(objectMapper.writeValueAsString(tokenMap));
+        writer.flush();
     }
 
 }

@@ -60,7 +60,6 @@ public class OAuth2ServiceProviderService
         return new OAuth2TravelUser(
             attributes,
             List.of(new SimpleGrantedAuthority("USER")),
-            nickname,
             email
         );
     }
