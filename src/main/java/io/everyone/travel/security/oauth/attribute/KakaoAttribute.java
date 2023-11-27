@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class KakaoAttribute {
 
-    private Long id;
+    private String id;
 
     private LocalDateTime connectedAt;
 

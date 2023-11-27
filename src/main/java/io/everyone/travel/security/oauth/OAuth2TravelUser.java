@@ -12,10 +12,12 @@ import java.util.Map;
 public class OAuth2TravelUser implements OAuth2User {
 
     Map<String, Object> attributes;
-    List<GrantedAuthority> authorities;
-    String name;
-    String email;
 
+    List<GrantedAuthority> authorities;
+
+    String name;
+
+    String email;
 
     @Override
     public Map<String, Object> getAttributes() {
