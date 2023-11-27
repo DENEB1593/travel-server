@@ -1,9 +1,26 @@
 -- 테이블 초기화
+drop table if exists users;
 drop table if exists plan;
 drop table if exists expense;
 drop table if exists travel;
 
 -- 테이블 생성
+
+-- users
+create table if not exists users
+(
+    id          bigint       not null auto_increment    comment '사용지ID',
+    auth_id     varchar(255) not null                   comment '인증사ID',
+    nickname    varchar(255) not null                   comment '닉네임',
+    email       varchar(255) not null                   comment '이메일',
+    provider    varchar(20)  not null                   comment '인증 제공자',
+    last_login_at  datetime(6)                          comment '마지막로그인일자',
+    created_at  datetime(6)  not null                   comment '사용자가입일자',
+    modified_at datetime(6)  not null                   comment '사용자정보수정일자',
+    deleted_at  datetime(6)                             comment '사용자탈퇴일자',
+    primary key (id)
+) engine = InnoDB default charset=utf8mb4 collate=utf8mb4_unicode_ci;
+
 -- travel
 create table if not exists travel
 (

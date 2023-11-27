@@ -16,21 +16,26 @@ import java.time.LocalDateTime;
 @Table(name = "users")
 @SQLDelete(sql = "update travel set deleted_at = now() where id = ?")
 @Where(clause = "deleted_at is null")
-public class User {
+public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
     Long id;
 
+    @Column(name = "auth_id", nullable = false)
     String authId;
 
+    @Column(name = "nickname", nullable = false)
     String nickname;
 
+    @Column(name = "email", nullable = false)
     String email;
 
+    @Column(name = "provider", nullable = false)
     String provider;
 
+    @Column(name = "last_login_at")
     LocalDateTime lastLoginAt;
 
     protected User() { }
