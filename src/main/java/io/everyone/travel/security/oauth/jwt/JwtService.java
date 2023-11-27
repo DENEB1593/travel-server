@@ -1,6 +1,7 @@
 package io.everyone.travel.security.oauth.jwt;
 
 import io.everyone.travel.security.oauth.OAuth2TravelUser;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -9,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
-import java.security.Key;
 import java.util.Date;
 
 @Slf4j
@@ -29,9 +29,18 @@ public class JwtService {
             .compact();
     }
 
-    private Key generateKey() {
+    private SecretKey generateKey() {
         var keyBytes = Decoders.BASE64.decode(jwtProperties.key());
         return Keys.hmacShaKeyFor(keyBytes);
+    }
+
+    public Claims extractToken(String token) {
+        return Jwts
+            .parser()
+            .verifyWith(generateKey())
+            .build()
+            .parseSignedClaims(token)
+            .getPayload();
     }
 
 

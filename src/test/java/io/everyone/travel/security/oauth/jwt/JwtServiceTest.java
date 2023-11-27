@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Disabled
+//@Disabled
 @SpringBootTest
 class JwtServiceTest {
 
@@ -34,6 +34,22 @@ class JwtServiceTest {
 
         var token = jwtService.generateToken(mock);
         assertThat(token).isNotNull();
+    }
+
+    @Test
+    void extractTokenTest() {
+        var mock = OAuth2TravelUser.builder()
+            .email("my@email.net")
+            .build();
+
+        String token = jwtService.generateToken(mock);
+
+        assertThat(token).isNotNull();
+
+        var claim = jwtService.extractToken(token);
+        String subject = claim.getSubject();
+        System.out.println(subject);
+
     }
 
 
