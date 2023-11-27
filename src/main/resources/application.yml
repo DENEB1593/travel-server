@@ -1,3 +1,9 @@
+logging:
+  level:
+    web: info
+    root: info
+    io.everyone.travel: debug
+
 spring:
   profiles:
     active: local
