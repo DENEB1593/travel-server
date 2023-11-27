@@ -1,5 +1,6 @@
 package io.everyone.travel.security.oauth;
 
+import lombok.Builder;
 import lombok.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 @Value
+@Builder
 public class OAuth2TravelUser implements OAuth2User {
 
     Map<String, Object> attributes;

@@ -1,4 +1,4 @@
-package io.everyone.travel.security.oauth;
+package io.everyone.travel.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -2,6 +2,12 @@ logging:
   level:
     web: debug
 
+# JWT secret key
+jwt:
+  key: ffdfa414f1f47aa9091ac11e7bce5fb474921a3dfb03aba3d5546ccdcac88603
+  expiration: 3600000
+  issuer: travel-server-auth
+
 spring:
   thymeleaf:
     enabled: true
