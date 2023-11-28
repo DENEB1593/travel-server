@@ -1,5 +1,6 @@
 package io.everyone.travel.domain;
 
+import io.everyone.travel.security.oauth.OAuthProvider;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "users")
-@SQLDelete(sql = "update travel set deleted_at = now() where id = ?")
+@SQLDelete(sql = "update users set deleted_at = now() where id = ?")
 @Where(clause = "deleted_at is null")
 public class User extends BaseEntity {
 
@@ -32,8 +33,9 @@ public class User extends BaseEntity {
     @Column(name = "email", nullable = false)
     String email;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "provider", nullable = false)
-    String provider;
+    OAuthProvider provider;
 
     @Column(name = "last_login_at")
     LocalDateTime lastLoginAt;
@@ -41,7 +43,7 @@ public class User extends BaseEntity {
     protected User() { }
 
     @Builder
-    public User(String authId, String nickname, String email, String provider, LocalDateTime lastLoginAt) {
+    public User(String authId, String nickname, String email, OAuthProvider provider, LocalDateTime lastLoginAt) {
         this.authId = authId;
         this.nickname = nickname;
         this.email = email;

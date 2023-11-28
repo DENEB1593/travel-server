@@ -37,6 +37,7 @@ public class OAuth2ServiceProviderService
         String clientId = userRequest.getClientRegistration().getRegistrationId();
         Map<String, Object> attributes = oAuth2User.getAttributes();
         log.info("client: {}. oauth user attributes: {}", clientId, attributes);
+        // 분기 처리
 
         var kakaoAttribute = objectMapper.convertValue(attributes, KakaoAttribute.class);
 
@@ -50,7 +51,7 @@ public class OAuth2ServiceProviderService
             .authId(authId)
             .nickname(nickname)
             .email(email)
-            .provider("KAKAO")
+            .provider(OAuthProvider.KAKAO)
             .lastLoginAt(LocalDateTime.now())
             .build();
 
