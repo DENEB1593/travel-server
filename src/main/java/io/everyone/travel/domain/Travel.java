@@ -24,7 +24,7 @@ import java.util.Set;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "travel")
-@SQLDelete(sql = "UPDATE travel SET deleted_at = now() WHERE id = ?")
+@SQLDelete(sql = "update travel set deleted_at = now() where id = ?")
 @Where(clause = "deleted_at is null")
 public class Travel extends BaseEntity {
 

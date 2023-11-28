@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "plan")
-@SQLDelete(sql = "UPDATE plan SET deleted_at = now() WHERE id = ?")
+@SQLDelete(sql = "update plan set deleted_at = now() where id = ?")
 @Where(clause = "deleted_at is null")
 public class Plan extends BaseEntity {
 

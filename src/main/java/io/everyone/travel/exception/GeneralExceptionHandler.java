@@ -56,7 +56,7 @@ public class GeneralExceptionHandler {
         var problem = Problem.builder()
             .withTitle(Status.INTERNAL_SERVER_ERROR.getReasonPhrase())
             .withStatus(Status.INTERNAL_SERVER_ERROR)
-            .withDetail(e.getMessage())
+            .withDetail("서버 오류가 발생하였습니다") // 예외 메세지는 직접 노출하지 않는다
             .build();
 
         return createResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR, problem);
