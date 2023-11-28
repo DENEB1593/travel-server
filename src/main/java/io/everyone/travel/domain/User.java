@@ -27,7 +27,7 @@ public class User extends BaseEntity {
     @Column(name = "auth_id", nullable = false)
     String authId;
 
-    @Column(name = "nickname", nullable = false)
+    @Column(name = "nickname")
     String nickname;
 
     @Column(name = "email", nullable = false)

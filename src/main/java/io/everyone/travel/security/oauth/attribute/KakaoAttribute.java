@@ -3,10 +3,7 @@ package io.everyone.travel.security.oauth.attribute;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -15,8 +12,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class KakaoAttribute {
+public class KakaoAttribute implements OAuthAttribute {
 
+    @Getter
     private String id;
 
     private LocalDateTime connectedAt;
@@ -24,6 +22,16 @@ public class KakaoAttribute {
     private Properties properties;
 
     private KakaoAccount kakaoAccount;
+
+    @Override
+    public String getNickname() {
+        return properties.getNickname();
+    }
+
+    @Override
+    public String getEmail() {
+        return kakaoAccount.getEmail();
+    }
 
     @Data
     @NoArgsConstructor

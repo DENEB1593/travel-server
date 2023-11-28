@@ -4,6 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.everyone.travel.domain.User;
 import io.everyone.travel.repository.UserRepository;
 import io.everyone.travel.security.oauth.attribute.KakaoAttribute;
+import io.everyone.travel.security.oauth.attribute.NaverAttribute;
+import io.everyone.travel.security.oauth.attribute.OAuthAttribute;
+import io.everyone.travel.util.EnumSupports;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -36,22 +39,27 @@ public class OAuth2ServiceProviderService
 
         String clientId = userRequest.getClientRegistration().getRegistrationId();
         Map<String, Object> attributes = oAuth2User.getAttributes();
-        log.info("client: {}. oauth user attributes: {}", clientId, attributes);
         // 분기 처리
+        OAuthProvider provider = EnumSupports.byEnumName(OAuthProvider.class, clientId);
 
-        var kakaoAttribute = objectMapper.convertValue(attributes, KakaoAttribute.class);
+        var attribute = switch (provider) {
+            case KAKAO -> objectMapper.convertValue(attributes, KakaoAttribute.class);
+            case NAVER -> objectMapper.convertValue(attributes, NaverAttribute.class);
+        };
+
+        log.info("client id: {}, attribute: {}", clientId, attribute);
 
         // 인증정보를 OAuthUser로 변환한다.
-        String authId = kakaoAttribute.getId();
-        String nickname = kakaoAttribute.getProperties().getNickname();
-        String email = kakaoAttribute.getKakaoAccount().getEmail();
+        String authId = attribute.getId();
+        String nickname = attribute.getNickname();
+        String email = attribute.getEmail();
 
         // 사용자 정보를 저장한다.
         User user = User.builder()
             .authId(authId)
             .nickname(nickname)
             .email(email)
-            .provider(OAuthProvider.KAKAO)
+            .provider(provider)
             .lastLoginAt(LocalDateTime.now())
             .build();
 

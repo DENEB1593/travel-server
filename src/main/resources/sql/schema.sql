@@ -11,7 +11,7 @@ create table if not exists users
 (
     id          bigint       not null auto_increment    comment '사용지ID',
     auth_id     varchar(255) not null                   comment '인증사ID',
-    nickname    varchar(255) not null                   comment '닉네임',
+    nickname    varchar(255)                            comment '닉네임',
     email       varchar(255) not null                   comment '이메일',
     provider    varchar(20)  not null                   comment '인증 제공자',
     last_login_at  datetime(6)                          comment '마지막로그인일자',
