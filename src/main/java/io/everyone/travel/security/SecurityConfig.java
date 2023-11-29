@@ -2,6 +2,7 @@ package io.everyone.travel.security;
 
 import io.everyone.travel.security.oauth.OAuth2ServiceProviderService;
 import io.everyone.travel.security.oauth.OAuth2TravelAuthenticationSuccessHandler;
+import io.everyone.travel.security.oauth.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 
@@ -21,6 +23,7 @@ public class SecurityConfig {
 
     private final OAuth2ServiceProviderService oAuth2ServiceProviderService;
     private final OAuth2TravelAuthenticationSuccessHandler oAuthSuccessHandler;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
@@ -42,6 +45,7 @@ public class SecurityConfig {
                     )
                     .successHandler(oAuthSuccessHandler)
             )
+            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
             .build();
     }
 
