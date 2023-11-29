@@ -3,6 +3,7 @@ package io.everyone.travel.security.oauth.attribute;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import io.everyone.travel.security.oauth.OAuthProvider;
 import lombok.*;
 
 @Getter
@@ -16,6 +17,17 @@ public class NaverAttribute implements OAuthAttribute {
     private String message;
 
     private Response response;
+
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Response {
+        private String id;
+        private String email;
+        private String name;
+        private String nickname;
+    }
+
 
     @Override
     public String getId() {
@@ -32,15 +44,8 @@ public class NaverAttribute implements OAuthAttribute {
         return response.getEmail();
     }
 
-    @Getter
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class Response {
-        private String id;
-        private String email;
-        private String name;
-        private String nickname;
+    @Override
+    public OAuthProvider getProvider() {
+        return OAuthProvider.NAVER;
     }
-
-
 }

@@ -3,10 +3,8 @@ package io.everyone.travel.security.oauth;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.everyone.travel.domain.User;
 import io.everyone.travel.repository.UserRepository;
-import io.everyone.travel.security.oauth.attribute.KakaoAttribute;
-import io.everyone.travel.security.oauth.attribute.NaverAttribute;
 import io.everyone.travel.security.oauth.attribute.OAuthAttribute;
-import io.everyone.travel.util.EnumSupports;
+import io.everyone.travel.security.oauth.attribute.OAuthMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -27,50 +25,44 @@ import java.util.Map;
 public class OAuth2ServiceProviderService
     implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
-    private final ObjectMapper objectMapper;
+    private final OAuthMapper oAuthMapper;
     private final UserRepository userRepository;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-        log.info("oauth request: {}", userRequest);
-
         var defaultOAuth2UserService = new DefaultOAuth2UserService();
         OAuth2User oAuth2User = defaultOAuth2UserService.loadUser(userRequest);
 
         String clientId = userRequest.getClientRegistration().getRegistrationId();
         Map<String, Object> attributes = oAuth2User.getAttributes();
-        // 분기 처리
-        OAuthProvider provider = EnumSupports.byEnumName(OAuthProvider.class, clientId);
 
-        var attribute = switch (provider) {
-            case KAKAO -> objectMapper.convertValue(attributes, KakaoAttribute.class);
-            case NAVER -> objectMapper.convertValue(attributes, NaverAttribute.class);
-        };
+        // 인증사 정보 기반으로 oAuth 객체로 변환
+        var oAuthAttribute = oAuthMapper.of(clientId, attributes);
 
-        log.info("client id: {}, attribute: {}", clientId, attribute);
+        log.info("client id: {}, attribute: {}", clientId, oAuthAttribute);
 
-        // 인증정보를 OAuthUser로 변환한다.
-        String authId = attribute.getId();
-        String nickname = attribute.getNickname();
-        String email = attribute.getEmail();
-
-        // 사용자 정보를 저장한다.
-        User user = User.builder()
-            .authId(authId)
-            .nickname(nickname)
-            .email(email)
-            .provider(provider)
-            .lastLoginAt(LocalDateTime.now())
-            .build();
-
-        userRepository.save(user);
+        // 사용자 저장
+        User user = saveUser(oAuthAttribute);
 
         // 사용자 권한을 추가 한다.
         return new OAuth2TravelUser(
             attributes,
             List.of(new SimpleGrantedAuthority("USER")),
-            email
+            user.getEmail()
         );
+    }
+
+    private User saveUser(OAuthAttribute attribute) {
+        // 사용자 정보를 저장한다.
+        var user = User.builder()
+            .authId(attribute.getId())
+            .nickname(attribute.getNickname())
+            .email(attribute.getEmail())
+            .provider(attribute.getProvider())
+            .lastLoginAt(LocalDateTime.now())
+            .build();
+
+        return userRepository.save(user);
     }
 
 }
