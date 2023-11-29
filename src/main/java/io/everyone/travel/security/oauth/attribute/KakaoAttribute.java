@@ -7,10 +7,9 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Data
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class KakaoAttribute implements OAuthAttribute {
 
@@ -33,19 +32,17 @@ public class KakaoAttribute implements OAuthAttribute {
         return kakaoAccount.getEmail();
     }
 
-    @Data
+    @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    @Builder
     public static class Properties {
         private String nickname;
 
     }
 
-    @Data
+    @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    @Builder
     public static class KakaoAccount {
         private Boolean profileNicknameNeedsAgreement;
         private Boolean hasEmail;
