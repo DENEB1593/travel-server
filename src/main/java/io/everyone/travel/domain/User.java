@@ -1,6 +1,6 @@
 package io.everyone.travel.domain;
 
-import io.everyone.travel.security.oauth.OAuthProvider;
+import io.everyone.travel.domain.enums.AuthProvider;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -35,7 +35,7 @@ public class User extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "provider", nullable = false)
-    OAuthProvider provider;
+    AuthProvider provider;
 
     @Column(name = "last_login_at")
     LocalDateTime lastLoginAt;
@@ -43,7 +43,7 @@ public class User extends BaseEntity {
     protected User() { }
 
     @Builder
-    public User(String authId, String nickname, String email, OAuthProvider provider, LocalDateTime lastLoginAt) {
+    public User(String authId, String nickname, String email, AuthProvider provider, LocalDateTime lastLoginAt) {
         this.authId = authId;
         this.nickname = nickname;
         this.email = email;

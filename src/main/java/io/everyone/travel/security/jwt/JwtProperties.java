@@ -1,4 +1,4 @@
-package io.everyone.travel.security.oauth.jwt;
+package io.everyone.travel.security.jwt;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

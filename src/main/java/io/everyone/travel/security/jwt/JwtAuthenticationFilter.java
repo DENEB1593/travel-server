@@ -1,4 +1,4 @@
-package io.everyone.travel.security.oauth.jwt;
+package io.everyone.travel.security.jwt;
 
 import io.everyone.travel.domain.User;
 import io.everyone.travel.exception.NotFoundException;

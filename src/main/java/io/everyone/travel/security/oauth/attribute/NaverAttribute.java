@@ -3,7 +3,7 @@ package io.everyone.travel.security.oauth.attribute;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import io.everyone.travel.security.oauth.OAuthProvider;
+import io.everyone.travel.domain.enums.AuthProvider;
 import lombok.*;
 
 @Getter
@@ -45,7 +45,7 @@ public class NaverAttribute implements OAuthAttribute {
     }
 
     @Override
-    public OAuthProvider getProvider() {
-        return OAuthProvider.NAVER;
+    public AuthProvider getProvider() {
+        return AuthProvider.NAVER;
     }
 }

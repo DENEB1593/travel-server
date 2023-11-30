@@ -1,6 +1,5 @@
 package io.everyone.travel.security.oauth;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.everyone.travel.domain.User;
 import io.everyone.travel.repository.UserRepository;
 import io.everyone.travel.security.oauth.attribute.OAuthAttribute;

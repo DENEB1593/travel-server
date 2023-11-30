@@ -1,7 +1,7 @@
 package io.everyone.travel.security.oauth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.everyone.travel.security.oauth.jwt.JwtService;
+import io.everyone.travel.security.jwt.JwtService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

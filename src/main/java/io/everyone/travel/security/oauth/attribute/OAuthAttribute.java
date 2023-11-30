@@ -1,6 +1,6 @@
 package io.everyone.travel.security.oauth.attribute;
 
-import io.everyone.travel.security.oauth.OAuthProvider;
+import io.everyone.travel.domain.enums.AuthProvider;
 
 public interface OAuthAttribute {
     String getId();
@@ -9,5 +9,5 @@ public interface OAuthAttribute {
 
     String getEmail();
 
-    OAuthProvider getProvider();
+    AuthProvider getProvider();
 }

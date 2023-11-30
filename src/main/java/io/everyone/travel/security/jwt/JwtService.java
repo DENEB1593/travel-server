@@ -1,4 +1,4 @@
-package io.everyone.travel.security.oauth.jwt;
+package io.everyone.travel.security.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
