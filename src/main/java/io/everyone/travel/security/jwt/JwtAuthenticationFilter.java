@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -21,7 +21,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 
 @Slf4j
 @Component
@@ -58,7 +57,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             var oAuth2User = OAuth2TravelUser.builder()
                 .attributes(new HashMap<>())
-                .authorities(List.of(new SimpleGrantedAuthority("USER")))
+                .authorities(AuthorityUtils.createAuthorityList("USER"))
                 .email(email)
                 .build();
 

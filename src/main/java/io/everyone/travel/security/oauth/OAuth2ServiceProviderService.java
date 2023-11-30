@@ -6,7 +6,7 @@ import io.everyone.travel.security.oauth.attribute.OAuthAttribute;
 import io.everyone.travel.security.oauth.attribute.OAuthMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
@@ -15,7 +15,6 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -46,7 +45,7 @@ public class OAuth2ServiceProviderService
         // 사용자 권한을 추가 한다.
         return new OAuth2TravelUser(
             attributes,
-            List.of(new SimpleGrantedAuthority("USER")),
+            AuthorityUtils.createAuthorityList("USER"),
             user.getEmail()
         );
     }
