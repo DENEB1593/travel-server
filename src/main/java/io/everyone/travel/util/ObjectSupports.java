@@ -1,13 +1,14 @@
 package io.everyone.travel.util;
 
+import lombok.experimental.UtilityClass;
+
 import java.util.Collection;
 import java.util.function.Function;
 
+@UtilityClass
 public final class ObjectSupports {
 
-    private ObjectSupports() { }
-
-    public static <T, R> R ifNotNull(T target, Function<T, R> then) {
+    public <T, R> R ifNotNull(T target, Function<T, R> then) {
 
         if (target == null) {
             return null;

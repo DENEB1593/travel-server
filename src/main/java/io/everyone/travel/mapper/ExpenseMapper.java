@@ -4,14 +4,15 @@ import io.everyone.travel.controller.dto.*;
 import io.everyone.travel.domain.Expense;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@UtilityClass
 public class ExpenseMapper {
 
     /**
      * 지출쓰기요청 -> 지출엔티티 변환
      */
-    public static Expense toEntity(ExpenseWriteRequest from) {
+    public Expense toEntity(ExpenseWriteRequest from) {
         return Expense.builder()
             .amt(from.amt())
             .spendAt(from.spendAt())
@@ -21,7 +22,7 @@ public class ExpenseMapper {
     /**
      * 지출엔티티 -> 지출쓰기응답 변환
      */
-    public static ExpenseWriteResponse toWriteResponse(Expense from) {
+    public ExpenseWriteResponse toWriteResponse(Expense from) {
         return ExpenseWriteResponse.builder()
             .id(from.getId())
             .amt(from.getAmt())
@@ -35,7 +36,7 @@ public class ExpenseMapper {
     /**
      * 지출엔티티 -> 지출수정응답 변환
      */
-    public static ExpenseUpdateResponse toUpdateResponse(Expense from) {
+    public ExpenseUpdateResponse toUpdateResponse(Expense from) {
         return ExpenseUpdateResponse.builder()
             .id(from.getId())
             .amt(from.getAmt())
