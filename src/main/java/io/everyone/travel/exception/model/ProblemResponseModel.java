@@ -1,7 +1,6 @@
 package io.everyone.travel.exception.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Value;
 
 /**
  * RFC 7807 기반 모델

@@ -1,12 +1,12 @@
 package io.everyone.travel.util;
 
+import lombok.experimental.UtilityClass;
+
 import java.util.EnumSet;
 
-public final class EnumSupports {
-
-    private EnumSupports() { }
-
-    public static <E extends Enum<E>> E byEnumName(Class<E> enumClz, String name) {
+@UtilityClass
+public class EnumSupports {
+    public <E extends Enum<E>> E byEnumName(Class<E> enumClz, String name) {
 
         if (name == null || name.isEmpty()) {
             return null;
