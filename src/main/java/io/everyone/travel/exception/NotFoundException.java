@@ -18,6 +18,13 @@ public class NotFoundException extends RuntimeException {
     /**
      * 여행(Travel) NOT FOUND
      */
+    public static NotFoundException forUser() {
+        return new NotFoundException("조회되지 않는 회원 정보입니다");
+    }
+
+    /**
+     * 여행(Travel) NOT FOUND
+     */
     public static NotFoundException forTravel() {
         return new NotFoundException("조회되지 않는 여행 정보입니다");
     }

@@ -13,7 +13,7 @@ public class EnumSupports {
         }
 
         return EnumSet.allOf(enumClz).stream()
-            .filter(e -> e.name().equals(name))
+            .filter(e -> e.name().equalsIgnoreCase(name))
             .findFirst()
             .orElse(null);
     }

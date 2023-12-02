@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>여행 로그인 테스트 페이지</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div class="container">
+        <div class="row">
+            <h2 style="text-align:center">로그인</h2>
+
+            <div class="col">
+                <a href="/oauth2/authorization/naver" class="naver btn">
+                    <i class="naver fa-facebook fa-fw"></i> 네이버 로그인
+                </a>
+                <a href="/oauth2/authorization/kakao" class="kakao btn">
+                    <i class="kakao fa-twitter fa-fw"></i> 카카오 로그인
+                </a>
+            </div>
+        </div>
+</div>
+
+</body>
+</html>
