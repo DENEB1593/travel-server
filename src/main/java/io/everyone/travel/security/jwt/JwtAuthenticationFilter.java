@@ -3,7 +3,7 @@ package io.everyone.travel.security.jwt;
 import io.everyone.travel.domain.User;
 import io.everyone.travel.exception.NotFoundException;
 import io.everyone.travel.repository.UserRepository;
-import io.everyone.travel.security.oauth.OAuth2TravelUser;
+import io.everyone.travel.util.SecurityUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,13 +14,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;
-import java.util.HashMap;
 
 @Slf4j
 @Component
@@ -48,24 +48,23 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String email =  jwtService.extract(jwt);
         SecurityContext context = SecurityContextHolder.getContext();
 
+        // 토큰 유효성 검사(만료 시간, 사용자 존재 등)
         if (StringUtils.hasText(email) || context.getAuthentication() == null) {
-            // 토큰 유효성 검사( 만료시간, 사용자 존재 등)
-
             User user = userRepository
                 .findByEmail(email)
                 .orElseThrow(NotFoundException::forUser);
 
-            var oAuth2User = OAuth2TravelUser.builder()
-                .attributes(new HashMap<>())
-                .authorities(AuthorityUtils.createAuthorityList("USER"))
-                .email(email)
-                .build();
+            UserDetails userDetails = SecurityUtils.createUserDetails(user.getEmail(), "USER");
 
-            var authentication
-                = new UsernamePasswordAuthenticationToken(oAuth2User, null, oAuth2User.getAuthorities());
+            if (jwtService.isTokenValid(jwt, user.getEmail())) {
+                // 인증정보 저장 처리
+                var authentication
+                    = new UsernamePasswordAuthenticationToken(userDetails, null);
 
-            context.setAuthentication(authentication);
-            SecurityContextHolder.setContext(context);
+                context.setAuthentication(authentication);
+                SecurityContextHolder.setContext(context);
+            }
+
         }
 
         filterChain.doFilter(request, response);

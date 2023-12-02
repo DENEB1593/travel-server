@@ -11,7 +11,7 @@ import java.util.Map;
 
 @Value
 @Builder
-public class OAuth2TravelUser implements OAuth2User {
+public class OAuth2UserDetails implements OAuth2User {
 
     Map<String, Object> attributes;
 

@@ -6,6 +6,7 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +45,18 @@ public class JwtService {
             .getPayload();
     }
 
+    /**
+     * userName = email
+     */
+    public boolean isTokenValid(String token, String email) {
+        String userName = extract(token);
+        return userName.equals(email) && !isTokenExpired(token);
+    }
+
+    private boolean isTokenExpired(String token) {
+        Date expiration = extractClaim(token, Claims::getExpiration);
+        return expiration.before(new Date());
+    }
 
     public String extract(String token) {
         return extractClaim(token, Claims::getSubject);

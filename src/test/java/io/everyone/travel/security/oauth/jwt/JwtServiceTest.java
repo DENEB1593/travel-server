@@ -1,7 +1,6 @@
 package io.everyone.travel.security.oauth.jwt;
 
-import io.everyone.travel.security.oauth.OAuth2TravelUser;
-import org.junit.jupiter.api.Disabled;
+import io.everyone.travel.security.oauth.OAuth2UserDetails;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,7 +27,7 @@ class JwtServiceTest {
 
     @Test
     void jwtTokenGenerateTest() {
-        var mock = OAuth2TravelUser.builder()
+        var mock = OAuth2UserDetails.builder()
             .email("some@email.com")
             .build();
 
@@ -38,7 +37,7 @@ class JwtServiceTest {
 
     @Test
     void extractTokenTest() {
-        var mock = OAuth2TravelUser.builder()
+        var mock = OAuth2UserDetails.builder()
             .email("my@email.net")
             .build();
 

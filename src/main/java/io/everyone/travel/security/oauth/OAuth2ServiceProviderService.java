@@ -43,7 +43,7 @@ public class OAuth2ServiceProviderService
         User user = saveUser(oAuthAttribute);
 
         // 사용자 권한을 추가 한다.
-        return new OAuth2TravelUser(
+        return new OAuth2UserDetails(
             attributes,
             AuthorityUtils.createAuthorityList("USER"),
             user.getEmail()
