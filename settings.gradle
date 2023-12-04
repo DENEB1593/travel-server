@@ -1,1 +1,4 @@
 rootProject.name = 'travel-server'
+include 'travel-server-core'
+include 'travel-server-api'
+
