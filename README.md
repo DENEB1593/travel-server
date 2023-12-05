@@ -17,7 +17,8 @@
 - [이슈](https://github.com/DENEB1593/travel-server/issues)
 
 ### 실행
-    ./gradlew bootRun 
+    ./gradlew :travel-server-api:build
+    java -jar travel-server-api/build/libs/travel-server-api-0.0.1-SNAPSHOT.jar 
     ※ 사전에 Docker 설치 필수
 
 ### API 확인
