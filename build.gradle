@@ -28,8 +28,6 @@ subprojects {
 	}
 
 	dependencies {
-		implementation 'org.springframework.boot:spring-boot-starter'
-
 		implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
 		implementation("org.projectlombok:lombok:${lombokVersion}")
@@ -42,53 +40,17 @@ subprojects {
 
 }
 
+project(":travel-server-api") {
+	jar {
+		archiveBaseName = 'travel-server-api'
+	}
+	dependencies{
+		implementation project (":travel-server-core")
+	}
+}
 
-
-
-//dependencies {
-//	implementation 'org.springframework.boot:spring-boot-starter-web'
-//	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-//	implementation 'org.springframework.boot:spring-boot-starter-validation'
-//	implementation 'org.springframework.boot:spring-boot-configuration-processor'
-//	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-//	implementation 'org.springframework.boot:spring-boot-starter-security'
-//	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-//
-//	// json web token
-//	implementation "io.jsonwebtoken:jjwt-api:${jsonWebTokenVersion}"
-//	implementation "io.jsonwebtoken:jjwt-impl:${jsonWebTokenVersion}"
-//	implementation "io.jsonwebtoken:jjwt-jackson:${jsonWebTokenVersion}"
-//
-//	// docker-compose
-//	implementation 'org.springframework.boot:spring-boot-docker-compose'
-//
-//	// spring web problem
-//	implementation "org.zalando:problem-spring-web-starter:${springWebProblemVersion}"
-//
-//	// mysql
-//	implementation "com.mysql:mysql-connector-j:${mysqlDriverVersion}"
-//
-//	// p6spy-logging
-//	implementation "com.github.gavlyukovskiy:p6spy-spring-boot-starter:${p6spyVersion}"
-//
-//	// openapi
-//	implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springDocOpenApiVersion}"
-//
-//	// jdk8 time module
-//	implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jsr310Version}"
-//
-//	// faker
-//	implementation "com.github.javafaker:javafaker:${javaFakerVersion}"
-//
-//}
-//
-//tasks.named('test') {
-//	useJUnitPlatform()
-//}
-
-
-//project(':travel-server-api') { // 컴파일 시 multi-module-database 로딩
-//	dependencies {
-//		implementation project(':travel-server-core')
-//	}
-//}
+project(":travel-server-core") {
+	jar {
+		enabled = true
+	}
+}

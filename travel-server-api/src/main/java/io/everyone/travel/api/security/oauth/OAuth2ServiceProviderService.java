@@ -2,8 +2,8 @@ package io.everyone.travel.api.security.oauth;
 
 import io.everyone.travel.api.security.oauth.attribute.OAuthAttribute;
 import io.everyone.travel.api.security.oauth.attribute.OAuthMapper;
-import io.everyone.travel.core.domain.User;
-import io.everyone.travel.core.repository.UserRepository;
+import io.everyone.travel.core.domain.user.User;
+import io.everyone.travel.core.domain.user.repo.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.AuthorityUtils;

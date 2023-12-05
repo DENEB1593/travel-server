@@ -40,8 +40,7 @@ public class ObjectMapperConfig {
                 new ConstraintViolationProblemModule()
             )
             .build()
-            .setTimeZone(ASIA_SEOUL)
-            .setNodeFactory(JsonNodeFactory.withExactBigDecimals(true));
+            .setTimeZone(ASIA_SEOUL);
     }
 
 

@@ -1,7 +1,7 @@
 package io.everyone.travel.api.security.oauth.attribute;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.everyone.travel.core.domain.enums.AuthProvider;
+import io.everyone.travel.core.domain.user.AuthProvider;
 import io.everyone.travel.core.util.EnumSupports;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

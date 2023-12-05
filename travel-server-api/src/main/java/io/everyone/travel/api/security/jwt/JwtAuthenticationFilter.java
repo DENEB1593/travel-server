@@ -1,9 +1,9 @@
 package io.everyone.travel.api.security.jwt;
 
-import io.everyone.travel.core.domain.User;
+import io.everyone.travel.core.domain.user.User;
 import io.everyone.travel.core.exception.NotFoundException;
-import io.everyone.travel.core.repository.UserRepository;
-import io.everyone.travel.core.util.SecurityUtils;
+import io.everyone.travel.core.domain.user.repo.UserRepository;
+import io.everyone.travel.api.util.SecurityUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

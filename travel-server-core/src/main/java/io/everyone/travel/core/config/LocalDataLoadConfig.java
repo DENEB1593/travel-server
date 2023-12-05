@@ -1,13 +1,13 @@
 package io.everyone.travel.core.config;
 
 import com.github.javafaker.Faker;
-import io.everyone.travel.core.domain.Expense;
-import io.everyone.travel.core.domain.Plan;
-import io.everyone.travel.core.domain.Travel;
-import io.everyone.travel.core.domain.enums.Nation;
-import io.everyone.travel.core.repository.ExpenseRepository;
-import io.everyone.travel.core.repository.PlanRepository;
-import io.everyone.travel.core.repository.TravelRepository;
+import io.everyone.travel.core.domain.expense.Expense;
+import io.everyone.travel.core.domain.plan.Plan;
+import io.everyone.travel.core.domain.travel.Travel;
+import io.everyone.travel.core.domain.travel.Nation;
+import io.everyone.travel.core.domain.expense.repo.ExpenseRepository;
+import io.everyone.travel.core.domain.plan.repo.PlanRepository;
+import io.everyone.travel.core.domain.travel.repo.TravelRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationStartedEvent;

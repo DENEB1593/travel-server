@@ -1,6 +1,6 @@
 package io.everyone.travel.api.config;
 
-import io.everyone.travel.api.config.page.PageArgumentHandlerMethodArgumentResolver;
+import io.everyone.travel.api.config.additional.PageArgumentHandlerMethodArgumentResolver;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

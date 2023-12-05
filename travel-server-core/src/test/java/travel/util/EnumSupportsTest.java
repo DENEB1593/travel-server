@@ -1,6 +1,7 @@
 package travel.util;
 
-import io.everyone.travel.domain.enums.Nation;
+import io.everyone.travel.core.domain.travel.Nation;
+import io.everyone.travel.core.util.EnumSupports;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
