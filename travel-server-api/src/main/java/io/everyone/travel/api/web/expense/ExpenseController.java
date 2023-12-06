@@ -4,6 +4,9 @@ import io.everyone.travel.api.web.CommonResponse;
 import io.everyone.travel.api.exception.model.ProblemResponseModel;
 import io.everyone.travel.api.web.expense.mapper.ExpenseMapper;
 import io.everyone.travel.api.web.expense.dto.*;
+import io.everyone.travel.core.domain.expense.dto.UpdateExpense;
+import io.everyone.travel.core.domain.expense.dto.WriteExpense;
+import io.everyone.travel.core.domain.expense.entity.Expense;
 import io.everyone.travel.core.exception.NotFoundException;
 import io.everyone.travel.core.domain.expense.service.ExpenseService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -41,14 +44,12 @@ public class ExpenseController {
     public CommonResponse<ExpenseWriteResponse> save(
         @RequestBody @Valid ExpenseWriteRequest request
     ) {
+        WriteExpense writeExpense = ExpenseMapper.toWriteExpense(request);
+
+        Expense expense = expenseService.save(writeExpense);
+
         return CommonResponse.OK(
-            ExpenseMapper.toWriteResponse(
-                expenseService.save(
-                    request.amt(),
-                    request.spendAt(),
-                    request.travelId()
-                )
-            )
+            ExpenseMapper.toWriteResponse(expense)
         );
     }
 
@@ -98,15 +99,20 @@ public class ExpenseController {
         @PathVariable Long expenseId,
         @RequestBody @Valid ExpenseUpdateRequest request
     ) {
+
+        UpdateExpense updateExpense = UpdateExpense.builder()
+            .amt(request.amt())
+            .spendAt(request.spendAt())
+            .travelId(request.travelId())
+            .build();
+
+        Expense expense = expenseService.updateExpense(
+            expenseId,
+            updateExpense
+        );
+
         return CommonResponse.OK(
-            ExpenseMapper.toUpdateResponse(
-                expenseService.updateExpense(
-                    expenseId,
-                    request.amt(),
-                    request.spendAt(),
-                    request.travelId()
-                )
-            )
+            ExpenseMapper.toUpdateResponse(expense)
         );
     }
 

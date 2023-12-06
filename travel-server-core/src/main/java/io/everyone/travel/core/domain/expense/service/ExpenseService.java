@@ -1,6 +1,8 @@
 package io.everyone.travel.core.domain.expense.service;
 
-import io.everyone.travel.core.domain.expense.Expense;
+import io.everyone.travel.core.domain.expense.dto.UpdateExpense;
+import io.everyone.travel.core.domain.expense.dto.WriteExpense;
+import io.everyone.travel.core.domain.expense.entity.Expense;
 import io.everyone.travel.core.domain.travel.Travel;
 import io.everyone.travel.core.exception.NotFoundException;
 import io.everyone.travel.core.domain.expense.repo.ExpenseRepository;
@@ -23,14 +25,14 @@ public class ExpenseService {
 
 
     @Transactional
-    public Expense save(BigDecimal amt, LocalDateTime spendAt, Long travelId) {
+    public Expense save(WriteExpense writeExpense) {
         Travel travel = travelService
-            .findById(travelId)
+            .findById(writeExpense.travelId())
             .orElseThrow(NotFoundException::forTravel);
 
         Expense expense = Expense.builder()
-            .amt(amt)
-            .spendAt(spendAt)
+            .amt(writeExpense.amt())
+            .spendAt(writeExpense.spendAt())
             .build();
 
         expense.setTravel(travel);
@@ -56,13 +58,13 @@ public class ExpenseService {
 
     @Transactional
     public Expense updateExpense(
-        Long expenseId, BigDecimal amt, LocalDateTime spendAt, Long travelId
+        Long expenseId, UpdateExpense updateExpense
     ) {
         Expense expense = expenseRepository
             .findById(expenseId)
             .orElseThrow(NotFoundException::forExpense);
 
-        expense.updateFromRequest(amt, spendAt);
+        expense.updateFromRequest(updateExpense);
         expenseRepository.save(expense);
 
         return expense;

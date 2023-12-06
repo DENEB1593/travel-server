@@ -2,7 +2,7 @@ package io.everyone.travel.core.domain.travel;
 
 import io.everyone.travel.core.config.BaseEntity;
 import io.everyone.travel.core.domain.plan.Plan;
-import io.everyone.travel.core.domain.expense.Expense;
+import io.everyone.travel.core.domain.expense.entity.Expense;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;

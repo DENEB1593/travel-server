@@ -1,6 +1,7 @@
-package io.everyone.travel.core.domain.expense;
+package io.everyone.travel.core.domain.expense.entity;
 
 import io.everyone.travel.core.config.BaseEntity;
+import io.everyone.travel.core.domain.expense.dto.UpdateExpense;
 import io.everyone.travel.core.domain.travel.Travel;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -55,9 +56,9 @@ public class Expense extends BaseEntity {
     }
 
 
-    public void updateFromRequest(BigDecimal amt, LocalDateTime spendAt) {
-        this.amt = amt;
-        this.spendAt = spendAt;
+    public void updateFromRequest(UpdateExpense updateExpense) {
+        this.amt = updateExpense.amt();
+        this.spendAt = updateExpense.spendAt();
     }
 
     @Override

@@ -4,7 +4,8 @@ import io.everyone.travel.api.web.expense.dto.ExpenseUpdateResponse;
 import io.everyone.travel.api.web.expense.dto.ExpenseView;
 import io.everyone.travel.api.web.expense.dto.ExpenseWriteRequest;
 import io.everyone.travel.api.web.expense.dto.ExpenseWriteResponse;
-import io.everyone.travel.core.domain.expense.Expense;
+import io.everyone.travel.core.domain.expense.dto.WriteExpense;
+import io.everyone.travel.core.domain.expense.entity.Expense;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
@@ -13,8 +14,8 @@ public class ExpenseMapper {
     /**
      * 지출쓰기요청 -> 지출엔티티 변환
      */
-    public Expense toEntity(ExpenseWriteRequest from) {
-        return Expense.builder()
+    public WriteExpense toWriteExpense(ExpenseWriteRequest from) {
+        return WriteExpense.builder()
             .amt(from.amt())
             .spendAt(from.spendAt())
             .build();
