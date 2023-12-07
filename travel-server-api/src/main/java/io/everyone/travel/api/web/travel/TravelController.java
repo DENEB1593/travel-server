@@ -9,6 +9,8 @@ import io.everyone.travel.api.web.travel.mapper.TravelMapper;
 import io.everyone.travel.api.web.expense.dto.ExpenseView;
 import io.everyone.travel.api.web.plan.dto.PlanView;
 import io.everyone.travel.api.web.travel.dto.*;
+import io.everyone.travel.core.domain.travel.dto.UpdateTravel;
+import io.everyone.travel.core.domain.travel.dto.WriteTravel;
 import io.everyone.travel.core.exception.NotFoundException;
 import io.everyone.travel.core.domain.expense.service.ExpenseService;
 import io.everyone.travel.core.domain.plan.service.PlanService;
@@ -56,14 +58,11 @@ public class TravelController {
     public CommonResponse<TravelWriteResponse> save(
         @ModelAttribute @Valid TravelWriteRequest request
     ) {
+        WriteTravel writeTravel = TravelMapper.toWriteTravel(request);
+
         return CommonResponse.OK(
             TravelMapper.toWriteResponse(
-                travelService.save(
-                    request.startAt(),
-                    request.endAt(),
-                    request.title(),
-                    request.nation()
-                )
+                travelService.save(writeTravel)
             )
         );
     }
@@ -200,15 +199,10 @@ public class TravelController {
         @PathVariable Long travelId,
         @ModelAttribute @Valid TravelUpdateRequest request
     ) {
+        UpdateTravel updateTravel = TravelMapper.toUpdateTravel(travelId, request);
         return CommonResponse.OK(
             TravelMapper.toUpdateResponse(
-                travelService.updateTravel(
-                    travelId,
-                    request.startAt(),
-                    request.endAt(),
-                    request.title(),
-                    request.nation()
-                )
+                travelService.updateTravel(updateTravel)
             )
         );
     }

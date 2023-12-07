@@ -1,10 +1,9 @@
 package io.everyone.travel.api.web.plan.mapper;
 
-import io.everyone.travel.api.web.plan.dto.PlanUpdateResponse;
-import io.everyone.travel.api.web.plan.dto.PlanView;
-import io.everyone.travel.api.web.plan.dto.PlanWriteRequest;
-import io.everyone.travel.api.web.plan.dto.PlanWriteResponse;
+import io.everyone.travel.api.web.plan.dto.*;
 import io.everyone.travel.core.domain.plan.Plan;
+import io.everyone.travel.core.domain.plan.dto.UpdatePlan;
+import io.everyone.travel.core.domain.plan.dto.WritePlan;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
@@ -13,8 +12,8 @@ public class PlanMapper {
     /**
      * 계획쓰기요청 -> 계획엔티티 변환
      */
-    public Plan toEntity(PlanWriteRequest from) {
-        return Plan.builder()
+    public WritePlan toWritePlan(PlanWriteRequest from) {
+        return WritePlan.builder()
             .title(from.title())
             .memo(from.memo())
             .startAt(from.startAt())
@@ -70,4 +69,13 @@ public class PlanMapper {
             .build();
     }
 
+    public UpdatePlan toUpdatePlan(Long planId, PlanUpdateRequest from) {
+        return UpdatePlan.builder()
+            .planId(planId)
+            .title(from.title())
+            .memo(from.memo())
+            .startAt(from.startAt())
+            .endAt(from.endAt())
+            .build();
+    }
 }

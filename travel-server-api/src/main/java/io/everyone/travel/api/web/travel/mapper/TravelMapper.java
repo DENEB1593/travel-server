@@ -5,6 +5,8 @@ import io.everyone.travel.api.web.plan.mapper.PlanMapper;
 import io.everyone.travel.api.web.travel.dto.*;
 import io.everyone.travel.core.domain.travel.Travel;
 import io.everyone.travel.core.domain.travel.Nation;
+import io.everyone.travel.core.domain.travel.dto.UpdateTravel;
+import io.everyone.travel.core.domain.travel.dto.WriteTravel;
 import io.everyone.travel.core.util.EnumSupports;
 import lombok.experimental.UtilityClass;
 
@@ -15,12 +17,13 @@ public class TravelMapper {
     /**
      * 여행쓰기요청 -> 여행엔티티 변환
      */
-    public Travel toEntity(TravelWriteRequest from) {
-        return Travel.builder()
+    public WriteTravel toWriteTravel(TravelWriteRequest from) {
+        return WriteTravel.builder()
             .title(from.title())
             .startAt(from.startAt())
             .endAt(from.endAt())
-            .nation(EnumSupports.byEnumName(Nation.class, from.nation()))
+            .nation(from.nation())
+            .thumbnail(from.thumbnail())
             .build();
     }
 
@@ -78,4 +81,13 @@ public class TravelMapper {
             .build();
     }
 
+    public UpdateTravel toUpdateTravel(Long travelId, TravelUpdateRequest from) {
+        return UpdateTravel.builder()
+            .travelId(travelId)
+            .startAt(from.startAt())
+            .endAt(from.endAt())
+            .title(from.title())
+            .nation(from.nation())
+            .build();
+    }
 }

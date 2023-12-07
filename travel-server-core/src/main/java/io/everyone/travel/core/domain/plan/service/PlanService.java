@@ -1,6 +1,8 @@
 package io.everyone.travel.core.domain.plan.service;
 
 import io.everyone.travel.core.domain.plan.Plan;
+import io.everyone.travel.core.domain.plan.dto.UpdatePlan;
+import io.everyone.travel.core.domain.plan.dto.WritePlan;
 import io.everyone.travel.core.domain.travel.Travel;
 import io.everyone.travel.core.exception.NotFoundException;
 import io.everyone.travel.core.domain.plan.repo.PlanRepository;
@@ -21,16 +23,16 @@ public class PlanService {
     private final PlanRepository planRepository;
 
     @Transactional
-    public Plan save(String title, String memo, LocalDateTime startAt, LocalDateTime endAt, Long travelId) {
+    public Plan save(WritePlan writePlan) {
         Travel travel = travelService
-            .findById(travelId)
+            .findById(writePlan.travelId())
             .orElseThrow(NotFoundException::forTravel);
 
         Plan plan = Plan.builder()
-            .title(title)
-            .memo(memo)
-            .startAt(startAt)
-            .endAt(endAt)
+            .title(writePlan.title())
+            .memo(writePlan.memo())
+            .startAt(writePlan.startAt())
+            .endAt(writePlan.endAt())
             .build();
 
         plan.setTravel(travel);
@@ -54,12 +56,12 @@ public class PlanService {
     }
 
     @Transactional
-    public Plan updatePlan(Long planId, String title, String memo, LocalDateTime startAt, LocalDateTime endAt) {
+    public Plan updatePlan(UpdatePlan updatePlan) {
         Plan plan = planRepository
-            .findById(planId)
+            .findById(updatePlan.planId())
             .orElseThrow(NotFoundException::forPlan);
 
-        plan.updateFromRequest(title, memo);
+        plan.updateFromRequest(updatePlan.title(),updatePlan.memo());
 
         planRepository.save(plan);
 

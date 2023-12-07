@@ -2,6 +2,8 @@ package io.everyone.travel.core.domain.travel.service;
 
 import io.everyone.travel.core.domain.travel.Travel;
 import io.everyone.travel.core.domain.travel.Nation;
+import io.everyone.travel.core.domain.travel.dto.UpdateTravel;
+import io.everyone.travel.core.domain.travel.dto.WriteTravel;
 import io.everyone.travel.core.exception.NotFoundException;
 import io.everyone.travel.core.domain.travel.repo.TravelRepository;
 import io.everyone.travel.core.util.EnumSupports;
@@ -25,12 +27,12 @@ public class TravelService {
     private static final Sort TRAVEL_DEFAULT_SORT = Sort.by("startAt").descending();
 
     @Transactional
-    public Travel save(LocalDateTime starAt, LocalDateTime endAt, String title, String nation) {
+    public Travel save(WriteTravel writeTravel) {
         Travel travel = Travel.builder()
-            .startAt(starAt)
-            .endAt(endAt)
-            .title(title)
-            .nation(EnumSupports.byEnumName(Nation.class, nation))
+            .startAt(writeTravel.startAt())
+            .endAt(writeTravel.endAt())
+            .title(writeTravel.title())
+            .nation(EnumSupports.byEnumName(Nation.class, writeTravel.nation()))
             .build();
 
         // 이미지 확인 우선은 기본이미지 주소로..
@@ -52,17 +54,15 @@ public class TravelService {
     }
 
     @Transactional
-    public Travel updateTravel(
-        Long travelId, LocalDateTime starAt, LocalDateTime endAt, String title, String nation
-    ) {
-        Travel travel = this.findById(travelId)
+    public Travel updateTravel(UpdateTravel updateTravel) {
+        Travel travel = this.findById(updateTravel.travelId())
             .orElseThrow(NotFoundException::forTravel);
 
         travel.updateFromRequest(
-            title,
-            EnumSupports.byEnumName(Nation.class, nation),
-            starAt,
-            endAt
+            updateTravel.title(),
+            EnumSupports.byEnumName(Nation.class, updateTravel.nation()),
+            updateTravel.startAt(),
+            updateTravel.endAt()
         );
 
         travelRepository.save(travel);
