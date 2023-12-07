@@ -1,7 +1,7 @@
 package io.everyone.travel.core.domain.travel.service;
 
-import io.everyone.travel.core.domain.travel.Travel;
-import io.everyone.travel.core.domain.travel.Nation;
+import io.everyone.travel.core.domain.travel.entity.Travel;
+import io.everyone.travel.core.domain.travel.enums.Nation;
 import io.everyone.travel.core.domain.travel.dto.UpdateTravel;
 import io.everyone.travel.core.domain.travel.dto.WriteTravel;
 import io.everyone.travel.core.exception.NotFoundException;
@@ -15,7 +15,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service

@@ -3,7 +3,7 @@ package io.everyone.travel.core.domain.expense.service;
 import io.everyone.travel.core.domain.expense.dto.UpdateExpense;
 import io.everyone.travel.core.domain.expense.dto.WriteExpense;
 import io.everyone.travel.core.domain.expense.entity.Expense;
-import io.everyone.travel.core.domain.travel.Travel;
+import io.everyone.travel.core.domain.travel.entity.Travel;
 import io.everyone.travel.core.exception.NotFoundException;
 import io.everyone.travel.core.domain.expense.repo.ExpenseRepository;
 import io.everyone.travel.core.domain.travel.service.TravelService;
@@ -11,8 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Set;
 

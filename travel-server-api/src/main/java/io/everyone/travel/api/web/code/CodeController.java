@@ -3,7 +3,7 @@ package io.everyone.travel.api.web.code;
 import io.everyone.travel.api.web.CommonResponse;
 import io.everyone.travel.api.web.travel.dto.NationModel;
 import io.everyone.travel.api.exception.model.ProblemResponseModel;
-import io.everyone.travel.core.domain.travel.Nation;
+import io.everyone.travel.core.domain.travel.enums.Nation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

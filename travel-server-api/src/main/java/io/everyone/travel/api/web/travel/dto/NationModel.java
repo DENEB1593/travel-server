@@ -1,6 +1,6 @@
 package io.everyone.travel.api.web.travel.dto;
 
-import io.everyone.travel.core.domain.travel.Nation;
+import io.everyone.travel.core.domain.travel.enums.Nation;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 

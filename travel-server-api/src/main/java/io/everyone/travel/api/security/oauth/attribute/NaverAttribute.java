@@ -3,7 +3,7 @@ package io.everyone.travel.api.security.oauth.attribute;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import io.everyone.travel.core.domain.user.AuthProvider;
+import io.everyone.travel.core.domain.user.enums.AuthProvider;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

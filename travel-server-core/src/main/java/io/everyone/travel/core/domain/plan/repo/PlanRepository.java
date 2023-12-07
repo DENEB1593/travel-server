@@ -1,7 +1,7 @@
 package io.everyone.travel.core.domain.plan.repo;
 
 
-import io.everyone.travel.core.domain.plan.Plan;
+import io.everyone.travel.core.domain.plan.entity.Plan;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

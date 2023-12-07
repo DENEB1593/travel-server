@@ -2,7 +2,7 @@ package io.everyone.travel.api.web.travel.dto;
 
 import io.everyone.travel.api.web.plan.dto.PlanView;
 import io.everyone.travel.api.web.expense.dto.ExpenseView;
-import io.everyone.travel.core.domain.travel.Travel;
+import io.everyone.travel.core.domain.travel.entity.Travel;
 import io.everyone.travel.api.web.travel.mapper.TravelMapper;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;

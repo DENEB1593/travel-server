@@ -1,4 +1,4 @@
-package io.everyone.travel.core.domain.travel;
+package io.everyone.travel.core.domain.travel.enums;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;

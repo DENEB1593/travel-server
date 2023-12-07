@@ -1,6 +1,7 @@
-package io.everyone.travel.core.domain.user;
+package io.everyone.travel.core.domain.user.entity;
 
 import io.everyone.travel.core.config.BaseEntity;
+import io.everyone.travel.core.domain.user.enums.AuthProvider;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;

@@ -3,11 +3,9 @@ package io.everyone.travel.api.web.travel.mapper;
 import io.everyone.travel.api.web.expense.mapper.ExpenseMapper;
 import io.everyone.travel.api.web.plan.mapper.PlanMapper;
 import io.everyone.travel.api.web.travel.dto.*;
-import io.everyone.travel.core.domain.travel.Travel;
-import io.everyone.travel.core.domain.travel.Nation;
+import io.everyone.travel.core.domain.travel.entity.Travel;
 import io.everyone.travel.core.domain.travel.dto.UpdateTravel;
 import io.everyone.travel.core.domain.travel.dto.WriteTravel;
-import io.everyone.travel.core.util.EnumSupports;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass

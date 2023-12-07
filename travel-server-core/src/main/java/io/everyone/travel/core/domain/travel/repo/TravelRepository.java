@@ -1,6 +1,6 @@
 package io.everyone.travel.core.domain.travel.repo;
 
-import io.everyone.travel.core.domain.travel.Travel;
+import io.everyone.travel.core.domain.travel.entity.Travel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

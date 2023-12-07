@@ -1,7 +1,7 @@
 package io.everyone.travel.api.web.plan.mapper;
 
 import io.everyone.travel.api.web.plan.dto.*;
-import io.everyone.travel.core.domain.plan.Plan;
+import io.everyone.travel.core.domain.plan.entity.Plan;
 import io.everyone.travel.core.domain.plan.dto.UpdatePlan;
 import io.everyone.travel.core.domain.plan.dto.WritePlan;
 import lombok.experimental.UtilityClass;

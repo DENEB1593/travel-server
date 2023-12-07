@@ -1,8 +1,9 @@
-package io.everyone.travel.core.domain.travel;
+package io.everyone.travel.core.domain.travel.entity;
 
 import io.everyone.travel.core.config.BaseEntity;
-import io.everyone.travel.core.domain.plan.Plan;
+import io.everyone.travel.core.domain.plan.entity.Plan;
 import io.everyone.travel.core.domain.expense.entity.Expense;
+import io.everyone.travel.core.domain.travel.enums.Nation;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;

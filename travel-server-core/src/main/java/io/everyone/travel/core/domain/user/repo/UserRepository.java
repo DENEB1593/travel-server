@@ -1,7 +1,7 @@
 package io.everyone.travel.core.domain.user.repo;
 
 
-import io.everyone.travel.core.domain.user.User;
+import io.everyone.travel.core.domain.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

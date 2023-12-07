@@ -1,6 +1,6 @@
 package travel.util;
 
-import io.everyone.travel.core.domain.travel.Nation;
+import io.everyone.travel.core.domain.travel.enums.Nation;
 import io.everyone.travel.core.util.EnumSupports;
 import org.junit.jupiter.api.Test;
 
