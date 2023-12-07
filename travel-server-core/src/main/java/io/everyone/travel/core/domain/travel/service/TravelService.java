@@ -1,11 +1,12 @@
 package io.everyone.travel.core.domain.travel.service;
 
-import io.everyone.travel.core.domain.travel.entity.Travel;
-import io.everyone.travel.core.domain.travel.enums.Nation;
 import io.everyone.travel.core.domain.travel.dto.UpdateTravel;
 import io.everyone.travel.core.domain.travel.dto.WriteTravel;
-import io.everyone.travel.core.exception.NotFoundException;
+import io.everyone.travel.core.domain.travel.entity.Travel;
+import io.everyone.travel.core.domain.travel.enums.Nation;
 import io.everyone.travel.core.domain.travel.repo.TravelRepository;
+import io.everyone.travel.core.exception.NotFoundException;
+import io.everyone.travel.core.util.DateUtils;
 import io.everyone.travel.core.util.EnumSupports;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -17,6 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+import static org.springframework.util.Assert.isTrue;
+
+
 @Service
 @RequiredArgsConstructor
 public class TravelService {
@@ -27,6 +31,11 @@ public class TravelService {
 
     @Transactional
     public Travel save(WriteTravel writeTravel) {
+        isTrue(writeTravel.title().length() <= 200, "여행명은 200자 이하여야 합니다");
+        isTrue(
+            DateUtils.isOnOrAfter(writeTravel.startAt(), writeTravel.endAt()) ,
+            "여행종료일자는 시작일자 이후여야 합니다");
+
         Travel travel = Travel.builder()
             .startAt(writeTravel.startAt())
             .endAt(writeTravel.endAt())

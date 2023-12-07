@@ -52,6 +52,19 @@ public class GeneralExceptionHandler {
         return createResponseEntity(HttpStatus.BAD_REQUEST, problem);
     }
 
+    @ExceptionHandler
+    public ResponseEntity<?> handleIllegalArgumentException(IllegalArgumentException e) {
+        log.warn("illegal argument exception - message: {}", e.getMessage());
+
+        var problem = Problem.builder()
+            .withTitle(Status.BAD_REQUEST.getReasonPhrase())
+            .withStatus(Status.BAD_REQUEST)
+            .withDetail(e.getMessage())
+            .build();
+
+        return createResponseEntity(HttpStatus.BAD_REQUEST, problem);
+    }
+
 
     @ExceptionHandler
     public ResponseEntity<?> handleException(Exception e) {
