@@ -66,6 +66,11 @@ public class TravelService {
         Travel travel = this.findById(updateTravel.travelId())
             .orElseThrow(NotFoundException::forTravel);
 
+        isTrue(updateTravel.title().length() <= 200, "여행명은 200자 이하여야 합니다");
+        isTrue(
+            DateUtils.isOnOrAfter(updateTravel.startAt(), updateTravel.endAt()) ,
+            "여행종료일자는 시작일자 이후여야 합니다");
+
         travel.updateFromRequest(
             updateTravel.title(),
             EnumSupports.byEnumName(Nation.class, updateTravel.nation()),

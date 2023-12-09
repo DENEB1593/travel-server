@@ -1,9 +1,12 @@
 package io.everyone.travel.core.util;
 
 import lombok.experimental.UtilityClass;
+import org.antlr.v4.runtime.misc.Interval;
 
 import javax.annotation.Nonnull;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 @UtilityClass
 public class DateUtils {
@@ -19,4 +22,10 @@ public class DateUtils {
         return target.isAfter(src) || target.isEqual(src);
     }
 
+    /**
+     * date가 start와 end 사이에 존재하는 지 확인 한다.
+     */
+    public boolean isBetween(@Nonnull LocalDateTime date, @Nonnull LocalDateTime start, @Nonnull LocalDateTime end) {
+        return !date.isBefore(start) && !date.isAfter(end);
+    }
 }

@@ -14,6 +14,7 @@ public class PlanMapper {
      */
     public WritePlan toWritePlan(PlanWriteRequest from) {
         return WritePlan.builder()
+            .travelId(from.travelId())
             .title(from.title())
             .memo(from.memo())
             .startAt(from.startAt())

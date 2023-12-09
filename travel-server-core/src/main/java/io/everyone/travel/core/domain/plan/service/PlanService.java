@@ -7,12 +7,18 @@ import io.everyone.travel.core.domain.travel.entity.Travel;
 import io.everyone.travel.core.exception.NotFoundException;
 import io.everyone.travel.core.domain.plan.repo.PlanRepository;
 import io.everyone.travel.core.domain.travel.service.TravelService;
+import io.everyone.travel.core.util.DateUtils;
+import io.jsonwebtoken.lang.Assert;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.type.descriptor.DateTimeUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.Set;
+
+import static org.springframework.util.Assert.isTrue;
+
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +32,17 @@ public class PlanService {
         Travel travel = travelService
             .findById(writePlan.travelId())
             .orElseThrow(NotFoundException::forTravel);
+
+        isTrue(writePlan.title().length() <= 200, "계획명을 200자 이하여야 합니다");
+        isTrue(DateUtils.isOnOrAfter(writePlan.startAt(), writePlan.endAt()), "계획종료일자는 시작일자 이후여야 합니다");
+        isTrue(
+            DateUtils.isBetween(writePlan.startAt(), travel.getStartAt(), travel.getEndAt()),
+            "계획시작일자는 여행 기간 내 포함되어야 합니다"
+        );
+        isTrue(
+            DateUtils.isBetween(writePlan.endAt(), travel.getStartAt(), travel.getEndAt()),
+            "계획종료일자는 여행 기간 내 포함되어야 합니다"
+        );
 
         Plan plan = Plan.builder()
             .title(writePlan.title())
