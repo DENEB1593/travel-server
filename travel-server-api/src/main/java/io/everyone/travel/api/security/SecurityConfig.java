@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
@@ -30,10 +31,11 @@ public class SecurityConfig {
             .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(auth ->
                 auth
-                    .requestMatchers(antMatcher("/login")).permitAll()
+                    .requestMatchers(antMatcher("/auth/login")).permitAll()
                     .requestMatchers(antMatcher("/api-docs/**")).permitAll()
                     .requestMatchers(antMatcher("/swagger-ui/**")).permitAll()
-                    .requestMatchers(antMatcher("/**")).permitAll() // 개발 중일 때는 permit all
+                    .requestMatchers(antMatcher("/api/**")).hasRole(Role.USER.name()) // 모든 API에 대한 접근은 회원들만 할 수 있도록
+                    .anyRequest().permitAll()
             )
             .sessionManagement(session ->
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -52,8 +54,11 @@ public class SecurityConfig {
     @Bean
     WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web.ignoring()
-            .requestMatchers("/api-docs/**")
-            .requestMatchers("/swagger-ui/**");
+            .requestMatchers(antMatcher("/api-docs/**"))
+            .requestMatchers(antMatcher("/swagger-ui/**"))
+            .requestMatchers(antMatcher("/static/**"))
+            .requestMatchers(antMatcher("/favicon.ico"))
+            .requestMatchers(antMatcher("/templates/**"));
     }
 
 }

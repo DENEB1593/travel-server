@@ -1,9 +1,10 @@
 package io.everyone.travel.api.security.jwt;
 
+import io.everyone.travel.api.security.Role;
+import io.everyone.travel.api.security.SecurityUser;
 import io.everyone.travel.core.domain.user.entity.User;
 import io.everyone.travel.core.exception.NotFoundException;
 import io.everyone.travel.core.domain.user.repo.UserRepository;
-import io.everyone.travel.api.util.SecurityUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,9 +12,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -37,13 +38,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String header = request.getHeader("Authorization");
         if (!StringUtils.hasText(header) || !header.startsWith("Bearer ")) {
-            log.warn("no authentication header : {}", header);
             filterChain.doFilter(request, response);
             return;
         }
 
         String jwt = header.substring(7);
-        log.debug("jwt authentication - {}", jwt);
         String email =  jwtService.extract(jwt);
         SecurityContext context = SecurityContextHolder.getContext();
 
@@ -53,12 +52,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 .findByEmail(email)
                 .orElseThrow(NotFoundException::forUser);
 
-            UserDetails userDetails = SecurityUtils.createUserDetails(user.getEmail(), "USER");
+            SecurityUser securityUser = SecurityUser.of(user);
 
             if (jwtService.isTokenValid(jwt, user.getEmail())) {
                 // 인증정보 저장 처리
                 var authentication
-                    = new UsernamePasswordAuthenticationToken(userDetails, null);
+                    = new UsernamePasswordAuthenticationToken(
+                        securityUser,null, AuthorityUtils.createAuthorityList(Role.USER.name()));
 
                 context.setAuthentication(authentication);
                 SecurityContextHolder.setContext(context);

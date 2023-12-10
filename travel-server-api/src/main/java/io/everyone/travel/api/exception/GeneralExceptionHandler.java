@@ -1,5 +1,6 @@
 package io.everyone.travel.api.exception;
 
+import io.everyone.travel.api.security.oauth.attribute.NaverAttribute;
 import io.everyone.travel.core.exception.NotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -7,6 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -63,6 +65,19 @@ public class GeneralExceptionHandler {
             .build();
 
         return createResponseEntity(HttpStatus.BAD_REQUEST, problem);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<?> handleUnAuthorizedException(InsufficientAuthenticationException e) {
+        log.warn("unauthorization exception - message: {}", e.getMessage());
+
+        var problem = Problem.builder()
+            .withTitle(Status.UNAUTHORIZED.getReasonPhrase())
+            .withStatus(Status.UNAUTHORIZED)
+            .withDetail("올바르지 않은 인증 정보입니다")
+            .build();
+
+        return createResponseEntity(HttpStatus.UNAUTHORIZED, problem);
     }
 
 
