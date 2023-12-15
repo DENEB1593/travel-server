@@ -9,7 +9,7 @@ import io.everyone.travel.core.domain.expense.entity.Expense;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-public class ExpenseMapper {
+public class ExpenseApiMapper {
 
     /**
      * 지출쓰기요청 -> 지출엔티티 변환

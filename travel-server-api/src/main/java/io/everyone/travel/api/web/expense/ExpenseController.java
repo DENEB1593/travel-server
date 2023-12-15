@@ -2,7 +2,7 @@ package io.everyone.travel.api.web.expense;
 
 import io.everyone.travel.api.web.CommonResponse;
 import io.everyone.travel.api.exception.model.ProblemResponseModel;
-import io.everyone.travel.api.web.expense.mapper.ExpenseMapper;
+import io.everyone.travel.api.web.expense.mapper.ExpenseApiMapper;
 import io.everyone.travel.api.web.expense.dto.*;
 import io.everyone.travel.core.domain.expense.dto.UpdateExpense;
 import io.everyone.travel.core.domain.expense.dto.WriteExpense;
@@ -44,12 +44,12 @@ public class ExpenseController {
     public CommonResponse<ExpenseWriteResponse> save(
         @RequestBody @Valid ExpenseWriteRequest request
     ) {
-        WriteExpense writeExpense = ExpenseMapper.toWriteExpense(request);
+        WriteExpense writeExpense = ExpenseApiMapper.toWriteExpense(request);
 
         Expense expense = expenseService.save(writeExpense);
 
         return CommonResponse.OK(
-            ExpenseMapper.toWriteResponse(expense)
+            ExpenseApiMapper.toWriteResponse(expense)
         );
     }
 
@@ -78,7 +78,7 @@ public class ExpenseController {
     ) {
         return CommonResponse.OK(
             expenseService.findByExpenseId(expenseId)
-                .map(ExpenseMapper::toView)
+                .map(ExpenseApiMapper::toView)
                 .orElseThrow(NotFoundException::forExpense)
         );
     }
@@ -112,7 +112,7 @@ public class ExpenseController {
         );
 
         return CommonResponse.OK(
-            ExpenseMapper.toUpdateResponse(expense)
+            ExpenseApiMapper.toUpdateResponse(expense)
         );
     }
 

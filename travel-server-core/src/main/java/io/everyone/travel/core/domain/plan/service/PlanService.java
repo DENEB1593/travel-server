@@ -3,6 +3,7 @@ package io.everyone.travel.core.domain.plan.service;
 import io.everyone.travel.core.domain.plan.entity.Plan;
 import io.everyone.travel.core.domain.plan.dto.UpdatePlan;
 import io.everyone.travel.core.domain.plan.dto.WritePlan;
+import io.everyone.travel.core.domain.plan.mapper.PlanMapper;
 import io.everyone.travel.core.domain.travel.entity.Travel;
 import io.everyone.travel.core.exception.NotFoundException;
 import io.everyone.travel.core.domain.plan.repo.PlanRepository;
@@ -33,28 +34,12 @@ public class PlanService {
             .findById(writePlan.travelId())
             .orElseThrow(NotFoundException::forTravel);
 
-        isTrue(writePlan.title().length() <= 200, "계획명을 200자 이하여야 합니다");
-        isTrue(DateUtils.isOnOrAfter(writePlan.startAt(), writePlan.endAt()), "계획종료일자는 시작일자 이후여야 합니다");
-        isTrue(
-            DateUtils.isBetween(writePlan.startAt(), travel.getStartAt(), travel.getEndAt()),
-            "계획시작일자는 여행 기간 내 포함되어야 합니다"
-        );
-        isTrue(
-            DateUtils.isBetween(writePlan.endAt(), travel.getStartAt(), travel.getEndAt()),
-            "계획종료일자는 여행 기간 내 포함되어야 합니다"
-        );
+        this.validateWritePlan(writePlan, travel);
 
-        Plan plan = Plan.builder()
-            .title(writePlan.title())
-            .memo(writePlan.memo())
-            .startAt(writePlan.startAt())
-            .endAt(writePlan.endAt())
-            .build();
-
+        Plan plan = PlanMapper.writeRequestToPlan(writePlan);
         plan.setTravel(travel);
 
         planRepository.save(plan);
-
         return plan;
     }
 
@@ -90,10 +75,24 @@ public class PlanService {
     public void deleteById(Long planId) {
         planRepository.findById(planId)
             .ifPresentOrElse(
-                (plan) -> planRepository.deleteById(plan.getId()),
+                it -> planRepository.deleteById(it.getId()),
                 () -> { throw NotFoundException.forPlan(); }
             );
-
     }
+
+
+    private void validateWritePlan(WritePlan writePlan, Travel travel) {
+        isTrue(writePlan.title().length() <= 200, "계획명을 200자 이하여야 합니다");
+        isTrue(DateUtils.isOnOrAfter(writePlan.startAt(), writePlan.endAt()), "계획종료일자는 시작일자 이후여야 합니다");
+        isTrue(
+            DateUtils.isBetween(writePlan.startAt(), travel.getStartAt(), travel.getEndAt()),
+            "계획시작일자는 여행 기간 내 포함되어야 합니다"
+        );
+        isTrue(
+            DateUtils.isBetween(writePlan.endAt(), travel.getStartAt(), travel.getEndAt()),
+            "계획종료일자는 여행 기간 내 포함되어야 합니다"
+        );
+    }
+
 
 }

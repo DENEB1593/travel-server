@@ -3,7 +3,7 @@ package io.everyone.travel.api.web.travel.dto;
 import io.everyone.travel.api.web.plan.dto.PlanView;
 import io.everyone.travel.api.web.expense.dto.ExpenseView;
 import io.everyone.travel.core.domain.travel.entity.Travel;
-import io.everyone.travel.api.web.travel.mapper.TravelMapper;
+import io.everyone.travel.api.web.travel.mapper.TravelApiMapper;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Value;
@@ -33,7 +33,7 @@ public class TravelResponse {
 
     public static TravelResponse of(Page<Travel> travelPage) {
         return TravelResponse.builder()
-            .travels(travelPage.getContent().stream().map(TravelMapper::toView).toList())
+            .travels(travelPage.getContent().stream().map(TravelApiMapper::toView).toList())
             .page(travelPage.getPageable().getPageNumber() + 1)
             .size(travelPage.getNumberOfElements())
             .totalPage(travelPage.getTotalPages())

@@ -3,6 +3,7 @@ package io.everyone.travel.core.domain.expense.service;
 import io.everyone.travel.core.domain.expense.dto.UpdateExpense;
 import io.everyone.travel.core.domain.expense.dto.WriteExpense;
 import io.everyone.travel.core.domain.expense.entity.Expense;
+import io.everyone.travel.core.domain.expense.mapper.ExpenseMapper;
 import io.everyone.travel.core.domain.travel.entity.Travel;
 import io.everyone.travel.core.exception.NotFoundException;
 import io.everyone.travel.core.domain.expense.repo.ExpenseRepository;
@@ -31,22 +32,15 @@ public class ExpenseService {
             .findById(writeExpense.travelId())
             .orElseThrow(NotFoundException::forTravel);
 
-        isTrue(
-            DateUtils.isBetween(writeExpense.spendAt(), travel.getStartAt(), travel.getEndAt()),
-            "지출일자는 여행 기간 내 포함되어야 합니다"
-        );
+        this.validateWriteExpense(writeExpense, travel);
 
-        Expense expense = Expense.builder()
-            .amt(writeExpense.amt())
-            .spendAt(writeExpense.spendAt())
-            .build();
-
+        Expense expense = ExpenseMapper.writeRequestToExpense(writeExpense);
         expense.setTravel(travel);
 
         expenseRepository.save(expense);
-
         return expense;
     }
+
 
     @Transactional(readOnly = true)
     public Optional<Expense> findByExpenseId(Long expenseId) {
@@ -80,9 +74,16 @@ public class ExpenseService {
     public void deleteById(Long expenseId) {
         expenseRepository.findById(expenseId)
             .ifPresentOrElse(
-                (expense) -> expenseRepository.deleteById(expense.getId()),
+                it -> expenseRepository.deleteById(it.getId()),
                 () -> {throw NotFoundException.forExpense();}
             );
+    }
+
+    private void validateWriteExpense(WriteExpense writeExpense, Travel travel) {
+        isTrue(
+            DateUtils.isBetween(writeExpense.spendAt(), travel.getStartAt(), travel.getEndAt()),
+            "지출일자는 여행 기간 내 포함되어야 합니다"
+        );
     }
 
 

@@ -1,7 +1,7 @@
 package io.everyone.travel.api.web.travel.mapper;
 
-import io.everyone.travel.api.web.expense.mapper.ExpenseMapper;
-import io.everyone.travel.api.web.plan.mapper.PlanMapper;
+import io.everyone.travel.api.web.expense.mapper.ExpenseApiMapper;
+import io.everyone.travel.api.web.plan.mapper.PlanApiMapper;
 import io.everyone.travel.api.web.travel.dto.*;
 import io.everyone.travel.core.domain.travel.entity.Travel;
 import io.everyone.travel.core.domain.travel.dto.UpdateTravel;
@@ -9,7 +9,7 @@ import io.everyone.travel.core.domain.travel.dto.WriteTravel;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-public class TravelMapper {
+public class TravelApiMapper {
 
 
     /**
@@ -68,12 +68,12 @@ public class TravelMapper {
             .thumbnail(from.getThumbnail())
             .plans(
                 from.getPlans().stream()
-                    .map(PlanMapper::toView)
+                    .map(PlanApiMapper::toView)
                     .toList()
             )
             .expenses(
                 from.getExpenses().stream()
-                    .map(ExpenseMapper::toView)
+                    .map(ExpenseApiMapper::toView)
                     .toList()
             )
             .build();

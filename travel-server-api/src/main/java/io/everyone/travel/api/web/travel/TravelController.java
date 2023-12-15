@@ -3,9 +3,9 @@ package io.everyone.travel.api.web.travel;
 import io.everyone.travel.api.config.additional.PageModel;
 import io.everyone.travel.api.web.CommonResponse;
 import io.everyone.travel.api.exception.model.ProblemResponseModel;
-import io.everyone.travel.api.web.expense.mapper.ExpenseMapper;
-import io.everyone.travel.api.web.plan.mapper.PlanMapper;
-import io.everyone.travel.api.web.travel.mapper.TravelMapper;
+import io.everyone.travel.api.web.expense.mapper.ExpenseApiMapper;
+import io.everyone.travel.api.web.plan.mapper.PlanApiMapper;
+import io.everyone.travel.api.web.travel.mapper.TravelApiMapper;
 import io.everyone.travel.api.web.expense.dto.ExpenseView;
 import io.everyone.travel.api.web.plan.dto.PlanView;
 import io.everyone.travel.api.web.travel.dto.*;
@@ -58,10 +58,10 @@ public class TravelController {
     public CommonResponse<TravelWriteResponse> save(
         @ModelAttribute @Valid TravelWriteRequest request
     ) {
-        WriteTravel writeTravel = TravelMapper.toWriteTravel(request);
+        WriteTravel writeTravel = TravelApiMapper.toWriteTravel(request);
 
         return CommonResponse.OK(
-            TravelMapper.toWriteResponse(
+            TravelApiMapper.toWriteResponse(
                 travelService.save(writeTravel)
             )
         );
@@ -90,7 +90,7 @@ public class TravelController {
     ) {
         return CommonResponse.OK(
             travelService.findById(travelId)
-                .map(TravelMapper::toView)
+                .map(TravelApiMapper::toView)
                 .orElseThrow(NotFoundException::forTravel)
         );
     }
@@ -148,7 +148,7 @@ public class TravelController {
         return CommonResponse.OK(
             planService.findByTravelId(travelId)
                 .stream()
-                .map(PlanMapper::toView)
+                .map(PlanApiMapper::toView)
                 .toList()
         );
     }
@@ -178,7 +178,7 @@ public class TravelController {
         return CommonResponse.OK(
             expenseService.findByTravelId(travelId)
                 .stream()
-                .map(ExpenseMapper::toView)
+                .map(ExpenseApiMapper::toView)
                 .toList()
         );
     }
@@ -199,9 +199,9 @@ public class TravelController {
         @PathVariable Long travelId,
         @ModelAttribute @Valid TravelUpdateRequest request
     ) {
-        UpdateTravel updateTravel = TravelMapper.toUpdateTravel(travelId, request);
+        UpdateTravel updateTravel = TravelApiMapper.toUpdateTravel(travelId, request);
         return CommonResponse.OK(
-            TravelMapper.toUpdateResponse(
+            TravelApiMapper.toUpdateResponse(
                 travelService.updateTravel(updateTravel)
             )
         );

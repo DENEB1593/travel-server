@@ -3,7 +3,7 @@ package io.everyone.travel.api.web.plan;
 
 import io.everyone.travel.api.web.CommonResponse;
 import io.everyone.travel.api.exception.model.ProblemResponseModel;
-import io.everyone.travel.api.web.plan.mapper.PlanMapper;
+import io.everyone.travel.api.web.plan.mapper.PlanApiMapper;
 import io.everyone.travel.api.web.plan.dto.*;
 import io.everyone.travel.core.domain.plan.dto.UpdatePlan;
 import io.everyone.travel.core.domain.plan.dto.WritePlan;
@@ -43,10 +43,10 @@ public class PlanController {
     public CommonResponse<PlanWriteResponse> save(
         @RequestBody @Valid PlanWriteRequest request
     ) {
-        WritePlan writePlan = PlanMapper.toWritePlan(request);
+        WritePlan writePlan = PlanApiMapper.toWritePlan(request);
 
         return CommonResponse.OK(
-            PlanMapper.toWriteResponse(
+            PlanApiMapper.toWriteResponse(
                 planService.save(writePlan)
             )
         );
@@ -76,7 +76,7 @@ public class PlanController {
     ) {
         return CommonResponse.OK(
             planService.findByPlanId(planId)
-                .map(PlanMapper::toView)
+                .map(PlanApiMapper::toView)
                 .orElseThrow(NotFoundException::forPlan)
         );
     }
@@ -97,10 +97,10 @@ public class PlanController {
         @PathVariable Long planId,
         @RequestBody PlanUpdateRequest request
     ) {
-        UpdatePlan updatePlan = PlanMapper.toUpdatePlan(planId, request);
+        UpdatePlan updatePlan = PlanApiMapper.toUpdatePlan(planId, request);
 
         return CommonResponse.OK(
-            PlanMapper.toUpdateResponse(
+            PlanApiMapper.toUpdateResponse(
                 planService.updatePlan(updatePlan)
             )
         );

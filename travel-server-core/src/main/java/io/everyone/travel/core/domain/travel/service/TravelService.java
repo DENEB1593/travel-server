@@ -4,6 +4,7 @@ import io.everyone.travel.core.domain.travel.dto.UpdateTravel;
 import io.everyone.travel.core.domain.travel.dto.WriteTravel;
 import io.everyone.travel.core.domain.travel.entity.Travel;
 import io.everyone.travel.core.domain.travel.enums.Nation;
+import io.everyone.travel.core.domain.travel.mapper.TravelMapper;
 import io.everyone.travel.core.domain.travel.repo.TravelRepository;
 import io.everyone.travel.core.exception.NotFoundException;
 import io.everyone.travel.core.util.DateUtils;
@@ -31,17 +32,9 @@ public class TravelService {
 
     @Transactional
     public Travel save(WriteTravel writeTravel) {
-        isTrue(writeTravel.title().length() <= 200, "여행명은 200자 이하여야 합니다");
-        isTrue(
-            DateUtils.isOnOrAfter(writeTravel.startAt(), writeTravel.endAt()) ,
-            "여행종료일자는 시작일자 이후여야 합니다");
+        this.validateWriteRequest(writeTravel);
 
-        Travel travel = Travel.builder()
-            .startAt(writeTravel.startAt())
-            .endAt(writeTravel.endAt())
-            .title(writeTravel.title())
-            .nation(EnumSupports.byEnumName(Nation.class, writeTravel.nation()))
-            .build();
+        Travel travel = TravelMapper.writeRequestToTravel(writeTravel);
 
         // 이미지 확인 우선은 기본이미지 주소로..
         String thumbnail = "http://localhost:8080/images/default_travel_image.png";
@@ -63,13 +56,11 @@ public class TravelService {
 
     @Transactional
     public Travel updateTravel(UpdateTravel updateTravel) {
-        Travel travel = this.findById(updateTravel.travelId())
-            .orElseThrow(NotFoundException::forTravel);
+        this.validateUpdateRequest(updateTravel);
 
-        isTrue(updateTravel.title().length() <= 200, "여행명은 200자 이하여야 합니다");
-        isTrue(
-            DateUtils.isOnOrAfter(updateTravel.startAt(), updateTravel.endAt()) ,
-            "여행종료일자는 시작일자 이후여야 합니다");
+        Travel travel = this
+            .findById(updateTravel.travelId())
+            .orElseThrow(NotFoundException::forTravel);
 
         travel.updateFromRequest(
             updateTravel.title(),
@@ -88,9 +79,24 @@ public class TravelService {
         travelRepository
             .findById(travelId)
             .ifPresentOrElse(
-                (travel) -> travelRepository.deleteById(travel.getId()),
+                it -> travelRepository.deleteById(it.getId()),
                 () -> { throw NotFoundException.forTravel(); }
             );
-        ;
+    }
+
+    private void validateWriteRequest(WriteTravel writeTravel) {
+        isTrue(writeTravel.title().length() <= 200, "여행명은 200자 이하여야 합니다");
+        isTrue(
+            DateUtils.isOnOrAfter(writeTravel.startAt(), writeTravel.endAt()),
+            "여행종료일자는 시작일자 이후여야 합니다"
+        );
+    }
+
+    private void validateUpdateRequest(UpdateTravel updateTravel) {
+        isTrue(updateTravel.title().length() <= 200, "여행명은 200자 이하여야 합니다");
+        isTrue(
+            DateUtils.isOnOrAfter(updateTravel.startAt(), updateTravel.endAt()) ,
+            "여행종료일자는 시작일자 이후여야 합니다"
+        );
     }
 }

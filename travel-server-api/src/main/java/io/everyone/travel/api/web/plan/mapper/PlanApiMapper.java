@@ -7,7 +7,7 @@ import io.everyone.travel.core.domain.plan.dto.WritePlan;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-public class PlanMapper {
+public class PlanApiMapper {
 
     /**
      * 계획쓰기요청 -> 계획엔티티 변환
