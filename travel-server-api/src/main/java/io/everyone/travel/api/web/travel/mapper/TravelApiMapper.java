@@ -7,6 +7,7 @@ import io.everyone.travel.core.domain.travel.entity.Travel;
 import io.everyone.travel.core.domain.travel.dto.UpdateTravel;
 import io.everyone.travel.core.domain.travel.dto.WriteTravel;
 import lombok.experimental.UtilityClass;
+import org.springframework.web.multipart.MultipartFile;
 
 @UtilityClass
 public class TravelApiMapper {
@@ -15,13 +16,13 @@ public class TravelApiMapper {
     /**
      * 여행쓰기요청 -> 여행엔티티 변환
      */
-    public WriteTravel toWriteTravel(TravelWriteRequest from) {
+    public WriteTravel toWriteTravel(TravelWriteRequest from, MultipartFile thumbnail) {
         return WriteTravel.builder()
             .title(from.title())
             .startAt(from.startAt())
             .endAt(from.endAt())
             .nation(from.nation())
-            .thumbnail(from.thumbnail())
+            .thumbnail(thumbnail)
             .build();
     }
 

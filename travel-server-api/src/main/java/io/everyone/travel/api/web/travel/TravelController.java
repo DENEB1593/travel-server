@@ -27,6 +27,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -56,9 +57,10 @@ public class TravelController {
     @ResponseStatus(CREATED)
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public CommonResponse<TravelWriteResponse> save(
-        @ModelAttribute @Valid TravelWriteRequest request
+        @RequestPart("payload") TravelWriteRequest request,
+        @RequestPart("thumbnail") MultipartFile thumbnail
     ) {
-        WriteTravel writeTravel = TravelApiMapper.toWriteTravel(request);
+        WriteTravel writeTravel = TravelApiMapper.toWriteTravel(request, thumbnail);
 
         return CommonResponse.OK(
             TravelApiMapper.toWriteResponse(

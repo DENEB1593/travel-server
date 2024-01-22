@@ -24,10 +24,7 @@ public record TravelWriteRequest(
 
     @Schema(description = "국가 코드", example = "TH")
     @NotBlank(message = "국가 코드는 필수 값입니다")
-    String nation,
-
-    @Schema(description = "썸네일")
-    MultipartFile thumbnail
+    String nation
 ) {
 
 }
