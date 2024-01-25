@@ -2,6 +2,8 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.1.1'
 	id 'io.spring.dependency-management' version '1.1.3'
+	id 'com.google.cloud.tools.jib' version '3.3.1'
+
 }
 
 repositories {
@@ -9,11 +11,13 @@ repositories {
 }
 
 bootJar.enabled=false
+jibDockerBuild.enabled = false
 
 subprojects {
 	apply plugin: 'java'
 	apply plugin: 'org.springframework.boot'
 	apply plugin: 'io.spring.dependency-management'
+	apply plugin: 'com.google.cloud.tools.jib'
 
 	group = 'io.everyone.travel'
 	version = '0.0.1-SNAPSHOT'
@@ -38,6 +42,17 @@ subprojects {
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	}
 
+	// docker build
+/*
+	jib {
+		from {
+			image = 'eclipse-temurin:17-jre'
+		}
+		to {
+			image = 'deneb1593/travel-server'
+		}
+	}
+*/
 }
 
 project(":travel-server-api") {

@@ -1,10 +1,12 @@
 services:
   mysql:
     container_name: travel-mysql
+    image: 'mysql:8'
     volumes:
       - "./mysql:/var/lib/mysql"
+    ports:
+      - '3306:3306'
     restart: always
-    image: 'mysql:8'
     environment:
       - 'MYSQL_DATABASE=travel'
       - 'MYSQL_PASSWORD=travel!@#'
@@ -14,5 +16,16 @@ services:
       - 'LANG: C.UTF-8'
       - '--character-set-server=utf8mb4'
       - '--collation-server=utf8mb4_unicode_ci'
+  nginx:
+    container_name: travel-nginx
+    image: nginx:stable-perl
     ports:
-      - '3306:3306'
+      - '80:80'
+    volumes:
+      - './ngnix/nginx.conf:/etc/nginx/nginx.conf'
+    depends_on: [mysql, api]
+  api:
+    container_name: travel-api
+    image: travel-api:latest
+    ports:
+      - '8080:8080'
