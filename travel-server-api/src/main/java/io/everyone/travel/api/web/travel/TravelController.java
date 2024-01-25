@@ -1,5 +1,8 @@
 package io.everyone.travel.api.web.travel;
 
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import io.everyone.travel.api.config.additional.PageModel;
 import io.everyone.travel.api.web.CommonResponse;
 import io.everyone.travel.api.exception.model.ProblemResponseModel;
@@ -29,7 +32,9 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
@@ -43,6 +48,8 @@ public class TravelController {
     private final TravelService travelService;
     private final PlanService planService;
     private final ExpenseService expenseService;
+    private final AmazonS3 s3;
+    private static final String BUCKET_NAME = "travel";
 
     @Operation(
         summary = "여행 정보 저장",
@@ -59,8 +66,23 @@ public class TravelController {
     public CommonResponse<TravelWriteResponse> save(
         @RequestPart("payload") TravelWriteRequest request,
         @RequestPart("thumbnail") MultipartFile thumbnail
-    ) {
+    ) throws IOException {
         WriteTravel writeTravel = TravelApiMapper.toWriteTravel(request, thumbnail);
+
+        String fileKey = String.format("thumbnails/%s_%s",
+            UUID.randomUUID(),
+            thumbnail.getOriginalFilename()
+        );
+
+        log.info("file info: {}", fileKey);
+
+        ObjectMetadata metadata = new ObjectMetadata();
+        metadata.setContentType(thumbnail.getContentType());
+        metadata.setContentLength(thumbnail.getSize());
+        PutObjectRequest putObjectRequest =
+            new PutObjectRequest(BUCKET_NAME, fileKey, thumbnail.getInputStream(), metadata);
+
+        s3.putObject(putObjectRequest);
 
         return CommonResponse.OK(
             TravelApiMapper.toWriteResponse(

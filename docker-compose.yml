@@ -1,4 +1,11 @@
 services:
+  s3mock:
+    container_name: travel-s3
+    image: adobe/s3mock:3.1.0
+    environment:
+      - 'initialBuckets=travel'
+    ports:
+      - '9090:9090'
   mysql:
     container_name: travel-mysql
     volumes:
