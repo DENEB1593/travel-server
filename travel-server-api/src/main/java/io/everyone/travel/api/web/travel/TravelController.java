@@ -14,6 +14,7 @@ import io.everyone.travel.api.web.plan.dto.PlanView;
 import io.everyone.travel.api.web.travel.dto.*;
 import io.everyone.travel.core.domain.travel.dto.UpdateTravel;
 import io.everyone.travel.core.domain.travel.dto.WriteTravel;
+import io.everyone.travel.core.domain.travel.entity.Travel;
 import io.everyone.travel.core.exception.NotFoundException;
 import io.everyone.travel.core.domain.expense.service.ExpenseService;
 import io.everyone.travel.core.domain.plan.service.PlanService;
@@ -36,6 +37,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
+import static io.everyone.travel.api.web.CommonResponse.OK;
 import static org.springframework.http.HttpStatus.CREATED;
 
 @Tag(name = "여행 API")
@@ -69,25 +71,24 @@ public class TravelController {
     ) throws IOException {
         WriteTravel writeTravel = TravelApiMapper.toWriteTravel(request, thumbnail);
 
-        String fileKey = String.format("thumbnails/%s_%s",
+        Travel travel = travelService.save(writeTravel);
+
+        // 썸네일 업로드 진행
+        String key = String.format("thumbnails/%s_%s",
             UUID.randomUUID(),
             thumbnail.getOriginalFilename()
         );
-
-        log.info("file info: {}", fileKey);
 
         ObjectMetadata metadata = new ObjectMetadata();
         metadata.setContentType(thumbnail.getContentType());
         metadata.setContentLength(thumbnail.getSize());
         PutObjectRequest putObjectRequest =
-            new PutObjectRequest(BUCKET_NAME, fileKey, thumbnail.getInputStream(), metadata);
+            new PutObjectRequest(BUCKET_NAME, key, thumbnail.getInputStream(), metadata);
 
         s3.putObject(putObjectRequest);
 
-        return CommonResponse.OK(
-            TravelApiMapper.toWriteResponse(
-                travelService.save(writeTravel)
-            )
+        return OK(
+            TravelApiMapper.toWriteResponse(travel)
         );
     }
 
@@ -112,7 +113,7 @@ public class TravelController {
     public CommonResponse<TravelResponse.TravelView> find(
         @PathVariable Long travelId
     ) {
-        return CommonResponse.OK(
+        return OK(
             travelService.findById(travelId)
                 .map(TravelApiMapper::toView)
                 .orElseThrow(NotFoundException::forTravel)
@@ -137,7 +138,7 @@ public class TravelController {
     public CommonResponse<TravelResponse> findPaginated(
         @Parameter(hidden = true) PageModel pageModel
     ) {
-        return CommonResponse.OK(
+        return OK(
             TravelResponse.of(
                 travelService.findPaginated(
                     pageModel.getPage(),
@@ -169,7 +170,7 @@ public class TravelController {
     public CommonResponse<List<PlanView>> findPlans(
         @PathVariable Long travelId
     ) {
-        return CommonResponse.OK(
+        return OK(
             planService.findByTravelId(travelId)
                 .stream()
                 .map(PlanApiMapper::toView)
@@ -199,7 +200,7 @@ public class TravelController {
     public CommonResponse<List<ExpenseView>> findExpenses(
         @PathVariable Long travelId
     ) {
-        return CommonResponse.OK(
+        return OK(
             expenseService.findByTravelId(travelId)
                 .stream()
                 .map(ExpenseApiMapper::toView)
@@ -224,7 +225,7 @@ public class TravelController {
         @ModelAttribute @Valid TravelUpdateRequest request
     ) {
         UpdateTravel updateTravel = TravelApiMapper.toUpdateTravel(travelId, request);
-        return CommonResponse.OK(
+        return OK(
             TravelApiMapper.toUpdateResponse(
                 travelService.updateTravel(updateTravel)
             )
@@ -247,7 +248,7 @@ public class TravelController {
         @PathVariable Long travelId
     ) {
         travelService.deleteById(travelId);
-        return CommonResponse.OK("삭제 완료");
+        return OK("삭제 완료");
     }
 
 
