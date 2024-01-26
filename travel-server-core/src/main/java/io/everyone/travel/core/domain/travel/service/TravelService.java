@@ -84,6 +84,11 @@ public class TravelService {
             );
     }
 
+    @Transactional
+    public void updateThumbnail(Travel travel, String thumbnailUrl) {
+        travel.updateThumbnail(thumbnailUrl);
+    }
+
     private void validateWriteRequest(WriteTravel writeTravel) {
         isTrue(writeTravel.title().length() <= 200, "여행명은 200자 이하여야 합니다");
         isTrue(

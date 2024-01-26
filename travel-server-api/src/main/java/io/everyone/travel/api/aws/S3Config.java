@@ -31,4 +31,10 @@ public class S3Config {
             .enablePathStyleAccess()
             .build();
     }
+
+    @Bean
+    S3Client s3Client(AmazonS3 s3, AwsProperties awsProperties) {
+        return new S3Client(s3, awsProperties.url(), awsProperties.bucketName());
+    }
+
 }

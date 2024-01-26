@@ -1,24 +1,22 @@
 package io.everyone.travel.api.web.travel;
 
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectRequest;
+import io.everyone.travel.api.aws.S3Client;
 import io.everyone.travel.api.config.additional.PageModel;
-import io.everyone.travel.api.web.CommonResponse;
 import io.everyone.travel.api.exception.model.ProblemResponseModel;
-import io.everyone.travel.api.web.expense.mapper.ExpenseApiMapper;
-import io.everyone.travel.api.web.plan.mapper.PlanApiMapper;
-import io.everyone.travel.api.web.travel.mapper.TravelApiMapper;
+import io.everyone.travel.api.web.CommonResponse;
 import io.everyone.travel.api.web.expense.dto.ExpenseView;
+import io.everyone.travel.api.web.expense.mapper.ExpenseApiMapper;
 import io.everyone.travel.api.web.plan.dto.PlanView;
+import io.everyone.travel.api.web.plan.mapper.PlanApiMapper;
 import io.everyone.travel.api.web.travel.dto.*;
+import io.everyone.travel.api.web.travel.mapper.TravelApiMapper;
+import io.everyone.travel.core.domain.expense.service.ExpenseService;
+import io.everyone.travel.core.domain.plan.service.PlanService;
 import io.everyone.travel.core.domain.travel.dto.UpdateTravel;
 import io.everyone.travel.core.domain.travel.dto.WriteTravel;
 import io.everyone.travel.core.domain.travel.entity.Travel;
-import io.everyone.travel.core.exception.NotFoundException;
-import io.everyone.travel.core.domain.expense.service.ExpenseService;
-import io.everyone.travel.core.domain.plan.service.PlanService;
 import io.everyone.travel.core.domain.travel.service.TravelService;
+import io.everyone.travel.core.exception.NotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -35,7 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 import static io.everyone.travel.api.web.CommonResponse.OK;
 import static org.springframework.http.HttpStatus.CREATED;
@@ -50,8 +48,7 @@ public class TravelController {
     private final TravelService travelService;
     private final PlanService planService;
     private final ExpenseService expenseService;
-    private final AmazonS3 s3;
-    private static final String BUCKET_NAME = "travel";
+    private final S3Client s3Client;
 
     @Operation(
         summary = "여행 정보 저장",
@@ -67,25 +64,21 @@ public class TravelController {
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public CommonResponse<TravelWriteResponse> save(
         @RequestPart("payload") TravelWriteRequest request,
-        @RequestPart("thumbnail") MultipartFile thumbnail
+        @RequestPart("thumbnail") MultipartFile file
     ) throws IOException {
-        WriteTravel writeTravel = TravelApiMapper.toWriteTravel(request, thumbnail);
+        WriteTravel writeTravel = TravelApiMapper.toWriteTravel(request, file);
 
         Travel travel = travelService.save(writeTravel);
 
-        // 썸네일 업로드 진행
-        String key = String.format("thumbnails/%s_%s",
-            UUID.randomUUID(),
-            thumbnail.getOriginalFilename()
-        );
+        // TODO 썸네일 업로드 구현
+        Thumbnail.toThumbnail(file)
+            .ifPresent(thumbnail -> {
+                CompletableFuture.supplyAsync(() -> {
+                    s3Client.upload(null);
+                    return null;
+                });
 
-        ObjectMetadata metadata = new ObjectMetadata();
-        metadata.setContentType(thumbnail.getContentType());
-        metadata.setContentLength(thumbnail.getSize());
-        PutObjectRequest putObjectRequest =
-            new PutObjectRequest(BUCKET_NAME, key, thumbnail.getInputStream(), metadata);
-
-        s3.putObject(putObjectRequest);
+            });
 
         return OK(
             TravelApiMapper.toWriteResponse(travel)
