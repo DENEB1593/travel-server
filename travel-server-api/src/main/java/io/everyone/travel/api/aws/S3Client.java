@@ -17,18 +17,18 @@ public record S3Client(
         return putObject(objectRequest);
     }
 
-    public String upload(String bucketName, String key, InputStream input, Map<String, String> metadata) {
+    public String upload(InputStream input, String key, Map<String, String> metadata) {
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setUserMetadata(metadata);
-        PutObjectRequest objectRequest = new PutObjectRequest(bucketName, key, input, objectMetadata);
-        return null;
+        PutObjectRequest objectRequest = new PutObjectRequest(this.bucketName, key, input, objectMetadata);
+        return putObject(objectRequest);
     }
 
     private String putObject(PutObjectRequest objectRequest) {
         s3.putObject(objectRequest);
         return String.format("%s/%s/%s",        // `url/bucketName/key`
-            url,
-            bucketName,
+            this.url,
+            this.bucketName,
             objectRequest.getKey()
         );
     }

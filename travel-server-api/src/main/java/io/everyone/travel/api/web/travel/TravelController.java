@@ -31,8 +31,11 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 import static io.everyone.travel.api.web.CommonResponse.OK;
@@ -73,11 +76,13 @@ public class TravelController {
         // TODO 썸네일 업로드 구현
         Thumbnail.toThumbnail(file)
             .ifPresent(thumbnail -> {
-                CompletableFuture.supplyAsync(() -> {
-                    s3Client.upload(null);
-                    return null;
+                CompletableFuture.supplyAsync(() -> s3Client.upload(
+                        new ByteArrayInputStream(thumbnail.getBytes()),
+                        thumbnail.getThumbnailName(),
+                        Map.of("A", "B")
+                )).thenAccept(thumbnailUrl -> {
+                    travelService.updateThumbnail(travel, thumbnailUrl);
                 });
-
             });
 
         return OK(
