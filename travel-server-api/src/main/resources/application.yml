@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: travel-server-api
+  profiles:
+    active: local
+
+  config:
+    import:
+      - classpath:/application-core.yml
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /api-docs
+  default-produces-media-type: application/json
+  default-consumes-media-type: application/json
+
+aws:
+  s3:
+    url: http://localhost:9090
+    bucketName: travel
+    region: us-east-1
+    accessKey: foo
+    secretKey: bar

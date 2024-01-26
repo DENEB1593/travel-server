@@ -1,3 +1,4 @@
+
 logging:
   level:
     web: info
@@ -17,9 +18,8 @@ spring:
         default_batch_fetch_size: 1000
         dialect: org.hibernate.dialect.MySQLDialect
 
-springdoc:
-  api-docs:
-    enabled: true
-    path: /api-docs
-  default-produces-media-type: application/json
-  default-consumes-media-type: application/json
+  config:
+    import:
+      - classpath:/application-core-local.yml
+      - classpath:/application-core-dev.yml
+      - classpath:/application-core-prod.yml

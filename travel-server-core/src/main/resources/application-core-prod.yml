@@ -1,14 +1,19 @@
 spring:
+  config:
+    activate:
+      on-profile: prod
+
   docker:
     compose:
       enabled: false
 
   jpa:
-    show-sql: false
     hibernate:
       ddl-auto: none
+    show-sql: false
 
-  # dev 환경 DB 정보
+
+  # real 환경 DB 정보
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url:

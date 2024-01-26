@@ -9,6 +9,10 @@ jwt:
   issuer: travel-server-auth
 
 spring:
+  config:
+    activate:
+      on-profile: local
+
   thymeleaf:
     enabled: true
     prefix: classpath:/templates/
