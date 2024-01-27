@@ -1,4 +1,4 @@
-package io.everyone.travel.api.config.additional;
+package io.everyone.travel.api.config.pagination;
 
 import lombok.Getter;
 import org.apache.commons.lang3.builder.ToStringBuilder;

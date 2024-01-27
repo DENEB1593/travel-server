@@ -1,4 +1,4 @@
-package io.everyone.travel.api.config.additional;
+package io.everyone.travel.api.config.pagination;
 
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.core.MethodParameter;
