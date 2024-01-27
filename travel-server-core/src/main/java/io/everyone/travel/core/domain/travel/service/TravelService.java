@@ -34,13 +34,9 @@ public class TravelService {
     public Travel save(WriteTravel writeTravel) {
         this.validateWriteRequest(writeTravel);
 
-        Travel travel = TravelMapper.writeRequestToTravel(writeTravel);
-
-        // 이미지 확인 우선은 기본이미지 주소로..
-        String thumbnail = "http://localhost:8080/images/default_travel_image.png";
-        travel.updateThumbnail(thumbnail);
-
-        return travelRepository.save(travel);
+        return travelRepository.save(
+            TravelMapper.writeRequestToTravel(writeTravel)
+        );
     }
 
     @Transactional(readOnly = true)
@@ -85,8 +81,8 @@ public class TravelService {
     }
 
     @Transactional
-    public void updateThumbnail(Travel travel, String thumbnailUrl) {
-        travel.updateThumbnail(thumbnailUrl);
+    public void updateThumbnail(Long travelId, String thumbnailUrl) {
+        travelRepository.findById(travelId).ifPresent(it -> it.updateThumbnail(thumbnailUrl));
     }
 
     private void validateWriteRequest(WriteTravel writeTravel) {

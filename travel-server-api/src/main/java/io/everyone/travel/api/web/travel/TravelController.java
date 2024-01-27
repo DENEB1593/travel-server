@@ -1,7 +1,7 @@
 package io.everyone.travel.api.web.travel;
 
 import io.everyone.travel.api.aws.S3Client;
-import io.everyone.travel.api.config.additional.PageModel;
+import io.everyone.travel.api.config.pagination.PageModel;
 import io.everyone.travel.api.exception.model.ProblemResponseModel;
 import io.everyone.travel.api.web.CommonResponse;
 import io.everyone.travel.api.web.expense.dto.ExpenseView;
@@ -32,8 +32,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -68,22 +66,24 @@ public class TravelController {
     public CommonResponse<TravelWriteResponse> save(
         @RequestPart("payload") TravelWriteRequest request,
         @RequestPart("thumbnail") MultipartFile file
-    ) throws IOException {
+    ) {
         WriteTravel writeTravel = TravelApiMapper.toWriteTravel(request, file);
 
         Travel travel = travelService.save(writeTravel);
 
-        // TODO 썸네일 업로드 구현
+        // 여행 썸네일을 저장/업데이트한다. (비동기)
         Thumbnail.toThumbnail(file)
-            .ifPresent(thumbnail -> {
+            .ifPresent(thumbnail ->
                 CompletableFuture.supplyAsync(() -> s3Client.upload(
-                        new ByteArrayInputStream(thumbnail.getBytes()),
-                        thumbnail.getThumbnailName(),
-                        Map.of("A", "B")
-                )).thenAccept(thumbnailUrl -> {
-                    travelService.updateThumbnail(travel, thumbnailUrl);
-                });
-            });
+                    new ByteArrayInputStream(thumbnail.getBytes()),
+                    "thumbnails",
+                    thumbnail.getContentType(),
+                    thumbnail.getBytes().length,
+                    Map.of("travelId", travel.getId().toString())
+                )
+            ).thenAccept(thumbnailUrl ->
+                travelService.updateThumbnail(travel.getId(), thumbnailUrl))
+            );
 
         return OK(
             TravelApiMapper.toWriteResponse(travel)
