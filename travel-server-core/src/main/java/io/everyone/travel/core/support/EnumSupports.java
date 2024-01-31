@@ -1,4 +1,4 @@
-package io.everyone.travel.core.util;
+package io.everyone.travel.core.support;
 
 import lombok.experimental.UtilityClass;
 

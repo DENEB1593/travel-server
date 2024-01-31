@@ -1,15 +1,12 @@
-package io.everyone.travel.core.util;
+package io.everyone.travel.core.support;
 
 import lombok.experimental.UtilityClass;
-import org.antlr.v4.runtime.misc.Interval;
 
 import javax.annotation.Nonnull;
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 
 @UtilityClass
-public class DateUtils {
+public class DateSupports {
 
     /**
      * val1이 val2보다 이후 인지(당시 포함) 확인한다.
@@ -18,14 +15,19 @@ public class DateUtils {
      *  src가 10월 10일 14:00 인경우
      *  target은 true이다.
      */
-    public boolean isOnOrAfter(@Nonnull LocalDateTime src, @Nonnull LocalDateTime target) {
+    public boolean isOnOrAfter(
+        @Nonnull LocalDateTime src,
+        @Nonnull LocalDateTime target) {
         return target.isAfter(src) || target.isEqual(src);
     }
 
     /**
      * date가 start와 end 사이에 존재하는 지 확인 한다.
      */
-    public boolean isBetween(@Nonnull LocalDateTime date, @Nonnull LocalDateTime start, @Nonnull LocalDateTime end) {
+    public boolean isBetween(
+        @Nonnull LocalDateTime date,
+        @Nonnull LocalDateTime start,
+        @Nonnull LocalDateTime end) {
         return !date.isBefore(start) && !date.isAfter(end);
     }
 }

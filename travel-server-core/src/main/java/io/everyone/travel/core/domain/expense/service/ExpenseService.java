@@ -8,7 +8,7 @@ import io.everyone.travel.core.domain.travel.entity.Travel;
 import io.everyone.travel.core.exception.NotFoundException;
 import io.everyone.travel.core.domain.expense.repo.ExpenseRepository;
 import io.everyone.travel.core.domain.travel.service.TravelService;
-import io.everyone.travel.core.util.DateUtils;
+import io.everyone.travel.core.support.DateSupports;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -81,7 +81,7 @@ public class ExpenseService {
 
     private void validateWriteExpense(WriteExpense writeExpense, Travel travel) {
         isTrue(
-            DateUtils.isBetween(writeExpense.spendAt(), travel.getStartAt(), travel.getEndAt()),
+            DateSupports.isBetween(writeExpense.spendAt(), travel.getStartAt(), travel.getEndAt()),
             "지출일자는 여행 기간 내 포함되어야 합니다"
         );
     }

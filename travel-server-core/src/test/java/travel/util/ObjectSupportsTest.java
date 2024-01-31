@@ -1,6 +1,6 @@
 package travel.util;
 
-import io.everyone.travel.core.util.ObjectSupports;
+import io.everyone.travel.core.support.ObjectSupports;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
