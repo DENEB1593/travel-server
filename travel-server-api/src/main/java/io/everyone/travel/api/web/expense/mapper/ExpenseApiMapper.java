@@ -1,9 +1,7 @@
 package io.everyone.travel.api.web.expense.mapper;
 
-import io.everyone.travel.api.web.expense.dto.ExpenseUpdateResponse;
-import io.everyone.travel.api.web.expense.dto.ExpenseView;
-import io.everyone.travel.api.web.expense.dto.ExpenseWriteRequest;
-import io.everyone.travel.api.web.expense.dto.ExpenseWriteResponse;
+import io.everyone.travel.api.web.expense.dto.*;
+import io.everyone.travel.core.domain.expense.dto.UpdateExpense;
 import io.everyone.travel.core.domain.expense.dto.WriteExpense;
 import io.everyone.travel.core.domain.expense.entity.Expense;
 import lombok.experimental.UtilityClass;
@@ -60,6 +58,14 @@ public class ExpenseApiMapper {
             .travelId(from.getId())
             .createdAt(from.getCreatedAt())
             .modifiedAt(from.getModifiedAt())
+            .build();
+    }
+
+    public static UpdateExpense toUpdateExpense(ExpenseUpdateRequest request) {
+        return UpdateExpense.builder()
+            .amt(request.amt())
+            .spendAt(request.spendAt())
+            .travelId(request.travelId())
             .build();
     }
 

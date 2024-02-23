@@ -28,7 +28,6 @@ public class ExpenseController {
 
     private final ExpenseService expenseService;
 
-
     @Operation(
         summary = "지출 정보 저장",
         responses = {
@@ -99,16 +98,9 @@ public class ExpenseController {
         @PathVariable Long expenseId,
         @RequestBody @Valid ExpenseUpdateRequest request
     ) {
-
-        UpdateExpense updateExpense = UpdateExpense.builder()
-            .amt(request.amt())
-            .spendAt(request.spendAt())
-            .travelId(request.travelId())
-            .build();
-
         Expense expense = expenseService.updateExpense(
-            expenseId,
-            updateExpense
+           expenseId,
+           ExpenseApiMapper.toUpdateExpense(request)
         );
 
         return CommonResponse.OK(

@@ -19,6 +19,7 @@ import java.util.Set;
 import static org.springframework.util.Assert.isTrue;
 
 
+@Transactional
 @Service
 @RequiredArgsConstructor
 public class PlanService {
@@ -26,7 +27,6 @@ public class PlanService {
     private final TravelService travelService;
     private final PlanRepository planRepository;
 
-    @Transactional
     public Plan save(WritePlan writePlan) {
         Travel travel = travelService
             .findById(writePlan.travelId())
@@ -54,13 +54,12 @@ public class PlanService {
         return planRepository.findById(planId);
     }
 
-    @Transactional
     public Plan updatePlan(UpdatePlan updatePlan) {
         Plan plan = planRepository
             .findById(updatePlan.planId())
             .orElseThrow(NotFoundException::forPlan);
 
-        plan.updateFromRequest(updatePlan.title(),updatePlan.memo());
+        plan.updateFromRequest(updatePlan.title(), updatePlan.memo());
 
         planRepository.save(plan);
 
@@ -69,7 +68,6 @@ public class PlanService {
 
 
 
-    @Transactional
     public void deleteById(Long planId) {
         planRepository.findById(planId)
             .ifPresentOrElse(

@@ -18,6 +18,7 @@ import java.util.Set;
 
 import static org.springframework.util.Assert.isTrue;
 
+@Transactional
 @Service
 @RequiredArgsConstructor
 public class ExpenseService {
@@ -26,7 +27,6 @@ public class ExpenseService {
     private final ExpenseRepository expenseRepository;
 
 
-    @Transactional
     public Expense save(WriteExpense writeExpense) {
         Travel travel = travelService
             .findById(writeExpense.travelId())
@@ -56,7 +56,6 @@ public class ExpenseService {
 
     }
 
-    @Transactional
     public Expense updateExpense(
         Long expenseId, UpdateExpense updateExpense
     ) {
@@ -70,7 +69,6 @@ public class ExpenseService {
         return expense;
     }
 
-    @Transactional
     public void deleteById(Long expenseId) {
         expenseRepository.findById(expenseId)
             .ifPresentOrElse(
