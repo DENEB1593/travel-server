@@ -3,6 +3,10 @@ package io.everyone.travel.core.domain.travel.enums;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 
+import java.util.Set;
+
+import static io.everyone.travel.core.domain.travel.enums.Nation.Group.*;
+
 /**
  * ISO 표준에 따른 국가 코드를 정의한다.
  * 참조링크: https://datago.kr/post/2
@@ -267,6 +271,15 @@ public enum Nation {
         this.code = this.name();
         this.kr = kr;
         this.eng = eng;
+    }
+
+    public boolean isEastAsia(Nation nation) {
+        return EAST_ASIA.contains(nation);
+    }
+
+
+    public static class Group {
+        public static final Set<Nation> EAST_ASIA = Set.of(KR, JP, CN);
     }
 
 }
