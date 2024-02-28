@@ -1,6 +1,6 @@
 package io.everyone.travel.api.config.xss;
 
-import io.everyone.travel.core.util.HtmlSupports;
+import io.everyone.travel.core.support.HtmlSupports;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletRequestWrapper;
 

@@ -3,6 +3,14 @@ package io.everyone.travel.api.web.travel.dto;
 import io.everyone.travel.core.domain.travel.enums.Nation;
 import io.swagger.v3.oas.annotations.media.Schema;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toUnmodifiableSet;
+
 
 @Schema(name = "국가 모델", description = "국가에 대한 정보를 나타낸다")
 public record NationModel(
@@ -27,6 +35,12 @@ public record NationModel(
             from.getKr(),
             from.getEng()
         );
+    }
+
+    public static Set<NationModel> toModel() {
+        return Arrays.stream(Nation.values())
+            .map(NationModel::of)
+            .collect(toUnmodifiableSet());
     }
 
 }

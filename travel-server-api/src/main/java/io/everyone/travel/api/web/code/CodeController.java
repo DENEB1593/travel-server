@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 @Tag(name = "코드 API")
 @RestController
@@ -39,9 +40,8 @@ public class CodeController {
         }
     )
     @GetMapping("/nation")
-    public CommonResponse<List<NationModel>> nation() {
-        return CommonResponse.OK(
-            Arrays.stream(Nation.values()).map(NationModel::of).toList());
+    public CommonResponse<Set<NationModel>> nation() {
+        return CommonResponse.OK(NationModel.toModel());
     }
 
 }
