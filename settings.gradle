@@ -1,4 +1,5 @@
 rootProject.name = 'travel-server'
 include 'travel-server-core'
 include 'travel-server-api'
+include 'travel-server-batch'
 
