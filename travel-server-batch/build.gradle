@@ -13,6 +13,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-configuration-processor'
     implementation "org.springframework.boot:spring-boot-starter-batch"
 
+    // micro meter
+    implementation 'io.micrometer:micrometer-core:1.12.3'
+    implementation 'io.micrometer:micrometer-tracing:1.2.3'
+
     testImplementation "org.springframework.boot:spring-boot-starter-test"
     testImplementation "org.springframework.batch:spring-batch-test"
 
