@@ -1,4 +1,4 @@
-package io.everyone.travel.api.config;
+package io.everyone.travel.batch.config;
 
 import io.netty.channel.ChannelOption;
 import io.netty.handler.timeout.ReadTimeoutHandler;
@@ -19,8 +19,8 @@ public class WebClientConfig {
 
     // TODO API Properties
 
-    @Bean("publicDataClient")
-    public WebClient publicDataClient(
+    @Bean("publicDataWebClient")
+    public WebClient publicDataWebClient(
         ReactorResourceFactory reactorResourceFactory
     ) {
         return WebClient.builder()
