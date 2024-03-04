@@ -34,14 +34,17 @@ spring:
 
   sql:
     init:
-      schema-locations: classpath:sql/schema.sql
+      schema-locations:
+      - classpath:sql/schema.sql
+      - classpath:sql/schema-batch.sql
       mode: always
 
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/travel
     username: travel
     password: travel!@#
+
 
   security:
     oauth2:

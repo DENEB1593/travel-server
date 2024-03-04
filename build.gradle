@@ -49,6 +49,15 @@ project(":travel-server-api") {
 	}
 }
 
+project(":travel-server-batch") {
+	jar {
+		archiveBaseName = 'travel-server-batch'
+	}
+	dependencies{
+		implementation project (":travel-server-core")
+	}
+}
+
 project(":travel-server-core") {
 	jar {
 		enabled = true

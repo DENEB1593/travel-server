@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: travel-server-batch
+  profiles:
+    active: local
+
+  batch:
+    jdbc:
+      initialize-schema: never
+
+server:
+  port: 8090
+
+batch-db:
+  jdbc-url: jdbc:mysql://localhost:3306/travel
+  driverClassName: com.mysql.cj.jdbc.Driver
+  username: travel
+  password: travel!@#
+
+api:
+  pub-data:
+    serviceKey: NJjb0Luen4Os5CEUjmexE%2BsR1KHvYQylYQqW8Vgael9DInyb8AFEMXFZi9GGSKkG2aLrVMxCgoc2dAKMtbq%2FaA%3D%3D
+    pageNo: 1
+    numOfRows: 198

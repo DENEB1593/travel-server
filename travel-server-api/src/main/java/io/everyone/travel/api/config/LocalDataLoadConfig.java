@@ -1,12 +1,12 @@
-package io.everyone.travel.core.config;
+package io.everyone.travel.api.config;
 
 import com.github.javafaker.Faker;
 import io.everyone.travel.core.domain.expense.entity.Expense;
+import io.everyone.travel.core.domain.expense.repo.ExpenseRepository;
 import io.everyone.travel.core.domain.plan.entity.Plan;
+import io.everyone.travel.core.domain.plan.repo.PlanRepository;
 import io.everyone.travel.core.domain.travel.entity.Travel;
 import io.everyone.travel.core.domain.travel.enums.Nation;
-import io.everyone.travel.core.domain.expense.repo.ExpenseRepository;
-import io.everyone.travel.core.domain.plan.repo.PlanRepository;
 import io.everyone.travel.core.domain.travel.repo.TravelRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -9,29 +9,40 @@ import org.springframework.http.client.reactive.ClientHttpConnector;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.http.client.reactive.ReactorResourceFactory;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.util.DefaultUriBuilderFactory;
+import org.springframework.web.util.UriBuilderFactory;
 import reactor.netty.http.client.HttpClient;
 import reactor.netty.resources.ConnectionProvider;
 
 import java.time.Duration;
+import java.util.List;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.http.MediaType.APPLICATION_XML;
 
 @Configuration
 public class WebClientConfig {
 
-    // TODO API Properties
-
-    @Bean("publicDataWebClient")
+    @Bean
     public WebClient publicDataWebClient(
         ReactorResourceFactory reactorResourceFactory
     ) {
         return WebClient.builder()
-            .baseUrl("/public/data")
+            .baseUrl("http://apis.data.go.kr/1262000")
+            .uriBuilderFactory(defaultUriFactory())
             .defaultHeaders(httpHeaders -> {
-                httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+                httpHeaders.setContentType(APPLICATION_JSON);
             })
             .clientConnector(
                 this.customizeConnector(reactorResourceFactory)
             )
             .build();
+    }
+
+    private UriBuilderFactory defaultUriFactory() {
+        var factory = new DefaultUriBuilderFactory("http://apis.data.go.kr/1262000");
+        factory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.NONE);
+        return factory;
     }
 
     private ClientHttpConnector customizeConnector(

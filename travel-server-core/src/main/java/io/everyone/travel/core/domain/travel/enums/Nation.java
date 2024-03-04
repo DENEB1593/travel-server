@@ -3,6 +3,7 @@ package io.everyone.travel.core.domain.travel.enums;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 
+import java.util.Arrays;
 import java.util.Set;
 
 import static io.everyone.travel.core.domain.travel.enums.Nation.Group.*;
@@ -259,7 +260,9 @@ public enum Nation {
     PN("핏케언 제도", "PITCAIRN"),
     HM("허드 맥도널드 제도", "HEARD AND MC DONALD ISLANDS"),
     HU("헝가리", "HUNGARY"),
-    HK("홍콩", "HONG KONG");
+    HK("홍콩", "HONG KONG"),
+    XK("코소보", "KOSOVO")
+    ;
 
     private final String code;
 
@@ -281,5 +284,13 @@ public enum Nation {
     public static class Group {
         public static final Set<Nation> EAST_ASIA = Set.of(KR, JP, CN);
     }
+
+    public static Nation typeOf(String name) {
+        return Arrays.stream(Nation.values())
+            .filter(it -> it.name().equals(name))
+            .findFirst()
+            .orElse(null);
+    }
+
 
 }

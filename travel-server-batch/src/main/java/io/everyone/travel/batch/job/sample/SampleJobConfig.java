@@ -1,6 +1,7 @@
 package io.everyone.travel.batch.job.sample;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
@@ -9,11 +10,12 @@ import org.springframework.batch.support.transaction.ResourcelessTransactionMana
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+@Slf4j
 @Configuration
 @RequiredArgsConstructor
 public class SampleJobConfig {
 
-    private static final String JOB_NAME = "sampleJob";
+    public static final String JOB_NAME = "sampleJob";
     private static final String STEP_NAME = "sampleStep";
     private static final int CHUNK_SIZE = 1;
 

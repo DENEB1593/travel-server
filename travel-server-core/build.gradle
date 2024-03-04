@@ -9,13 +9,6 @@ bootJar {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-configuration-processor'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-
-    // json web token
-	implementation "io.jsonwebtoken:jjwt-api:${jsonWebTokenVersion}"
-	implementation "io.jsonwebtoken:jjwt-impl:${jsonWebTokenVersion}"
-	implementation "io.jsonwebtoken:jjwt-jackson:${jsonWebTokenVersion}"
 
 	// docker-compose
 	implementation 'org.springframework.boot:spring-boot-docker-compose'
