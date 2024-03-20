@@ -1,4 +1,4 @@
-package io.everyone.travel.api.aws;
+package io.everyone.travel.core.aws;
 
 
 import org.springframework.boot.context.properties.ConfigurationProperties;

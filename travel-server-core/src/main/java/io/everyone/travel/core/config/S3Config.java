@@ -1,17 +1,17 @@
-package io.everyone.travel.api.config;
+package io.everyone.travel.core.config;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import io.everyone.travel.api.aws.AwsS3Properties;
-import io.everyone.travel.api.aws.S3Client;
+import io.everyone.travel.core.aws.AwsS3Properties;
+import io.everyone.travel.core.aws.S3Client;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class ServiceConfig {
+public class S3Config {
 
     @Bean
     AmazonS3 amazonS3(AwsS3Properties awsProperties) {

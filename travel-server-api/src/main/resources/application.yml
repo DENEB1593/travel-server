@@ -14,11 +14,3 @@ springdoc:
     path: /api-docs
   default-produces-media-type: application/json
   default-consumes-media-type: application/json
-
-aws:
-  s3:
-    url: http://localhost:9090
-    bucketName: travel
-    region: us-east-1
-    accessKey: foo
-    secretKey: bar

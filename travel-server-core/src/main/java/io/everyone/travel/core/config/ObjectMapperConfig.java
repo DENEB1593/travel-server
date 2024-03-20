@@ -1,21 +1,21 @@
-package io.everyone.travel.batch.config;
+package io.everyone.travel.core.config;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+import org.zalando.problem.jackson.ProblemModule;
+import org.zalando.problem.violations.ConstraintViolationProblemModule;
 
 import java.time.ZoneId;
 import java.util.TimeZone;
 
 @Configuration
 public class ObjectMapperConfig {
-
 
     private static final TimeZone ASIA_SEOUL = TimeZone.getTimeZone(ZoneId.of("Asia/Seoul"));
 
@@ -32,7 +32,8 @@ public class ObjectMapperConfig {
             )
             .modules(
                 new JavaTimeModule(),
-                new Jdk8Module()
+                new ProblemModule(),
+                new ConstraintViolationProblemModule()
             )
             .build()
             .setTimeZone(ASIA_SEOUL);

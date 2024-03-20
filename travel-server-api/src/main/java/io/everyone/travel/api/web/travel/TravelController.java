@@ -1,6 +1,5 @@
 package io.everyone.travel.api.web.travel;
 
-import io.everyone.travel.api.aws.S3Client;
 import io.everyone.travel.api.config.pagination.PageModel;
 import io.everyone.travel.api.exception.model.ProblemResponseModel;
 import io.everyone.travel.api.web.CommonResponse;
@@ -10,6 +9,7 @@ import io.everyone.travel.api.web.plan.dto.PlanView;
 import io.everyone.travel.api.web.plan.mapper.PlanApiMapper;
 import io.everyone.travel.api.web.travel.dto.*;
 import io.everyone.travel.api.web.travel.mapper.TravelApiMapper;
+import io.everyone.travel.core.aws.S3Client;
 import io.everyone.travel.core.domain.expense.service.ExpenseService;
 import io.everyone.travel.core.domain.plan.service.PlanService;
 import io.everyone.travel.core.domain.travel.dto.UpdateTravel;

@@ -41,14 +41,10 @@ dependencies {
 	// openapi
 	implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springDocOpenApiVersion}"
 
-	// jdk8 time module
-	implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jsr310Version}"
-
 	// faker
 	implementation "com.github.javafaker:javafaker:${javaFakerVersion}"
 
-	// aws s3
-	implementation 'com.amazonaws:aws-java-sdk-s3:1.12.643'
+
 
 
 	implementation project(":travel-server-core")

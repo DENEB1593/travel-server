@@ -1,4 +1,4 @@
-package io.everyone.travel.api.aws;
+package io.everyone.travel.core.aws;
 
 
 import com.amazonaws.services.s3.AmazonS3;
