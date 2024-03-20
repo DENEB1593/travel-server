@@ -1,0 +1,21 @@
+root = true
+
+[*]
+# 기본 인코딩
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+
+[*.bat]
+end_of_line = crlf
+
+[*.java]
+# 줄바꿈 설정
+indent_style = tab
+indent_size = 4
+tab_width = 4
+trim_trailing_whitespace = true
+max_line_length = 120
+
+[*.gradle]
+indent_style = space
