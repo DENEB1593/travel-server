@@ -1,4 +1,4 @@
-package io.everyone.travel.api.config.pagination;
+package io.everyone.travel.api.config.paging;
 
 import lombok.Getter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -6,7 +6,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.util.Assert;
 
 @Getter
-public class PageModel {
+public class PagingModel {
 
     private final int page;
 
@@ -15,11 +15,11 @@ public class PageModel {
     /**
      * 기본 페이지는 1, size은 20으로 설정
      */
-    public PageModel() {
+    public PagingModel() {
         this(1, 20);
     }
 
-    public PageModel(int page, int size) {
+    public PagingModel(int page, int size) {
         Assert.isTrue(page > 0, "page 크기는 0보다 커야 합니다.");
         Assert.isTrue(size > 0, "size 크기는 0보다 커야 합니다.");
         this.page = page - 1;
