@@ -31,11 +31,7 @@ public class PlanController {
     @Operation(
         summary = "계획 정보 저장",
         responses = {
-            @ApiResponse(
-                responseCode = "201",
-                description = "저장 성공",
-                useReturnTypeSchema = true
-            )
+            @ApiResponse(responseCode = "201", description = "저장 성공", useReturnTypeSchema = true)
         }
     )
     @ResponseStatus(CREATED)
@@ -47,27 +43,17 @@ public class PlanController {
 
         return CommonResponse.OK(
             PlanApiMapper.toWriteResponse(
-                planService.save(writePlan)
-            )
-        );
+                planService.save(writePlan)));
     }
 
     @Operation(
         summary = "계획 단건 조회",
         description = "계획 정보를 조회한다",
         responses = {
-            @ApiResponse(
-                responseCode = "200",
-                description = "조회 성공",
-                useReturnTypeSchema = true
-            ),
-            @ApiResponse(
-                responseCode = "404",
-                description = "조회 불가",
-                content = @Content(
-                    schema = @Schema(implementation = ProblemResponseModel.class)
-                )
-            )
+            @ApiResponse(responseCode = "200", description = "조회 성공", useReturnTypeSchema = true),
+            @ApiResponse(responseCode = "404", description = "조회 불가",
+				content = @Content(schema = @Schema(implementation = ProblemResponseModel.class))
+			)
         }
     )
     @GetMapping("/{planId}")
@@ -77,19 +63,14 @@ public class PlanController {
         return CommonResponse.OK(
             planService.findByPlanId(planId)
                 .map(PlanApiMapper::toView)
-                .orElseThrow(NotFoundException::forPlan)
-        );
+                .orElseThrow(NotFoundException::forPlan));
     }
 
     @Operation(
         summary = "계획 정보 수정",
         description = "계획 정보를 수정한다",
         responses = {
-            @ApiResponse(
-                responseCode = "200",
-                description = "수정 성공",
-                useReturnTypeSchema = true
-            )
+            @ApiResponse(responseCode = "200", description = "수정 성공", useReturnTypeSchema = true)
         }
     )
     @PutMapping("/{planId}")
@@ -101,20 +82,14 @@ public class PlanController {
 
         return CommonResponse.OK(
             PlanApiMapper.toUpdateResponse(
-                planService.updatePlan(updatePlan)
-            )
-        );
+                planService.updatePlan(updatePlan)));
     }
 
     @Operation(
         summary = "계획 정보 삭제",
         description = "계획 정보를 삭제한다",
         responses = {
-            @ApiResponse(
-                responseCode = "200",
-                description = "삭제 성공",
-                useReturnTypeSchema = true
-            )
+            @ApiResponse(responseCode = "200", description = "삭제 성공", useReturnTypeSchema = true)
         }
     )
     @DeleteMapping("/{planId}")

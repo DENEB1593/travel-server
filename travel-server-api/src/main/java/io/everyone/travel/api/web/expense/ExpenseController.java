@@ -31,11 +31,7 @@ public class ExpenseController {
     @Operation(
         summary = "지출 정보 저장",
         responses = {
-            @ApiResponse(
-                responseCode = "201",
-                description = "저장 성공",
-                useReturnTypeSchema = true
-            )
+            @ApiResponse(responseCode = "201", description = "저장 성공", useReturnTypeSchema = true)
         }
     )
     @ResponseStatus(CREATED)
@@ -48,8 +44,7 @@ public class ExpenseController {
         Expense expense = expenseService.save(writeExpense);
 
         return CommonResponse.OK(
-            ExpenseApiMapper.toWriteResponse(expense)
-        );
+            ExpenseApiMapper.toWriteResponse(expense));
     }
 
 
@@ -57,18 +52,9 @@ public class ExpenseController {
         summary = "지출 단건 조회",
         description = "지출 정보를 조회한다",
         responses = {
-            @ApiResponse(
-                responseCode = "200",
-                description = "조회 성공",
-                useReturnTypeSchema = true
-            ),
-            @ApiResponse(
-                responseCode = "404",
-                description = "조회 불가",
-                content = @Content(
-                    schema = @Schema(implementation = ProblemResponseModel.class)
-                )
-            )
+            @ApiResponse(responseCode = "200", description = "조회 성공", useReturnTypeSchema = true),
+            @ApiResponse(responseCode = "404", description = "조회 불가",
+				content = @Content(schema = @Schema(implementation = ProblemResponseModel.class)))
         }
     )
     @GetMapping("/{expenseId}")
@@ -78,19 +64,14 @@ public class ExpenseController {
         return CommonResponse.OK(
             expenseService.findByExpenseId(expenseId)
                 .map(ExpenseApiMapper::toView)
-                .orElseThrow(NotFoundException::forExpense)
-        );
+                .orElseThrow(NotFoundException::forExpense));
     }
 
 
     @Operation(
         summary = "지출 정보 수정",
         responses = {
-            @ApiResponse(
-                responseCode = "200",
-                description = "수정 성공",
-                useReturnTypeSchema = true
-            )
+            @ApiResponse(responseCode = "200", description = "수정 성공", useReturnTypeSchema = true)
         }
     )
     @PutMapping("/{expenseId}")
@@ -100,23 +81,17 @@ public class ExpenseController {
     ) {
         Expense expense = expenseService.updateExpense(
            expenseId,
-           ExpenseApiMapper.toUpdateExpense(request)
-        );
+           ExpenseApiMapper.toUpdateExpense(request));
 
         return CommonResponse.OK(
-            ExpenseApiMapper.toUpdateResponse(expense)
-        );
+            ExpenseApiMapper.toUpdateResponse(expense));
     }
 
     @Operation(
         summary = "지출 정보 삭제",
         description = "지출 정보를 삭제한다",
         responses = {
-            @ApiResponse(
-                responseCode = "200",
-                description = "삭제 성공",
-                useReturnTypeSchema = true
-            )
+            @ApiResponse(responseCode = "200", description = "삭제 성공", useReturnTypeSchema = true)
         }
     )
     @DeleteMapping("/{expenseId}")

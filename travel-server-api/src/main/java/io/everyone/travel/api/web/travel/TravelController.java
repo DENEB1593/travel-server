@@ -55,13 +55,9 @@ public class TravelController {
     private final S3Client s3Client;
 
     @Operation(
-        summary = "여행 정보 저장",
+		summary = "여행 정보 저장",
         responses = {
-            @ApiResponse(
-                responseCode = "201",
-                description = "저장 성공",
-                useReturnTypeSchema = true
-            )
+            @ApiResponse(responseCode = "201", description = "저장 성공", useReturnTypeSchema = true)
         }
     )
     @ResponseStatus(CREATED)
@@ -89,24 +85,15 @@ public class TravelController {
             );
 
         return OK(
-            TravelApiMapper.toWriteResponse(travel)
-        );
+            TravelApiMapper.toWriteResponse(travel));
     }
 
     @Operation(
         summary = "여행 정보 단건 조회",
         responses = {
-            @ApiResponse(
-                responseCode = "200",
-                description = "조회 성공",
-                useReturnTypeSchema = true
-            ),
-            @ApiResponse(
-                responseCode = "404",
-                description = "조회 불가",
-                content = @Content(
-                    schema = @Schema(implementation = ProblemResponseModel.class)
-                )
+            @ApiResponse(responseCode = "200", description = "조회 성공", useReturnTypeSchema = true),
+            @ApiResponse(responseCode = "404", description = "조회 불가",
+				content = @Content( schema = @Schema(implementation = ProblemResponseModel.class))
             ),
         }
     )
@@ -117,18 +104,13 @@ public class TravelController {
         return OK(
             travelService.findById(travelId)
                 .map(TravelApiMapper::toView)
-                .orElseThrow(NotFoundException::forTravel)
-        );
+                .orElseThrow(NotFoundException::forTravel));
     }
 
     @Operation(
         summary = "여행 목록 조회",
         responses = {
-            @ApiResponse(
-                responseCode = "200",
-                description = "조회 성공",
-                useReturnTypeSchema = true
-            )
+            @ApiResponse(responseCode = "200", description = "조회 성공", useReturnTypeSchema = true)
         }
     )
     @Parameters({
@@ -151,17 +133,9 @@ public class TravelController {
         summary = "여행 내 계획 목록 조회",
         description = "여행ID로 등록된 계획 목록을 조회한다",
         responses = {
-            @ApiResponse(
-                responseCode = "200",
-                description = "조회 성공",
-                useReturnTypeSchema = true
-            ),
-            @ApiResponse(
-                responseCode = "404",
-                description = "조회 불가",
-                content = @Content(
-                    schema = @Schema(implementation = ProblemResponseModel.class)
-                )
+            @ApiResponse(responseCode = "200", description = "조회 성공", useReturnTypeSchema = true),
+            @ApiResponse(responseCode = "404", description = "조회 불가",
+				content = @Content(schema = @Schema(implementation = ProblemResponseModel.class))
             ),
         }
     )
@@ -173,25 +147,16 @@ public class TravelController {
             planService.findByTravelId(travelId)
                 .stream()
                 .map(PlanApiMapper::toView)
-                .toList()
-        );
+                .toList());
     }
 
     @Operation(
         summary = "여행 내 지출 목록 조회",
         description = "여행ID로 등록된 지출 목록을 조회한다",
         responses = {
-            @ApiResponse(
-                responseCode = "200",
-                description = "조회 성공",
-                useReturnTypeSchema = true
-            ),
-            @ApiResponse(
-                responseCode = "404",
-                description = "조회 불가",
-                content = @Content(
-                    schema = @Schema(implementation = ProblemResponseModel.class)
-                )
+            @ApiResponse(responseCode = "200", description = "조회 성공", useReturnTypeSchema = true),
+            @ApiResponse(responseCode = "404", description = "조회 불가",
+				content = @Content(schema = @Schema(implementation = ProblemResponseModel.class))
             ),
         }
     )
@@ -203,19 +168,14 @@ public class TravelController {
             expenseService.findByTravelId(travelId)
                 .stream()
                 .map(ExpenseApiMapper::toView)
-                .toList()
-        );
+                .toList());
     }
 
 
     @Operation(
         summary = "여행 정보 수정",
         responses = {
-            @ApiResponse(
-                responseCode = "200",
-                description = "수정 성공",
-                useReturnTypeSchema = true
-            )
+            @ApiResponse(responseCode = "200", description = "수정 성공", useReturnTypeSchema = true)
         }
     )
     @PutMapping(path = "/{travelId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -226,20 +186,14 @@ public class TravelController {
         UpdateTravel updateTravel = TravelApiMapper.toUpdateTravel(travelId, request);
         return OK(
             TravelApiMapper.toUpdateResponse(
-                travelService.updateTravel(updateTravel)
-            )
-        );
+                travelService.updateTravel(updateTravel)));
     }
 
     @Operation(
         summary = "여행 정보 삭제",
         description = "여행 정보를 삭제한다",
         responses = {
-            @ApiResponse(
-                responseCode = "200",
-                description = "삭제 성공",
-                useReturnTypeSchema = true
-            )
+            @ApiResponse(responseCode = "200", description = "삭제 성공", useReturnTypeSchema = true)
         }
     )
     @DeleteMapping("/{travelId}")
