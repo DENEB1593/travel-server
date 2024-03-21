@@ -8,7 +8,7 @@ import io.everyone.travel.core.domain.travel.entity.Travel;
 import io.everyone.travel.core.exception.NotFoundException;
 import io.everyone.travel.core.domain.plan.repo.PlanRepository;
 import io.everyone.travel.core.domain.travel.service.TravelService;
-import io.everyone.travel.core.support.DateSupports;
+import io.everyone.travel.core.util.DateUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -79,13 +79,13 @@ public class PlanService {
 
     private void validateWritePlan(WritePlan writePlan, Travel travel) {
         isTrue(writePlan.title().length() <= 200, "계획명을 200자 이하여야 합니다");
-        isTrue(DateSupports.isOnOrAfter(writePlan.startAt(), writePlan.endAt()), "계획종료일자는 시작일자 이후여야 합니다");
+        isTrue(DateUtils.isOnOrAfter(writePlan.startAt(), writePlan.endAt()), "계획종료일자는 시작일자 이후여야 합니다");
         isTrue(
-            DateSupports.isBetween(writePlan.startAt(), travel.getStartAt(), travel.getEndAt()),
+            DateUtils.isBetween(writePlan.startAt(), travel.getStartAt(), travel.getEndAt()),
             "계획시작일자는 여행 기간 내 포함되어야 합니다"
         );
         isTrue(
-            DateSupports.isBetween(writePlan.endAt(), travel.getStartAt(), travel.getEndAt()),
+            DateUtils.isBetween(writePlan.endAt(), travel.getStartAt(), travel.getEndAt()),
             "계획종료일자는 여행 기간 내 포함되어야 합니다"
         );
     }

@@ -1,4 +1,4 @@
-package io.everyone.travel.api.config.pagination;
+package io.everyone.travel.api.config.paging;
 
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.core.MethodParameter;
@@ -11,11 +11,11 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 /**
  * 페이징 모델 MethodArgumentResolver
  */
-public class PageArgumentHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
+public class PagingResolver implements HandlerMethodArgumentResolver {
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return PageModel.class.isAssignableFrom(parameter.getParameterType());
+        return PagingModel.class.isAssignableFrom(parameter.getParameterType());
     }
 
     @Override
@@ -31,6 +31,6 @@ public class PageArgumentHandlerMethodArgumentResolver implements HandlerMethodA
         int page = NumberUtils.toInt(pageParam, 0);
         int size = NumberUtils.toInt(sizeParam, 20);
 
-        return new PageModel(page, size);
+        return new PagingModel(page, size);
     }
 }
