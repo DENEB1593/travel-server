@@ -261,7 +261,8 @@ public enum Nation {
     HM("허드 맥도널드 제도", "HEARD AND MC DONALD ISLANDS"),
     HU("헝가리", "HUNGARY"),
     HK("홍콩", "HONG KONG"),
-    XK("코소보", "KOSOVO")
+    XK("코소보", "KOSOVO"),
+	UNKNOWN("알수없음", "UNKNOWN")
     ;
 
     private final String code;
@@ -289,7 +290,7 @@ public enum Nation {
         return Arrays.stream(Nation.values())
             .filter(it -> it.name().equals(name))
             .findFirst()
-            .orElse(null);
+            .orElse(UNKNOWN);
     }
 
 
