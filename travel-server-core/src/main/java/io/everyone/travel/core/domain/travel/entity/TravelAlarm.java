@@ -18,17 +18,16 @@ import java.time.LocalDate;
 @ToString
 public class TravelAlarm extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false, nullable = false)
-    Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	Long id;
 
-    @Column(name = "alarm_lvl")
-    String alarmLvl;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "nation", updatable = false, nullable = false)
+	Nation nation;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "nation")
-    Nation nation;
+	@Column(name = "alarm_lvl")
+	String alarmLvl;
 
     @Column(name = "region_ty")
     String regionTy;
@@ -42,13 +41,13 @@ public class TravelAlarm extends BaseEntity {
     protected TravelAlarm() { }
     @Builder
     public TravelAlarm(
+		Nation nation,
         String alarmLvl,
-        Nation nation,
         String regionTy,
         String remark,
         LocalDate writtenDt) {
+		this.nation = nation;
         this.alarmLvl = alarmLvl;
-        this.nation = nation;
         this.regionTy = regionTy;
         this.remark = remark;
         this.writtenDt = writtenDt;

@@ -3,6 +3,7 @@ drop table if exists users;
 drop table if exists plan;
 drop table if exists expense;
 drop table if exists travel;
+drop table if exists travel_alarm;
 
 -- 테이블 생성
 
@@ -26,13 +27,28 @@ create table if not exists travel
 (
     id          bigint       not null auto_increment    comment '여행ID',
     title       varchar(255) not null                   comment '여행명',
-    nation      varchar(3)   not null                   comment '국가코드',
+    nation      varchar(10)  not null                   comment '국가코드',
     start_at    datetime(6)                             comment '여행시작일자',
     end_at      datetime(6)                             comment '여행종료일자',
     thumbnail   text                                    comment '썸네일URL',
     created_at  datetime(6)  not null                   comment '여행생성일자',
     modified_at datetime(6)  not null                   comment '여행수정일자',
     deleted_at  datetime(6)                             comment '여행삭제일자',
+    primary key (id)
+) engine = InnoDB default charset=utf8mb4 collate=utf8mb4_unicode_ci;
+
+-- travel_alarm
+create table if not exists travel_alarm
+(
+    id          bigint       not null auto_increment    comment '여행경보ID',
+    nation      varchar(10)  not null                   comment '국가코드',
+    alarm_lvl   varchar(10)  default '0'                comment '경보단계',
+    region_ty   varchar(100)                    comment '지역유형',
+    remark      text                                    comment '비고',
+    written_dt  datetime(6)  not null                   comment '작성일자',
+    created_at  datetime(6)  not null                   comment '생성일자',
+    modified_at datetime(6)  not null                   comment '수정일자',
+    deleted_at  datetime(6)                             comment '삭제일자',
     primary key (id)
 ) engine = InnoDB default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 

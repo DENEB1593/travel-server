@@ -23,8 +23,7 @@ public class TravelAlarmScheduler {
             try {
                 travelAlarmTasklet.execute(null, null); // Pass appropriate parameters or context if needed
             } catch (Exception e) {
-                log.error("travel-alarm-tasklet on error!");
-                e.printStackTrace();
+                log.error("여행경보 정보 수집 배치 오류 발생 - message: {}", e.getMessage(), e);
             }
         });
     }
