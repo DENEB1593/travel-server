@@ -4,6 +4,10 @@ spring:
   profiles:
     active: local
 
+  config:
+    import:
+      - classpath:/application-core.yml
+
   batch:
     jdbc:
       initialize-schema: never
