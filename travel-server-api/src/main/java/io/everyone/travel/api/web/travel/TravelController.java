@@ -1,13 +1,16 @@
 package io.everyone.travel.api.web.travel;
 
-import io.everyone.travel.api.config.pagination.PageModel;
+import io.everyone.travel.api.config.paging.PagingModel;
 import io.everyone.travel.api.exception.model.ProblemResponseModel;
+import io.everyone.travel.api.util.PagingUtils;
 import io.everyone.travel.api.web.CommonResponse;
+import io.everyone.travel.api.web.PagingResponse;
 import io.everyone.travel.api.web.expense.dto.ExpenseView;
 import io.everyone.travel.api.web.expense.mapper.ExpenseApiMapper;
 import io.everyone.travel.api.web.plan.dto.PlanView;
 import io.everyone.travel.api.web.plan.mapper.PlanApiMapper;
 import io.everyone.travel.api.web.travel.dto.*;
+import io.everyone.travel.api.web.travel.dto.TravelResponse.TravelView;
 import io.everyone.travel.api.web.travel.mapper.TravelApiMapper;
 import io.everyone.travel.core.aws.S3Client;
 import io.everyone.travel.core.domain.expense.service.ExpenseService;
@@ -108,7 +111,7 @@ public class TravelController {
         }
     )
     @GetMapping("/{travelId}")
-    public CommonResponse<TravelResponse.TravelView> find(
+    public CommonResponse<TravelView> find(
         @PathVariable Long travelId
     ) {
         return OK(
@@ -133,17 +136,15 @@ public class TravelController {
         @Parameter(name = "size", description = "페이지 크기", example = "20")
     })
     @GetMapping
-    public CommonResponse<TravelResponse> findPaginated(
-        @Parameter(hidden = true) PageModel pageModel
+    public CommonResponse<PagingResponse<TravelView>> findPaginated(
+        @Parameter(hidden = true) PagingModel pageModel
     ) {
-        return OK(
-            TravelResponse.of(
-                travelService.findPaginated(
-                    pageModel.getPage(),
-                    pageModel.getSize()
-                )
-            )
-        );
+        PagingResponse<TravelView> travelViewPagingResponse = PagingUtils.sliceConvertToPage(
+			travelService.findPaginated(pageModel.getPage(), pageModel.getSize()),
+			TravelApiMapper::toView
+		);
+
+		return OK(travelViewPagingResponse);
     }
 
     @Operation(
