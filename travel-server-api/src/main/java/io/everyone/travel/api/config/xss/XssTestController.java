@@ -1,4 +1,4 @@
-package io.everyone.travel.api.web;
+package io.everyone.travel.api.config.xss;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;

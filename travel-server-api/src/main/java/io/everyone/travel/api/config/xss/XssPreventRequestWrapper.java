@@ -1,6 +1,6 @@
 package io.everyone.travel.api.config.xss;
 
-import io.everyone.travel.core.support.HtmlSupports;
+import io.everyone.travel.core.util.HtmlUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletRequestWrapper;
 
@@ -19,7 +19,7 @@ class XssPreventRequestWrapper extends HttpServletRequestWrapper {
         int count = values.length;
         String[] encodedValues = new String[count];
         for (int i = 0; i < count; i++) {
-            encodedValues[i] = HtmlSupports.escape(values[i]);
+            encodedValues[i] = HtmlUtils.escape(values[i]);
         }
 
         return encodedValues;
@@ -29,7 +29,7 @@ class XssPreventRequestWrapper extends HttpServletRequestWrapper {
     public String getParameter(String parameter) {
         String value = super.getParameter(parameter);
         if (value != null) {
-            value = HtmlSupports.escape(value);
+            value = HtmlUtils.escape(value);
         }
         return value;
     }
@@ -38,7 +38,7 @@ class XssPreventRequestWrapper extends HttpServletRequestWrapper {
     public String getHeader(String name) {
         String value = super.getHeader(name);
         if (value != null) {
-            value = HtmlSupports.escape(value);
+            value = HtmlUtils.escape(value);
         }
         return value;
     }
