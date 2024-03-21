@@ -2,7 +2,7 @@ package io.everyone.travel.api.security.oauth.attribute;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.everyone.travel.core.domain.user.enums.AuthProvider;
-import io.everyone.travel.core.support.EnumSupports;
+import io.everyone.travel.core.util.EnumUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +19,7 @@ public class OAuthMapper {
      * OAuthAttribute 객체로 변환
      */
     public OAuthAttribute of(String clientId, Map<String, Object> attributes) {
-        var provider = EnumSupports.byEnumName(AuthProvider.class, clientId);
+        var provider = EnumUtils.byEnumName(AuthProvider.class, clientId);
         Objects.requireNonNull(provider);
         return switch (provider) {
             case KAKAO -> objectMapper.convertValue(attributes, KakaoAttribute.class);

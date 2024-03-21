@@ -1,9 +1,9 @@
-package io.everyone.travel.core.support;
+package io.everyone.travel.core.util;
 
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-public class HtmlSupports {
+public class HtmlUtils {
 
     // HTML XSS 방지 치환용
     private final String[][] BASIC_ESCAPE = {

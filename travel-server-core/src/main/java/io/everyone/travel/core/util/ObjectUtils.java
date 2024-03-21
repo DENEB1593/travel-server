@@ -1,4 +1,4 @@
-package io.everyone.travel.core.support;
+package io.everyone.travel.core.util;
 
 import lombok.experimental.UtilityClass;
 
@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.function.Function;
 
 @UtilityClass
-public final class ObjectSupports {
+public final class ObjectUtils {
 
     public <T, R> R ifNotNull(T target, Function<T, R> then) {
 

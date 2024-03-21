@@ -7,8 +7,8 @@ import io.everyone.travel.core.domain.travel.enums.Nation;
 import io.everyone.travel.core.domain.travel.mapper.TravelMapper;
 import io.everyone.travel.core.domain.travel.repo.TravelRepository;
 import io.everyone.travel.core.exception.NotFoundException;
-import io.everyone.travel.core.support.DateSupports;
-import io.everyone.travel.core.support.EnumSupports;
+import io.everyone.travel.core.util.DateUtils;
+import io.everyone.travel.core.util.EnumUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -60,7 +60,7 @@ public class TravelService {
 
         travel.updateFromRequest(
             updateTravel.title(),
-            EnumSupports.byEnumName(Nation.class, updateTravel.nation()),
+            EnumUtils.byEnumName(Nation.class, updateTravel.nation()),
             updateTravel.startAt(),
             updateTravel.endAt()
         );
@@ -88,7 +88,7 @@ public class TravelService {
     private void validateWriteRequest(WriteTravel writeTravel) {
         isTrue(writeTravel.title().length() <= 200, "여행명은 200자 이하여야 합니다");
         isTrue(
-            DateSupports.isOnOrAfter(writeTravel.startAt(), writeTravel.endAt()),
+            DateUtils.isOnOrAfter(writeTravel.startAt(), writeTravel.endAt()),
             "여행종료일자는 시작일자 이후여야 합니다"
         );
     }
@@ -96,7 +96,7 @@ public class TravelService {
     private void validateUpdateRequest(UpdateTravel updateTravel) {
         isTrue(updateTravel.title().length() <= 200, "여행명은 200자 이하여야 합니다");
         isTrue(
-            DateSupports.isOnOrAfter(updateTravel.startAt(), updateTravel.endAt()) ,
+            DateUtils.isOnOrAfter(updateTravel.startAt(), updateTravel.endAt()) ,
             "여행종료일자는 시작일자 이후여야 합니다"
         );
     }

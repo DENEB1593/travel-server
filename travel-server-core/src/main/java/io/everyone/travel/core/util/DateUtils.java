@@ -1,4 +1,4 @@
-package io.everyone.travel.core.support;
+package io.everyone.travel.core.util;
 
 import lombok.experimental.UtilityClass;
 
@@ -6,7 +6,7 @@ import javax.annotation.Nonnull;
 import java.time.LocalDateTime;
 
 @UtilityClass
-public class DateSupports {
+public class DateUtils {
 
     /**
      * val1이 val2보다 이후 인지(당시 포함) 확인한다.
