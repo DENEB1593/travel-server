@@ -1,7 +1,7 @@
 package io.everyone.travel.batch.client;
 
 import io.everyone.travel.batch.client.property.PubDataApiProperty;
-import io.everyone.travel.batch.client.response.TravelAlarmResponse;
+import io.everyone.travel.batch.client.response.TravelAlarmClientResponse;
 import io.github.resilience4j.circuitbreaker.CircuitBreaker;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;
 import io.github.resilience4j.reactor.circuitbreaker.operator.CircuitBreakerOperator;
@@ -33,7 +33,7 @@ public class PubDataApiClient {
         this.apiProperty = apiProperty;
     }
 
-    public TravelAlarmResponse getTravelAlarmList() {
+    public TravelAlarmClientResponse getTravelAlarmList() {
         return webClient.get()
             .uri(uriBuilder ->
                 uriBuilder
@@ -50,7 +50,7 @@ public class PubDataApiClient {
                 clientResponse -> clientResponse.createException()
                 // .map() Custom Exception은 알아서 매핑
             )
-            .bodyToMono(TravelAlarmResponse.class)
+            .bodyToMono(TravelAlarmClientResponse.class)
             .transformDeferred(CircuitBreakerOperator.of(this.circuitBreaker)) // circuit break
             .retryWhen(getRetryBeforeThrownInfo())
             .block();
