@@ -40,7 +40,6 @@ create table if not exists travel
 -- travel_alarm
 create table if not exists travel_alarm
 (
-    id          bigint       not null auto_increment    comment '여행경보ID',
     nation      varchar(10)  not null                   comment '국가코드',
     alarm_lvl   varchar(10)  default '0'                comment '경보단계',
     region_ty   varchar(100)                    comment '지역유형',
@@ -49,7 +48,7 @@ create table if not exists travel_alarm
     created_at  datetime(6)  not null                   comment '생성일자',
     modified_at datetime(6)  not null                   comment '수정일자',
     deleted_at  datetime(6)                             comment '삭제일자',
-    primary key (id)
+    primary key (nation)
 ) engine = InnoDB default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 

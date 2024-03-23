@@ -18,10 +18,11 @@ import java.time.LocalDate;
 @ToString
 public class TravelAlarm extends BaseEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Long id;
+//	@Id
+//	Long id;
 
+	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Enumerated(EnumType.STRING)
 	@Column(name = "nation", updatable = false, nullable = false)
 	Nation nation;

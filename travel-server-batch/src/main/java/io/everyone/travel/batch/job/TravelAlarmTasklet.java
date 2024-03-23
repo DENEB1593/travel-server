@@ -1,6 +1,7 @@
 package io.everyone.travel.batch.job;
 
 import io.everyone.travel.batch.client.PubDataApiClient;
+import io.everyone.travel.batch.mapper.TravelAlarmMapper;
 import io.everyone.travel.core.domain.travel.entity.TravelAlarm;
 import io.everyone.travel.core.domain.travel.enums.Nation;
 import io.everyone.travel.core.domain.travel.repo.TravelAlarmRepository;
@@ -33,20 +34,10 @@ public class TravelAlarmTasklet implements Tasklet {
 		List<TravelAlarm> travelAlarmList = pubDataClient.getTravelAlarmList()
 			.getData()
 			.stream()
-			.filter(it -> Nation.typeOf(it.getCountryIsoAlp2()) != Nation.UNKNOWN)
-			.map(it -> TravelAlarm.builder()
-				.nation(Nation.typeOf(it.getRegionTy()))
-				.alarmLvl(it.getAlarmLvl())
-				.nation(Nation.typeOf(it.getCountryIsoAlp2()))
-				.writtenDt(it.getWrittenDt())
-				.regionTy(it.getRegionTy())
-				.remark(it.getRemark())
-				.build()
-			)
+			.filter(it -> Nation.typeOf(it.getCountryIsoAlp2()) != Nation.UNKNOWN)	//TODO ISO표준코드, 외교부 국가목록
+			.map(TravelAlarmMapper::toTravelAlarm)
 			.toList();
 
-
-		// write
 		travelAlarmRepository.saveAll(travelAlarmList);
 
 		log.info("travel alarm list saved success - count:{}", travelAlarmList.size());

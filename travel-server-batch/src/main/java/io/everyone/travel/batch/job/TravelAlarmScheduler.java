@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Description;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
@@ -17,7 +18,12 @@ public class TravelAlarmScheduler {
     private final TravelAlarmTasklet travelAlarmTasklet;
 
 
-    @Scheduled(fixedRate = 10_000) // Run every 5 seconds
+	/**
+	 * 국가 별 여행경보 수집 스케쥴러
+	 * 동작시간: 매 1시간
+	 * 관련스키마: travel_alarm
+	 */
+    @Scheduled(cron = "0 0 */1 * * *")
     public void executeTasklet() {
         taskScheduler.execute(() -> {
             try {
