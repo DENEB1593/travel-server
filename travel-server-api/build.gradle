@@ -1,3 +1,6 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm'
+}
 jar {
     enabled = false
 }
@@ -7,6 +10,7 @@ bootJar {
 }
 
 dependencies {
+    implementation project(":travel-server-core")
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
@@ -44,9 +48,18 @@ dependencies {
 	// faker
 	implementation "com.github.javafaker:javafaker:${javaFakerVersion}"
 
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+    implementation "org.jetbrains.kotlin:kotlin-reflect"
 
+    testImplementation 'io.rest-assured:spring-mock-mvc'
+    testImplementation 'io.rest-assured:rest-assured'
+    testImplementation 'io.rest-assured:kotlin-extensions'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-
-	implementation project(":travel-server-core")
-
+}
+repositories {
+    mavenCentral()
+}
+kotlin {
+    jvmToolchain(17)
 }
