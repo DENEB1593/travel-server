@@ -3,7 +3,7 @@ logging:
   level:
     web: info
     root: info
-    io.everyone.travel: debug
+    io.everyone.travel: info
 
 spring:
   profiles:
